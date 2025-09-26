@@ -67,15 +67,29 @@ const Product = () => {
               </div>
               
               <div className="space-y-6">
-                {/* Prospecting */}
+                {/* Prospected */}
                 <div>
-                  <h4 className="font-medium text-sm mb-3">Prospecting</h4>
+                  <h4 className="font-medium text-sm mb-3">Prospected</h4>
                   <div className="space-y-2">
                     <div className="p-3 bg-muted/30 rounded-md">
-                      <p className="text-sm">Evaluate 12 warehouse opportunities in Atlanta market</p>
+                      <div className="text-sm font-medium">🏭 Industrial — 92k SF (Atlanta, GA)</div>
+                      <div className="text-xs text-muted-foreground mt-1">owner prefers email</div>
+                      <div className="flex gap-1 mt-2 text-xs">
+                        <span className="text-green-500">email</span> ·
+                        <span className="text-red-500">sms</span> ·
+                        <span className="text-green-500">call</span> ·
+                        <span className="text-red-500">vm</span>
+                      </div>
                     </div>
                     <div className="p-3 bg-muted/30 rounded-md">
-                      <p className="text-sm">Screen 8 multifamily owners for Charlotte expansion</p>
+                      <div className="text-sm font-medium">🏢 Multifamily — 76 units (Charlotte, NC)</div>
+                      <div className="text-xs text-muted-foreground mt-1">screened for expansion criteria</div>
+                      <div className="flex gap-1 mt-2 text-xs">
+                        <span className="text-red-500">email</span> ·
+                        <span className="text-green-500">sms</span> ·
+                        <span className="text-red-500">call</span> ·
+                        <span className="text-green-500">vm</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -85,10 +99,26 @@ const Product = () => {
                   <h4 className="font-medium text-sm mb-3">Qualified Targets</h4>
                   <div className="space-y-2">
                     <div className="p-3 bg-muted/30 rounded-md">
-                      <p className="text-sm">4 owners at target price band; timing ≤ 60 days</p>
+                      <div className="text-sm font-medium">🏭 Industrial — 105k SF (Atlanta, GA)</div>
+                      <div className="text-xs text-muted-foreground mt-1">loan maturing in 5 mo; responsive owner</div>
+                      <div className="text-xs text-muted-foreground">j.martinez@example.com • (404) 555-0123</div>
+                      <div className="flex gap-1 mt-2 text-xs">
+                        <span className="text-green-500">email</span> ·
+                        <span className="text-green-500">sms</span> ·
+                        <span className="text-green-500">call</span> ·
+                        <span className="text-green-500">vm</span>
+                      </div>
                     </div>
                     <div className="p-3 bg-muted/30 rounded-md">
-                      <p className="text-sm">2 qualified retail opportunities in Miami Beach</p>
+                      <div className="text-sm font-medium">🏬 Retail — 18k SF (Miami Beach, FL)</div>
+                      <div className="text-xs text-muted-foreground mt-1">zoning OK; target price band</div>
+                      <div className="text-xs text-muted-foreground">s.cohen@example.com • (305) 555-0187</div>
+                      <div className="flex gap-1 mt-2 text-xs">
+                        <span className="text-green-500">email</span> ·
+                        <span className="text-red-500">sms</span> ·
+                        <span className="text-green-500">call</span> ·
+                        <span className="text-green-500">vm</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -98,10 +128,15 @@ const Product = () => {
                   <h4 className="font-medium text-sm mb-3">Meetings Booked</h4>
                   <div className="space-y-2">
                     <div className="p-3 bg-muted/30 rounded-md">
-                      <p className="text-sm">Intro scheduled — Thu 2:30 PM</p>
-                    </div>
-                    <div className="p-3 bg-muted/30 rounded-md">
-                      <p className="text-sm">Due diligence call — Fri 10:00 AM</p>
+                      <div className="text-sm font-medium">🏭 Industrial — 92k SF (Atlanta, GA)</div>
+                      <div className="text-xs text-muted-foreground mt-1">Thu 2:30p ET · Intro + buy-box sync</div>
+                      <div className="text-xs text-muted-foreground">j.martinez@example.com • (404) 555-0123</div>
+                      <div className="flex gap-1 mt-2 text-xs">
+                        <span className="text-green-500">email</span> ·
+                        <span className="text-green-500">sms</span> ·
+                        <span className="text-green-500">call</span> ·
+                        <span className="text-green-500">vm</span>
+                      </div>
                     </div>
                   </div>
                 </div>

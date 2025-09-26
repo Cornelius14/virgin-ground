@@ -26,6 +26,22 @@ const Testimonials = () => {
       author: "Hudson Walk-Ups Group",
       position: "Acquisition Manager", 
       avatar: "bg-muted"
+    },
+    {
+      title: "🏦💸⚡ Lending Specialty",
+      metric: "Fast quotes, nationwide coverage, and practical programs",
+      quote: "Oblique kept our pipeline full so borrowers didn't wait.",
+      author: "Lending Specialty team",
+      position: "Lending Team",
+      avatar: "bg-muted"
+    },
+    {
+      title: "🏢📈📰 Meridian Capital Group",
+      metric: "From refis to investment sales",
+      quote: "Oblique's targeting delivered qualified owners with real timelines. It felt like an extra producer on the team.",
+      author: "Meridian client",
+      position: "Investment Sales",
+      avatar: "bg-muted"
     }
   ];
   
