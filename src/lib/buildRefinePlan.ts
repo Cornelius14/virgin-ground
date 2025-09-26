@@ -7,7 +7,7 @@ export type RefineItem = {
 };
 export type RefinePlan = { items: RefineItem[] };
 
-const CITY_EX = ["in Boston, MA", "in the Boston metro area", "in Stockholm, Sweden"];
+const CITY_EX = ["in Boston, MA", "in Austin, TX", "in Stockholm, Sweden"];
 const INTENT_EX = [
   "intent: acquisition",
   "intent: refinance (loan maturing)",

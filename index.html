@@ -8,6 +8,17 @@
     <meta name="author" content="Lovable" />
     <meta name="keywords" content="web app, modern, beautiful, responsive" />
 
+    <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        connect-src 'self' https://*.supabase.co https://*.supabase.in data: blob:;
+        img-src 'self' data: blob:;
+        script-src 'self' 'unsafe-inline';
+        style-src 'self' 'unsafe-inline';
+        font-src 'self' data:;
+        base-uri 'self';
+      " />
+
     <meta property="og:title" content="Beautiful Modern App" />
     <meta property="og:description" content="A beautiful, modern web application built with cutting-edge technology" />
     <meta property="og:type" content="website" />
