@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Features from "./components/Features";
 import NotFound from "./pages/NotFound";
-import Demo from "./pages/Demo";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { useEffect } from "react";
@@ -46,7 +45,6 @@ const App = () => {
               </div>
             } />
             <Route path="/book" element={<div>Book page - coming soon</div>} />
-            <Route path="/demo" element={<Demo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
