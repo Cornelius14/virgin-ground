@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import Logo from './Logo';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -11,8 +10,6 @@ const Header = () => {
   const [activePage, setActivePage] = useState('product');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  const [password, setPassword] = useState('');
   
   useEffect(() => {
     // Apply theme immediately on load without flash
@@ -64,7 +61,7 @@ const Header = () => {
     }
     
     if (page === 'demo') {
-      setShowPasswordPrompt(true);
+      window.location.href = '/demo';
       setMobileMenuOpen(false);
       return;
     }
@@ -90,22 +87,6 @@ const Header = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const handlePasswordSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (password === '1409') {
-      setShowPasswordPrompt(false);
-      setPassword('');
-      window.location.href = '/demo';
-    } else {
-      setPassword('');
-      // You could add error handling here if needed
-    }
-  };
-
-  const handlePasswordCancel = () => {
-    setShowPasswordPrompt(false);
-    setPassword('');
-  };
 
   return (
     <div className="sticky top-0 z-50 pt-8 px-4">
@@ -258,32 +239,6 @@ const Header = () => {
           </div>
         )}
 
-        {/* Password prompt overlay */}
-        {showPasswordPrompt && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
-            <div className="bg-background border border-border rounded-2xl p-6 mx-4 w-full max-w-sm">
-              <h3 className="text-lg font-medium mb-4 text-center">Demo Access</h3>
-              <form onSubmit={handlePasswordSubmit} className="space-y-4">
-                <Input
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="text-center"
-                  autoFocus
-                />
-                <div className="flex gap-2">
-                  <Button type="button" variant="outline" onClick={handlePasswordCancel} className="flex-1">
-                    Cancel
-                  </Button>
-                  <Button type="submit" className="flex-1">
-                    Access Demo
-                  </Button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
         
         <div className="hidden md:flex items-center gap-4">
           {/* Theme toggle for desktop */}

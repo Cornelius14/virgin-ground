@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Features from "./components/Features";
+import Demo from "./pages/Demo";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -40,6 +41,15 @@ const App = () => {
                 <Header />
                 <main className="flex-1 pt-16">
                   <Features />
+                </main>
+                <Footer />
+              </div>
+            } />
+            <Route path="/demo" element={
+              <div className="min-h-screen flex flex-col bg-background text-foreground">
+                <Header />
+                <main className="flex-1 pt-16">
+                  <Demo />
                 </main>
                 <Footer />
               </div>
