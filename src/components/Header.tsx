@@ -1,15 +1,20 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import Logo from './Logo';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
+import { z } from 'zod';
 
 const Header = () => {
   const [activePage, setActivePage] = useState('product');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   
   useEffect(() => {
     // Apply theme immediately on load without flash
@@ -61,7 +66,7 @@ const Header = () => {
     }
     
     if (page === 'demo') {
-      window.location.href = '/demo';
+      setShowPasswordPrompt(true);
       setMobileMenuOpen(false);
       return;
     }
@@ -85,6 +90,55 @@ const Header = () => {
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  // Password validation schema
+  const passwordSchema = z.string().trim().min(1, "Password is required").max(50, "Password too long");
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError('');
+    
+    try {
+      // Validate password input
+      const validatedPassword = passwordSchema.parse(password);
+      
+      if (validatedPassword === '1409') {
+        setShowPasswordPrompt(false);
+        setPassword('');
+        setPasswordError('');
+        // Set demo access flag in sessionStorage
+        sessionStorage.setItem('demoAccess', 'granted');
+        // Use window.location.href for reliable navigation
+        window.location.href = '/demo';
+      } else {
+        setPasswordError('Incorrect password');
+        setPassword('');
+      }
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        setPasswordError(error.errors[0]?.message || 'Invalid input');
+      } else {
+        setPasswordError('An error occurred');
+      }
+    }
+  };
+
+  const handlePasswordCancel = () => {
+    setShowPasswordPrompt(false);
+    setPassword('');
+    setPasswordError('');
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    // Limit input length and clear error on change
+    if (value.length <= 50) {
+      setPassword(value);
+      if (passwordError) {
+        setPasswordError('');
+      }
+    }
   };
 
 
@@ -239,7 +293,51 @@ const Header = () => {
           </div>
         )}
 
-        
+        {/* Password prompt overlay */}
+        {showPasswordPrompt && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-background border border-border rounded-2xl p-6 w-full max-w-sm">
+              <h3 className="text-lg font-medium mb-4 text-center text-foreground">Demo Access</h3>
+              <form onSubmit={handlePasswordSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Input
+                    type="password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    className="text-center"
+                    autoFocus
+                    autoComplete="off"
+                    maxLength={50}
+                  />
+                  {passwordError && (
+                    <p className="text-sm text-red-500 text-center" role="alert">
+                      {passwordError}
+                    </p>
+                  )}
+                </div>
+                <div className="flex gap-2">
+                  <Button 
+                    type="button" 
+                    variant="outline" 
+                    onClick={handlePasswordCancel} 
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    type="submit" 
+                    className="flex-1"
+                    disabled={!password.trim()}
+                  >
+                    Access Demo
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         <div className="hidden md:flex items-center gap-4">
           {/* Theme toggle for desktop */}
           <div className="flex items-center gap-2 rounded-full px-3 py-2">

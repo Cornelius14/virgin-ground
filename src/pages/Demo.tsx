@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { parseBuyBox, checkHealth, type ParsedBuyBox } from "../lib/parserClient";
 import { buildRefinePlan } from "../lib/buildRefinePlan";
 import RefineBanner from "../components/RefineBanner";
@@ -20,6 +20,48 @@ export default function Demo(){
   const [err,setErr]=useState<string|null>(null);
   const [diag,setDiag]=useState<string|null>(null);
   const [rows,setRows]=useState({prospects:[],qualified:[],booked:[]});
+  const [hasAccess, setHasAccess] = useState(false);
+  const [isChecking, setIsChecking] = useState(true);
+
+  // Check for demo access on component mount
+  useEffect(() => {
+    const checkAccess = () => {
+      try {
+        const access = sessionStorage.getItem('demoAccess');
+        if (access === 'granted') {
+          setHasAccess(true);
+        } else {
+          // Redirect to home page if no access
+          window.location.href = '/';
+          return;
+        }
+      } catch (error) {
+        // If sessionStorage is not available, redirect to home
+        window.location.href = '/';
+        return;
+      }
+      setIsChecking(false);
+    };
+
+    checkAccess();
+  }, []);
+
+  // Show loading while checking access
+  if (isChecking) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Checking access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render the demo if user doesn't have access
+  if (!hasAccess) {
+    return null;
+  }
 
   async function onParse(){
     setBusy(true); setErr(null); setDiag(null); setPlan(null); setParsed(null); setRows({prospects:[],qualified:[],booked:[]});
