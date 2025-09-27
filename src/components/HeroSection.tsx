@@ -106,7 +106,7 @@ const HeroSection = () => {
       </div>
       
       {/* Task Manager UI integrated in hero section with glassmorphic effect */}
-      <div className={`w-full max-w-7xl mt-12 z-10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+      <div id="product" className={`w-full max-w-7xl mt-12 z-10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         <div className="cosmic-glow relative rounded-xl overflow-hidden border border-border backdrop-blur-sm bg-card shadow-lg">
           {/* Dashboard Header */}
           <div className="bg-card backdrop-blur-md w-full">
