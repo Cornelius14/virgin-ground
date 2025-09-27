@@ -2,7 +2,7 @@
 // Set VITE_FIRM_INTEL_URL in your environment to the Supabase Edge Function URL
 // Format: https://YOUR-PROJECT.functions.supabase.co/firm-intel
 
-const FN_URL = import.meta.env.VITE_FIRM_INTEL_URL || "https://YOUR-PROJECT.functions.supabase.co/firm-intel";
+const FN_URL = import.meta.env.VITE_FIRM_INTEL_URL || "https://bwvvahpaszgpoedhlkxy.supabase.co/functions/v1/firm-intel";
 
 export type FirmIntelRequest = { 
   firmName: string; 
