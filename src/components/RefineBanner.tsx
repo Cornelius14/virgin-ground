@@ -12,22 +12,23 @@ export default function RefineBanner({
   if (!plan || !plan.items.length) return null;
 
   return (
-    <div className="mt-4 rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-3">
-      <div className="mb-2 font-semibold text-amber-200">Refine your criteria:</div>
+    <div className="mt-6 cosmic-card rounded-2xl px-6 py-4 shadow-lg border-amber-400/30 bg-amber-500/5">
+      <div className="mb-4 text-lg font-medium text-amber-600">Refine your criteria</div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {plan.items.map((it) => (
           <div key={it.key}>
-            <div className="text-sm font-medium text-amber-100">{it.title}</div>
-            <div className="text-sm text-amber-200/90">{it.message}</div>
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="text-sm font-medium text-foreground mb-1">{it.title}</div>
+            <div className="text-sm text-muted-foreground mb-3">{it.message}</div>
+            <div className="flex flex-wrap gap-2">
               {it.examples.map((ex) => (
                 <button
                   key={ex}
                   onClick={() => onInsert(ex)}
-                  className="rounded-md border border-amber-300/30 bg-amber-300/10 px-2.5 py-1 text-xs text-amber-100 hover:bg-amber-300/20"
+                  className="inline-flex items-center gap-1 rounded-xl border border-amber-400/30 bg-amber-500/10 px-3 py-2 text-xs text-amber-600 hover:bg-amber-500/20 hover:border-amber-400/50 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
                 >
-                  + {ex}
+                  <span className="text-amber-500">+</span>
+                  {ex}
                 </button>
               ))}
             </div>
@@ -35,8 +36,8 @@ export default function RefineBanner({
         ))}
       </div>
 
-      <div className="mt-3 text-xs text-amber-300/80">
-        Tip: click a chip to insert, then press <b>Parse</b> again.
+      <div className="mt-4 text-xs text-muted-foreground bg-amber-50/5 rounded-lg px-3 py-2">
+        <strong className="text-amber-600">Tip:</strong> Click a chip to insert, then press Parse again.
       </div>
     </div>
   );

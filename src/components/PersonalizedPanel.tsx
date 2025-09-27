@@ -29,27 +29,30 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
   const initials = getInitials(firmName);
 
   return (
-    <div className="mt-6 rounded-lg border border-neutral-800 bg-neutral-950 p-4">
-      <div className="mb-4 text-lg font-medium text-neutral-100">
+    <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg cosmic-glow">
+      <h2 className="text-xl font-medium text-foreground mb-6">
         Personalized for {firmName}
-      </div>
+      </h2>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Logo Section */}
-        <div className="flex flex-col items-center">
-          <div className="rounded-lg border border-neutral-800 bg-neutral-900 p-4">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="cosmic-card rounded-2xl p-6 w-32 h-32 flex items-center justify-center shadow-sm">
             {intel.logoUrl ? (
               <img
                 src={intel.logoUrl}
                 alt={`${firmName} logo`}
-                className="h-16 w-16 rounded-lg object-contain"
-                style={intel.brandColor ? { backgroundColor: intel.brandColor } : {}}
+                className="max-h-20 max-w-20 rounded-xl object-contain"
+                style={intel.brandColor ? { 
+                  backgroundColor: intel.brandColor,
+                  padding: '8px'
+                } : {}}
               />
             ) : (
               <div
-                className="flex h-16 w-16 items-center justify-center rounded-lg text-lg font-semibold text-neutral-100"
+                className="flex h-20 w-20 items-center justify-center rounded-xl text-xl font-semibold text-white shadow-inner"
                 style={{
-                  backgroundColor: intel.brandColor || '#404040',
+                  backgroundColor: intel.brandColor || 'hsl(var(--muted))',
                 }}
               >
                 {initials}
@@ -61,7 +64,7 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
               href={intel.firmUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 text-xs text-neutral-400 hover:text-neutral-300"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
             >
               {getDomainFromUrl(intel.firmUrl)}
             </a>
@@ -69,23 +72,23 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
         </div>
 
         {/* Snapshot Section */}
-        <div className="space-y-3">
-          <div className="text-sm font-medium text-neutral-200">Recent Activity</div>
-          <div className="space-y-2">
+        <div className="space-y-4">
+          <h3 className="text-base font-medium text-foreground">Recent Activity</h3>
+          <div className="space-y-3">
             {intel.snapshot.slice(0, 3).map((bullet, index) => {
               const parts = bullet.split('(source: ');
               const text = parts[0].trim();
               const source = parts[1]?.replace(')', '');
               
               return (
-                <div key={index} className="text-sm text-neutral-300">
-                  • {text}
+                <div key={index} className="text-sm text-muted-foreground leading-relaxed">
+                  <span className="text-foreground">•</span> {text}
                   {source && (
                     <a
                       href={`https://${source}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-1 text-xs text-neutral-500 hover:text-neutral-400"
+                      className="ml-1 text-xs text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
                     >
                       ({source})
                     </a>
@@ -97,14 +100,14 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
         </div>
 
         {/* Query Chips Section */}
-        <div className="space-y-3">
-          <div className="text-sm font-medium text-neutral-200">Suggested Queries</div>
+        <div className="space-y-4">
+          <h3 className="text-base font-medium text-foreground">Suggested Queries</h3>
           <div className="space-y-2">
             {intel.queries.slice(0, 6).map((query, index) => (
               <button
                 key={index}
                 onClick={() => onQuerySelect(query)}
-                className="block w-full rounded-md border border-neutral-700 bg-neutral-800 px-3 py-2 text-left text-sm text-neutral-200 hover:bg-neutral-700 hover:border-neutral-600 transition-colors"
+                className="w-full rounded-xl border border-border bg-card px-4 py-3 text-left text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 shadow-sm"
               >
                 {query}
               </button>
