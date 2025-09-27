@@ -32,7 +32,7 @@ If ambiguous, fill what you can and list missing fields in "missing".
 }
 
 async function openai(text: string) {
-  const key = "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" || Deno.env.get("OPENAI_API_KEY");
+  const key = Deno.env.get("OPENAI_API_KEY");
   if (!key) {
     return new Response(JSON.stringify({ error: "missing_openai_key" }), { status: 500, headers: cors });
   }
