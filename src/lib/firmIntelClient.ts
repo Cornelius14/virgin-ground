@@ -46,6 +46,7 @@ export async function fetchFirmIntel(body: FirmIntelRequest): Promise<FirmIntelR
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
+    cache: 'no-store',
     mode: "cors",
   });
   
