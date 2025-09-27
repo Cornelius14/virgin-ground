@@ -3,6 +3,9 @@ import { parseBuyBox, checkHealth, type ParsedBuyBox } from "../lib/parserClient
 import { buildRefinePlan } from "../lib/buildRefinePlan";
 import RefineBanner from "../components/RefineBanner";
 import { generateProspects } from "../lib/generateProspects";
+import PersonalizeBar from "../components/PersonalizeBar";
+import PersonalizedPanel from "../components/PersonalizedPanel";
+import type { FirmIntelResponse } from "../lib/firmIntelClient";
 
 function isReadyForCRM(p: ParsedBuyBox | null) {
   if (!p) return false;
@@ -22,6 +25,7 @@ export default function Demo(){
   const [rows,setRows]=useState({prospects:[],qualified:[],booked:[]});
   const [hasAccess, setHasAccess] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
+  const [firmIntel, setFirmIntel] = useState<FirmIntelResponse | null>(null);
 
   // Check for demo access on component mount
   useEffect(() => {
@@ -82,9 +86,21 @@ export default function Demo(){
 
   function onInsert(snippet:string){ setText(prev => (prev?.trim()? `${prev.trim()} ${snippet}` : snippet)); }
 
+  function handleQuerySelect(query: string) {
+    setText(query);
+    // Auto-run the parser after selecting a query
+    setTimeout(() => onParse(), 100);
+  }
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="mb-4 text-2xl font-semibold">Deal Finder — Live Demo</h1>
+
+      <PersonalizeBar onIntelReceived={setFirmIntel} />
+
+      {firmIntel && (
+        <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
+      )}
 
       <textarea value={text} onChange={(e)=>setText(e.target.value)}
         placeholder='Type any mandate. Examples: "Multifamily 80–100 units in Austin; loan maturing ≤6 months; budget ≤ $20M" • "Industrial warehouses in Atlanta; 60k–120k SF; cap ≥ 6%" • "Construction vendor: owners with recent land permits in Dallas".'
