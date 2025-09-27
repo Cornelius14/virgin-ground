@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 
 // Set your OpenAI API key in Supabase Edge Function Environment Variables
-const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
+const OPENAI_API_KEY = "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" || Deno.env.get("OPENAI_API_KEY");
 
 interface FirmIntelRequest {
   firmName: string;
