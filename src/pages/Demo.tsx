@@ -8,6 +8,8 @@ import PersonalizedPanel from "../components/PersonalizedPanel";
 import SuggestedQueries from "../components/SuggestedQueries";
 import VerifyBuyBox from "../components/VerifyBuyBox";
 import PipelineBoard from "../components/PipelineBoard";
+import CriteriaEditModal from "../components/CriteriaEditModal";
+import { Button } from "../components/ui/button";
 import type { FirmIntelResponse } from "../lib/firmIntelClient";
 
 function isReadyForCRM(p: ParsedBuyBox | null) {
@@ -31,6 +33,8 @@ export default function Demo(){
   const [firmIntel, setFirmIntel] = useState<FirmIntelResponse | null>(null);
   const [needsVerify, setNeedsVerify] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [finalCriteriaText, setFinalCriteriaText] = useState("");
 
   // Check for demo access on component mount
   useEffect(() => {
@@ -179,6 +183,14 @@ export default function Demo(){
     setNeedsVerify(missingCore);
   }
 
+  function handleModalConfirm(criteriaText: string, parsed: ParsedBuyBox) {
+    setFinalCriteriaText(criteriaText);
+    setParsed(parsed);
+    setConfirmed(true);
+    setNeedsVerify(false);
+    setRows(generateProspects(parsed, criteriaText, 12));
+  }
+
   return (
     <div className="relative min-h-screen bg-background text-foreground">
       {/* Cosmic grid background */}
@@ -200,44 +212,32 @@ export default function Demo(){
         {firmIntel && (
           <div className="space-y-6 mb-8">
             <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
-            <SuggestedQueries 
-              intel={firmIntel} 
-              onQuerySelect={handleQuerySelect}
-              onAddFragment={handleAddFragment}
-            />
           </div>
         )}
 
-        {/* Deal Input Section */}
+        {/* Deal Criteria Display Section */}
         <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
-          <label className="block text-lg font-medium text-foreground mb-3">
-            Deal Criteria
-          </label>
-          <textarea 
-            value={text} 
-            onChange={(e)=>setText(e.target.value)}
-            placeholder='Type any mandate. Examples: "Multifamily 80–100 units in Austin; loan maturing ≤6 months; budget ≤ $20M" • "Industrial warehouses in Atlanta; 60k–120k SF; cap ≥ 6%" • "Construction vendor: owners with recent land permits in Dallas".'
-            className="w-full h-28 rounded-xl border border-input bg-background px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 resize-none"
-          />
-
-          <div className="mt-4 flex items-center gap-3">
-            <button 
-              onClick={onParse} 
-              disabled={busy} 
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6"
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-medium text-foreground">Deal Criteria</h2>
+            <Button 
+              onClick={() => setModalOpen(true)}
+              variant="outline"
+              className="text-sm"
             >
-              {busy? "Parsing…" : "Parse Criteria"}
-            </button>
-            {err && (
-              <div className="cosmic-card rounded-lg p-3 border-l-4 border-l-destructive bg-destructive/5">
-                <div className="text-sm text-destructive">{err}</div>
-                {diag && <div className="text-xs text-muted-foreground mt-1">Diagnostics: {diag}</div>}
-              </div>
-            )}
+              Edit/Confirm Criteria
+            </Button>
           </div>
+          
+          {finalCriteriaText ? (
+            <div className="text-sm text-foreground leading-relaxed whitespace-pre-line bg-muted/50 rounded-xl p-4">
+              {finalCriteriaText.replace(/•/g, '\n•')}
+            </div>
+          ) : (
+            <div className="text-sm text-muted-foreground italic">
+              Click "Edit/Confirm Criteria" to set your deal parameters
+            </div>
+          )}
         </div>
-
-        <RefineBanner plan={plan} onInsert={onInsert} />
 
         {/* Verification Flow */}
         {parsed && needsVerify && !confirmed && (
@@ -270,6 +270,14 @@ export default function Demo(){
         {confirmed && rows.prospects.length > 0 && (
           <PipelineBoard rows={rows} onUpdateRows={setRows} />
         )}
+
+        {/* Criteria Edit Modal */}
+        <CriteriaEditModal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          initialCriteria={text}
+          onConfirm={handleModalConfirm}
+        />
       </div>
     </div>
   );
