@@ -57,39 +57,39 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
   };
   
   return (
-    <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg border-l-4 border-l-amber-400">
-      <div className="text-center space-y-2 mb-6">
-        <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+    <div className="cosmic-card rounded-xl p-6 mb-6 shadow-md border-l-4 border-l-amber-400">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-lg font-medium text-foreground">
           {needsInput ? '⚠️ Verify Buy-Box' : '✅ Confirm Buy-Box'}
-        </h2>
-        <p className="text-muted-foreground text-lg">
+        </h3>
+        <div className="text-sm text-muted-foreground">
           Did we understand this correctly?
-        </p>
+        </div>
       </div>
       
       {needsInput && (
-        <div className="mb-6 p-4 rounded-xl bg-amber-50/10 border border-amber-300/30">
-          <div className="text-sm text-amber-400 mb-3 font-medium">
-            <strong>Missing fields:</strong> {missingFields.join(', ')}
+        <div className="mb-4 p-3 rounded-lg bg-amber-50/10 border border-amber-300/30">
+          <div className="text-sm text-amber-400 mb-2">
+            <strong>Needs input:</strong> {missingFields.join(', ')}
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1">
             {missingFields.includes('intent') && getExampleChips('intent').map(chip => (
-              <button key={chip} className="px-3 py-1 text-xs rounded-md bg-amber-100/20 text-amber-300 hover:bg-amber-100/30 border border-amber-300/20 transition-colors">
+              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
                 {chip}
               </button>
             ))}
             {missingFields.includes('asset_type') && getExampleChips('asset_type').map(chip => (
-              <button key={chip} className="px-3 py-1 text-xs rounded-md bg-amber-100/20 text-amber-300 hover:bg-amber-100/30 border border-amber-300/20 transition-colors">
+              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
                 {chip}
               </button>
             ))}
             {missingFields.includes('units OR size') && [...getExampleChips('units'), ...getExampleChips('size')].map(chip => (
-              <button key={chip} className="px-3 py-1 text-xs rounded-md bg-amber-100/20 text-amber-300 hover:bg-amber-100/30 border border-amber-300/20 transition-colors">
+              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
                 {chip}
               </button>
             ))}
             {missingFields.includes('budget OR cap') && [...getExampleChips('budget'), ...getExampleChips('cap')].map(chip => (
-              <button key={chip} className="px-3 py-1 text-xs rounded-md bg-amber-100/20 text-amber-300 hover:bg-amber-100/30 border border-amber-300/20 transition-colors">
+              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
                 {chip}
               </button>
             ))}
@@ -98,10 +98,10 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
       )}
       
       {isEditing ? (
-        <div className="space-y-6 mb-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-2 text-foreground">Intent</label>
+              <label className="block text-sm font-medium mb-2">Intent</label>
               <Input
                 value={editedData?.intent || ''}
                 onChange={(e) => handleFieldChange('intent', e.target.value)}
@@ -109,7 +109,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2 text-foreground">Asset Type</label>
+              <label className="block text-sm font-medium mb-2">Asset Type</label>
               <Input
                 value={editedData?.asset_type || ''}
                 onChange={(e) => handleFieldChange('asset_type', e.target.value)}
@@ -117,7 +117,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2 text-foreground">Market</label>
+              <label className="block text-sm font-medium mb-2">Market</label>
               <Input
                 value={editedData?.market?.city || ''}
                 onChange={(e) => handleFieldChange('market', { ...editedData?.market, city: e.target.value })}
@@ -125,7 +125,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-2 text-foreground">Units Range</label>
+              <label className="block text-sm font-medium mb-2">Units Range</label>
               <div className="flex gap-2">
                 <Input
                   type="number"
@@ -144,30 +144,30 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm mb-6">
           <div className={needsInput && !parsed.intent ? 'text-amber-400' : ''}>
-            <span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent || "—"}</span>
+            <span className="font-medium">Intent:</span> <span className="text-muted-foreground">{parsed.intent || "—"}</span>
           </div>
           <div className={needsInput && !parsed.asset_type ? 'text-amber-400' : ''}>
-            <span className="font-medium text-foreground">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type || "—"}</span>
+            <span className="font-medium">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type || "—"}</span>
           </div>
           <div className={needsInput && !parsed.market?.city ? 'text-amber-400' : ''}>
-            <span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state ? ", " + parsed.market.state : ""}` : "—"}</span>
+            <span className="font-medium">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state ? ", " + parsed.market.state : ""}` : "—"}</span>
           </div>
           <div className={needsInput && !parsed.units ? 'text-amber-400' : ''}>
-            <span className="font-medium text-foreground">Units:</span> <span className="text-muted-foreground">{parsed.units ? `${parsed.units.min || ""}${parsed.units.min ? "–" : ""}${parsed.units.max || ""}` : "—"}</span>
+            <span className="font-medium">Units:</span> <span className="text-muted-foreground">{parsed.units ? `${parsed.units.min || ""}${parsed.units.min ? "–" : ""}${parsed.units.max || ""}` : "—"}</span>
           </div>
           <div className={needsInput && !parsed.size_sf ? 'text-amber-400' : ''}>
-            <span className="font-medium text-foreground">Size (SF):</span> <span className="text-muted-foreground">{parsed.size_sf ? `${parsed.size_sf.min || ""}${parsed.size_sf.min ? "–" : ""}${parsed.size_sf.max || ""}` : "—"}</span>
+            <span className="font-medium">Size (SF):</span> <span className="text-muted-foreground">{parsed.size_sf ? `${parsed.size_sf.min || ""}${parsed.size_sf.min ? "–" : ""}${parsed.size_sf.max || ""}` : "—"}</span>
           </div>
           <div className={needsInput && !parsed.budget ? 'text-amber-400' : ''}>
-            <span className="font-medium text-foreground">Budget:</span> <span className="text-muted-foreground">{parsed.budget?.max ? `≤ $${Number(parsed.budget.max).toLocaleString()}` : (parsed.budget?.min ? `$${Number(parsed.budget.min).toLocaleString()}+` : "—")}</span>
+            <span className="font-medium">Budget:</span> <span className="text-muted-foreground">{parsed.budget?.max ? `≤ $${Number(parsed.budget.max).toLocaleString()}` : (parsed.budget?.min ? `$${Number(parsed.budget.min).toLocaleString()}+` : "—")}</span>
           </div>
           <div className={needsInput && !parsed.cap_rate ? 'text-amber-400' : ''}>
-            <span className="font-medium text-foreground">Cap Rate:</span> <span className="text-muted-foreground">{parsed.cap_rate?.min ? `≥ ${parsed.cap_rate.min}%` : (parsed.cap_rate?.max ? `≤ ${parsed.cap_rate.max}%` : "—")}</span>
+            <span className="font-medium">Cap Rate:</span> <span className="text-muted-foreground">{parsed.cap_rate?.min ? `≥ ${parsed.cap_rate.min}%` : (parsed.cap_rate?.max ? `≤ ${parsed.cap_rate.max}%` : "—")}</span>
           </div>
           <div>
-            <span className="font-medium text-foreground">Timing/Notes:</span> <span className="text-muted-foreground">{parsed.timing || "—"}</span>
+            <span className="font-medium">Timing/Notes:</span> <span className="text-muted-foreground">{parsed.timing || "—"}</span>
           </div>
         </div>
       )}
@@ -175,7 +175,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
       <div className="flex gap-3">
         {isEditing ? (
           <>
-            <Button onClick={handleSaveEdits} className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button onClick={handleSaveEdits} className="flex-1">
               Save Changes
             </Button>
             <Button variant="outline" onClick={() => setIsEditing(false)}>
@@ -187,7 +187,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
             <Button 
               onClick={onConfirm} 
               disabled={needsInput}
-              className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+              className="flex-1"
             >
               {needsInput ? 'Complete Missing Fields' : 'Confirm & Continue'}
             </Button>

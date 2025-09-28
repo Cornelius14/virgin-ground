@@ -1,69 +1,76 @@
 import type { FirmIntelResponse } from './firmIntelClient';
 
 export interface SuggestedQuery {
-  id: string;
   title: string;
-  bullets: string[];
+  fields: {
+    intent?: string;
+    assetType?: string;
+    market?: string;
+    units?: string;
+    sizeSf?: string;
+    budget?: string;
+    capRate?: string;
+    timing?: string;
+  };
   text: string;
-  fields: Record<string, string>;
   missingKeys: string[];
 }
 
-// Infer firm type from intel data
-function inferFirmType(intel: FirmIntelResponse | null): 'brokerage' | 'lender' | 'developer' | 'vendor' | 'owner' {
-  if (!intel) return 'owner';
-  
-  const description = intel.snapshot.join(' ').toLowerCase();
+// Helper to infer firm type from snapshot and URL
+function inferFirmType(intel: FirmIntelResponse): string {
+  const snapshot = intel.snapshot.join(' ').toLowerCase();
   const url = intel.firmUrl?.toLowerCase() || '';
   
-  // Check for brokerage keywords
-  if (description.includes('investment sales') || description.includes('brokerage') || 
-      description.includes('advisor') || description.includes('broker') ||
-      url.includes('capital') || url.includes('realty')) {
-    return 'brokerage';
+  // Check for builder/developer keywords
+  if (snapshot.includes('development') || snapshot.includes('construction') || 
+      snapshot.includes('builder') || snapshot.includes('contractor') ||
+      snapshot.includes('permits') || snapshot.includes('ground') ||
+      url.includes('construction') || url.includes('build')) {
+    return 'builder';
   }
   
-  // Check for lender keywords
-  if (description.includes('financing') || description.includes('lending') || 
-      description.includes('mortgage') || description.includes('capital') ||
-      description.includes('loan') || url.includes('capital')) {
+  // Check for lender/mortgage keywords
+  if (snapshot.includes('financing') || snapshot.includes('mortgage') || 
+      snapshot.includes('lending') || snapshot.includes('loan') ||
+      snapshot.includes('refinanc') || url.includes('capital') ||
+      url.includes('mortgage') || url.includes('lending')) {
     return 'lender';
   }
   
-  // Check for developer/builder keywords
-  if (description.includes('development') || description.includes('builder') || 
-      description.includes('construction') || description.includes('permit') ||
-      description.includes('concrete') || description.includes('contractor')) {
-    return 'developer';
+  // Check for brokerage keywords
+  if (snapshot.includes('brokerage') || snapshot.includes('advisory') || 
+      snapshot.includes('investment sales') || snapshot.includes('broker') ||
+      snapshot.includes('transaction') || url.includes('advisors') ||
+      url.includes('realty') || url.includes('broker')) {
+    return 'brokerage';
   }
   
+  // Default to owner/operator
   return 'owner';
 }
 
-// Extract markets from intel
-function getMarketSuggestions(intel: FirmIntelResponse | null): string[] {
-  if (!intel) return ['Atlanta', 'Dallas', 'Miami'];
+// Generate market suggestions based on firm intel
+function getMarketSuggestions(intel: FirmIntelResponse): string[] {
+  const snapshot = intel.snapshot.join(' ');
+  const markets = [];
   
-  const description = intel.snapshot.join(' ');
-  const markets: string[] = [];
+  // Extract mentioned cities/regions from snapshot
+  const cityRegex = /(New York|NYC|Atlanta|Chicago|Dallas|Austin|Houston|Miami|Los Angeles|San Francisco|Seattle|Boston|Denver|Phoenix|Las Vegas|Orlando|Tampa|Charlotte|Nashville|Washington DC|Philadelphia)/gi;
+  const matches = snapshot.match(cityRegex);
   
-  // Common US markets regex
-  const marketRegex = /(Atlanta|Dallas|Miami|Austin|Houston|Phoenix|Denver|Seattle|Portland|Nashville|Charlotte|Tampa|Orlando|Jacksonville|San Antonio|Fort Worth|El Paso|Memphis|Oklahoma City|Louisville|Baltimore|Las Vegas|Albuquerque|Tucson|Fresno|Sacramento|Long Beach|Kansas City|Mesa|Virginia Beach|Omaha|Colorado Springs|Raleigh|Tulsa|Minneapolis|Cleveland|Wichita|Arlington)/gi;
-  
-  const matches = description.match(marketRegex);
   if (matches) {
-    markets.push(...matches.slice(0, 3));
-  }
-  
-  // Default markets if none found
-  if (markets.length === 0) {
-    return ['Atlanta', 'Dallas', 'Miami'];
+    markets.push(...matches.slice(0, 2));
+  } else {
+    // Default major markets
+    markets.push('Atlanta', 'Dallas', 'Miami');
   }
   
   return markets;
 }
 
 export function getSuggestedQueries(intel: FirmIntelResponse | null): SuggestedQuery[] {
+  if (!intel) return [];
+  
   const firmType = inferFirmType(intel);
   const markets = getMarketSuggestions(intel);
   const queries: SuggestedQuery[] = [];
@@ -72,33 +79,29 @@ export function getSuggestedQueries(intel: FirmIntelResponse | null): SuggestedQ
     case 'brokerage':
       queries.push(
         {
-          id: 'brok-mf-acq',
-          title: '🏢 Multifamily Acquisition',
-          bullets: ['50-120 units in target markets', 'Cap rate ≥ 6% with value-add potential'],
-          text: `Intent: acquisition • Asset Type: multifamily • Market: ${markets[0]} • Units: 50-120 • Cap Rate: ≥ 6% • Timing/Notes: closing within 90 days`,
+          title: "🏢 Multifamily Acquisition Deal",
           fields: {
-            intent: 'acquisition',
-            assetType: 'multifamily',
+            intent: "acquisition",
+            assetType: "multifamily",
             market: markets[0],
-            units: '50-120',
-            capRate: '≥ 6%',
-            timing: 'closing within 90 days'
+            units: "50-120",
+            budget: "≤ $25M",
+            capRate: "≥ 6%"
           },
-          missingKeys: ['budget']
+          text: `Intent: acquisition • Asset Type: multifamily • Market: ${markets[0]} • Units: 50-120 • Budget: ≤ $25M • Cap Rate: ≥ 6% • Timing/Notes: Ready to close within 90 days`,
+          missingKeys: []
         },
         {
-          id: 'brok-office-disp',
-          title: '💼 Office Disposition',
-          bullets: ['Class A/B office buildings', 'Motivated sellers seeking quick close'],
-          text: `Intent: disposition • Asset Type: office • Market: ${markets[1] || markets[0]} • Size (SF): 25k-100k • Timing/Notes: expedited sale preferred`,
+          title: "🏭 Industrial Sale Mandate",
           fields: {
-            intent: 'disposition',
-            assetType: 'office',
+            intent: "disposition",
+            assetType: "industrial",
             market: markets[1] || markets[0],
-            sizeSf: '25k-100k SF',
-            timing: 'expedited sale preferred'
+            sizeSf: "≥ 100k SF",
+            capRate: "≥ 5.5%"
           },
-          missingKeys: ['budget', 'capRate']
+          text: `Intent: disposition • Asset Type: industrial • Market: ${markets[1] || markets[0]} • Size (SF): ≥ 100k SF • Cap Rate: ≥ 5.5% • Timing/Notes: Seller wants to close Q1 2024`,
+          missingKeys: ["budget"]
         }
       );
       break;
@@ -106,120 +109,105 @@ export function getSuggestedQueries(intel: FirmIntelResponse | null): SuggestedQ
     case 'lender':
       queries.push(
         {
-          id: 'lend-refi',
-          title: '📈 Refinancing Opportunities',
-          bullets: ['Maturing loans seeking rate relief', 'Stabilized assets with strong NOI'],
-          text: `Intent: refinancing • Asset Type: multifamily • Market: ${markets[0]} • Budget: ≤ $50M • Cap Rate: ≥ 5% • Timing/Notes: loan maturing within 12 months`,
+          title: "💼 Refinancing Opportunity",
           fields: {
-            intent: 'refinancing',
-            assetType: 'multifamily',
+            intent: "refinancing",
+            assetType: "multifamily",
             market: markets[0],
-            budget: '≤ $50M',
-            capRate: '≥ 5%',
-            timing: 'loan maturing within 12 months'
+            units: "80-150",
+            budget: "$30-60M",
+            timing: "loan maturing ≤ 6 months"
           },
-          missingKeys: ['units']
+          text: `Intent: refinancing • Asset Type: multifamily • Market: ${markets[0]} • Units: 80-150 • Budget: $30-60M • Timing/Notes: loan maturing ≤ 6 months`,
+          missingKeys: ["capRate"]
         },
         {
-          id: 'lend-acq-fin',
-          title: '🏗️ Acquisition Financing',
-          bullets: ['Value-add opportunities needing capital', 'Experienced sponsors preferred'],
-          text: `Intent: acquisition financing • Asset Type: industrial • Market: ${markets[1] || markets[0]} • Size (SF): 100k-500k • Budget: ≤ $75M • Timing/Notes: 75% LTV preferred`,
+          title: "🏗️ Construction Financing",
           fields: {
-            intent: 'acquisition financing',
-            assetType: 'industrial',
+            intent: "acquisition financing",
+            assetType: "development sites",
             market: markets[1] || markets[0],
-            sizeSf: '100k-500k SF',
-            budget: '≤ $75M',
-            timing: '75% LTV preferred'
+            sizeSf: "≥ 5 acres",
+            budget: "≤ $50M"
           },
-          missingKeys: ['capRate']
+          text: `Intent: acquisition financing • Asset Type: development sites • Market: ${markets[1] || markets[0]} • Size (SF): ≥ 5 acres • Budget: ≤ $50M • Timing/Notes: Ready for construction loan`,
+          missingKeys: ["units", "capRate"]
         }
       );
       break;
       
-    case 'developer':
+    case 'builder':
       queries.push(
         {
-          id: 'dev-land',
-          title: '🧱 Development Sites',
-          bullets: ['Entitled land or permit-ready parcels', 'Multifamily or mixed-use zoning'],
-          text: `Intent: land acquisition • Asset Type: development site • Market: ${markets[0]} • Size (SF): ≥ 2 acres • Timing/Notes: permits issued or entitled`,
+          title: "🧱 Development Sites",
           fields: {
-            intent: 'land acquisition',
-            assetType: 'development site',
+            intent: "acquisition",
+            assetType: "land/development",
             market: markets[0],
-            sizeSf: '≥ 2 acres',
-            timing: 'permits issued or entitled'
+            sizeSf: "≥ 10 acres",
+            timing: "recent permits/entitlements"
           },
-          missingKeys: ['budget', 'units']
+          text: `Intent: acquisition • Asset Type: land/development • Market: ${markets[0]} • Size (SF): ≥ 10 acres • Timing/Notes: recent permits/entitlements, ready for development`,
+          missingKeys: ["units", "budget", "capRate"]
         },
         {
-          id: 'dev-owners',
-          title: '🏗️ Owner Prospects',
-          bullets: ['Recent permit holders for ground-up', 'Projects ≥100k SF seeking contractors'],
-          text: `Intent: construction services • Asset Type: ground-up development • Market: ${markets[0]} • Size (SF): ≥ 100k • Timing/Notes: permits issued within 6 months`,
+          title: "🏗️ Large SF Projects",
           fields: {
-            intent: 'construction services',
-            assetType: 'ground-up development',
-            market: markets[0],
-            sizeSf: '≥ 100k SF',
-            timing: 'permits issued within 6 months'
+            intent: "construction services",
+            assetType: "commercial",
+            market: markets[1] || markets[0],
+            sizeSf: "≥ 100k SF",
+            timing: "permits pulled ≤ 90 days"
           },
-          missingKeys: ['budget', 'capRate']
+          text: `Intent: construction services • Asset Type: commercial • Market: ${markets[1] || markets[0]} • Size (SF): ≥ 100k SF • Timing/Notes: permits pulled ≤ 90 days, need general contractor`,
+          missingKeys: ["units", "budget", "capRate"]
         }
       );
       break;
       
-    default: // owner
+    default: // owner/operator
       queries.push(
         {
-          id: 'own-acq',
-          title: '🏢 Portfolio Acquisition',
-          bullets: ['Stabilized income-producing assets', 'Markets with population growth'],
-          text: `Intent: acquisition • Asset Type: multifamily • Market: ${markets[0]} • Units: 100-200 • Cap Rate: ≥ 6% • Timing/Notes: 1031 exchange preferred`,
+          title: "📈 Value-Add Acquisition",
           fields: {
-            intent: 'acquisition',
-            assetType: 'multifamily',
+            intent: "acquisition",
+            assetType: "multifamily",
             market: markets[0],
-            units: '100-200',
-            capRate: '≥ 6%',
-            timing: '1031 exchange preferred'
+            units: "20-60",
+            budget: "≤ $15M",
+            capRate: "≥ 7%"
           },
-          missingKeys: ['budget']
+          text: `Intent: acquisition • Asset Type: multifamily • Market: ${markets[0]} • Units: 20-60 • Budget: ≤ $15M • Cap Rate: ≥ 7% • Timing/Notes: value-add opportunity, can close in 60 days`,
+          missingKeys: []
         },
         {
-          id: 'own-disp',
-          title: '💰 Asset Disposition',
-          bullets: ['Non-core assets for portfolio optimization', 'Seeking maximum proceeds'],
-          text: `Intent: disposition • Asset Type: retail • Market: ${markets[1] || markets[0]} • Size (SF): 15k-50k • Timing/Notes: off-market preferred`,
+          title: "🏪 Retail Portfolio Sale",
           fields: {
-            intent: 'disposition',
-            assetType: 'retail',
+            intent: "disposition",
+            assetType: "retail",
             market: markets[1] || markets[0],
-            sizeSf: '15k-50k SF',
-            timing: 'off-market preferred'
+            sizeSf: "10k-50k SF",
+            capRate: "≥ 6.5%"
           },
-          missingKeys: ['budget', 'capRate']
+          text: `Intent: disposition • Asset Type: retail • Market: ${markets[1] || markets[0]} • Size (SF): 10k-50k SF • Cap Rate: ≥ 6.5% • Timing/Notes: portfolio sale, flexible timing`,
+          missingKeys: ["units", "budget"]
         }
       );
   }
   
-  // Add generic distressed assets query
-  queries.push({
-    id: 'distressed',
-    title: '⚠️ Distressed Assets',
-    bullets: ['Foreclosure or bankruptcy opportunities', 'Below-market pricing potential'],
-    text: `Intent: acquisition • Asset Type: distressed • Market: ${markets[0]} • Budget: ≤ $25M • Timing/Notes: quick close capability`,
-    fields: {
-      intent: 'acquisition',
-      assetType: 'distressed',
-      market: markets[0],
-      budget: '≤ $25M',
-      timing: 'quick close capability'
-    },
-    missingKeys: ['units', 'capRate']
-  });
+  // Add a few more generic suggestions
+  queries.push(
+    {
+      title: "⏱️ Distressed Assets",
+      fields: {
+        intent: "acquisition",
+        market: markets[0],
+        timing: "owner over 65 OR loan maturity ≤ 6 months"
+      },
+      text: `Intent: acquisition • Market: ${markets[0]} • Timing/Notes: owner over 65 OR loan maturity ≤ 6 months, motivated sellers`,
+      missingKeys: ["assetType", "units", "sizeSf", "budget", "capRate"]
+    }
+  );
   
   return queries.slice(0, 6); // Return max 6 suggestions
 }
