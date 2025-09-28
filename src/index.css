@@ -200,65 +200,23 @@
     @apply bg-accent/20 transition-all duration-300;
   }
 
-  /* Semantic Typography System */
+  /* Theme text tokens for better contrast */
   :root {
-    /* Display Typography */
-    --display-2xl: clamp(3rem, 8vw, 4.5rem);     /* 48px -> 72px */
-    --display-xl: clamp(2.25rem, 6vw, 3.75rem);  /* 36px -> 60px */
-    --display-lg: clamp(1.875rem, 4vw, 3rem);    /* 30px -> 48px */
-    --display-md: clamp(1.5rem, 3vw, 2.25rem);   /* 24px -> 36px */
-    --display-sm: clamp(1.25rem, 2.5vw, 1.875rem); /* 20px -> 30px */
-    
-    /* Heading Typography */
-    --heading-h1: clamp(1.75rem, 3vw, 2.25rem);  /* 28px -> 36px */
-    --heading-h2: clamp(1.5rem, 2.5vw, 1.875rem); /* 24px -> 30px */
-    --heading-h3: clamp(1.25rem, 2vw, 1.5rem);   /* 20px -> 24px */
-    --heading-h4: 1.125rem;                       /* 18px */
-    --heading-h5: 1rem;                           /* 16px */
-    --heading-h6: 0.875rem;                       /* 14px */
-    
-    /* Body Typography */
-    --body-xl: 1.25rem;    /* 20px */
-    --body-lg: 1.125rem;   /* 18px */
-    --body-base: 1rem;     /* 16px */
-    --body-sm: 0.875rem;   /* 14px */
-    --body-xs: 0.75rem;    /* 12px */
-    
-    /* Caption Typography */
-    --caption-lg: 0.875rem;  /* 14px */
-    --caption-base: 0.75rem; /* 12px */
-    --caption-sm: 0.6875rem; /* 11px */
-    
-    /* Line Heights */
-    --leading-display: 1.1;
-    --leading-heading: 1.2;
-    --leading-body: 1.6;
-    --leading-caption: 1.4;
+    --txt-strong: #E5E7EB;   /* slate-200 for dark mode */
+    --txt-default: #CBD5E1;  /* slate-300 for dark mode */
+    --txt-muted: #94A3B8;    /* slate-400 for dark mode */
   }
   
-  /* Semantic Typography Classes */
-  .text-display-2xl { font-size: var(--display-2xl); line-height: var(--leading-display); }
-  .text-display-xl { font-size: var(--display-xl); line-height: var(--leading-display); }
-  .text-display-lg { font-size: var(--display-lg); line-height: var(--leading-display); }
-  .text-display-md { font-size: var(--display-md); line-height: var(--leading-display); }
-  .text-display-sm { font-size: var(--display-sm); line-height: var(--leading-display); }
+  .light-mode {
+    --txt-strong: #0F172A;   /* slate-900 for light mode */
+    --txt-default: #1F2937;  /* slate-800 for light mode */
+    --txt-muted: #475569;    /* slate-600 for light mode */
+  }
   
-  .text-heading-h1 { font-size: var(--heading-h1); line-height: var(--leading-heading); }
-  .text-heading-h2 { font-size: var(--heading-h2); line-height: var(--leading-heading); }
-  .text-heading-h3 { font-size: var(--heading-h3); line-height: var(--leading-heading); }
-  .text-heading-h4 { font-size: var(--heading-h4); line-height: var(--leading-heading); }
-  .text-heading-h5 { font-size: var(--heading-h5); line-height: var(--leading-heading); }
-  .text-heading-h6 { font-size: var(--heading-h6); line-height: var(--leading-heading); }
-  
-  .text-body-xl { font-size: var(--body-xl); line-height: var(--leading-body); }
-  .text-body-lg { font-size: var(--body-lg); line-height: var(--leading-body); }
-  .text-body-base { font-size: var(--body-base); line-height: var(--leading-body); }
-  .text-body-sm { font-size: var(--body-sm); line-height: var(--leading-body); }
-  .text-body-xs { font-size: var(--body-xs); line-height: var(--leading-body); }
-  
-  .text-caption-lg { font-size: var(--caption-lg); line-height: var(--leading-caption); }
-  .text-caption-base { font-size: var(--caption-base); line-height: var(--leading-caption); }
-  .text-caption-sm { font-size: var(--caption-sm); line-height: var(--leading-caption); }
+  /* Text utility classes */
+  .text-strong { color: var(--txt-strong); }
+  .text-default { color: var(--txt-default); }
+  .text-muted { color: var(--txt-muted); }
 
   /* How it Works section specific styling */
   :root[data-theme="dark"] #how .how-title { 

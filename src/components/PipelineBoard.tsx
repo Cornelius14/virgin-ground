@@ -53,41 +53,41 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   return (
     <div className="cosmic-card rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1">
       <div className="space-y-3">
-        <div className="text-body-sm font-medium text-foreground">
+        <div className="text-sm font-medium text-foreground">
           {getCardTitle()}
         </div>
         
-        <div className="text-caption-base text-muted-foreground">
+        <div className="text-xs text-muted-foreground leading-relaxed">
           {getInteractionNote()}
         </div>
         
-        <div className="text-caption-base text-muted-foreground">
+        <div className="text-xs text-muted-foreground">
           {prospect.contact?.name} — {prospect.contact?.email} — {prospect.contact?.phone}
         </div>
         
         <div className="flex gap-1 flex-wrap">
-          <span className={`px-2 py-1 rounded-md text-caption-base font-medium ${
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
             prospect.channels?.email 
               ? "bg-green-500/20 text-green-400 border border-green-500/30" 
               : "bg-red-500/20 text-red-400 border border-red-500/30"
           }`}>
             ✉️ email
           </span>
-          <span className={`px-2 py-1 rounded-md text-caption-base font-medium ${
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
             prospect.channels?.sms 
               ? "bg-green-500/20 text-green-400 border border-green-500/30" 
               : "bg-red-500/20 text-red-400 border border-red-500/30"
           }`}>
             📱 sms
           </span>
-          <span className={`px-2 py-1 rounded-md text-caption-base font-medium ${
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
             prospect.channels?.vm 
               ? "bg-green-500/20 text-green-400 border border-green-500/30" 
               : "bg-red-500/20 text-red-400 border border-red-500/30"
           }`}>
             🎤 vm
           </span>
-          <span className={`px-2 py-1 rounded-md text-caption-base font-medium ${
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
             prospect.channels?.call 
               ? "bg-green-500/20 text-green-400 border border-green-500/30" 
               : "bg-red-500/20 text-red-400 border border-red-500/30"
@@ -100,7 +100,7 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
           <Button
             onClick={handleMoveToNext}
             size="sm"
-            className="w-full mt-3 text-caption-base"
+            className="w-full mt-3 text-xs"
             variant="outline"
           >
             {buttonText}
@@ -142,10 +142,10 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
   return (
     <div className="space-y-6">
       <div className="text-center space-y-2">
-        <h2 className="text-display-lg font-medium tracking-tighter text-foreground">
+        <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
           Deal Pipeline
         </h2>
-        <p className="text-muted-foreground text-body-lg">
+        <p className="text-muted-foreground text-lg">
           Prospects → Qualified Targets → Meetings Booked
         </p>
       </div>
@@ -154,10 +154,10 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
         {/* Prospected Column */}
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b border-border pb-3">
-            <h3 className="text-body-sm font-medium text-foreground uppercase tracking-wider">
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">
               📋 Prospected
             </h3>
-            <span className="text-caption-base bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
+            <span className="text-xs bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
               {rows.prospects.length}
             </span>
           </div>
@@ -171,7 +171,7 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
               />
             ))}
             {rows.prospects.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground text-body-sm">
+              <div className="text-center py-8 text-muted-foreground text-sm">
                 No prospects yet
               </div>
             )}
@@ -181,10 +181,10 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
         {/* Qualified Target Column */}
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b border-border pb-3">
-            <h3 className="text-body-sm font-medium text-foreground uppercase tracking-wider">
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">
               🎯 Qualified Target
             </h3>
-            <span className="text-caption-base bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
+            <span className="text-xs bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
               {rows.qualified.length}
             </span>
           </div>
@@ -198,7 +198,7 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
               />
             ))}
             {rows.qualified.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground text-body-sm">
+              <div className="text-center py-8 text-muted-foreground text-sm">
                 No qualified targets yet
               </div>
             )}
@@ -208,10 +208,10 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
         {/* Meeting Booked Column */}
         <div className="space-y-4">
           <div className="flex items-center justify-between border-b border-border pb-3">
-            <h3 className="text-body-sm font-medium text-foreground uppercase tracking-wider">
+            <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">
               📅 Meeting Booked
             </h3>
-            <span className="text-caption-base bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
+            <span className="text-xs bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
               {rows.booked.length}
             </span>
           </div>
@@ -224,7 +224,7 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
               />
             ))}
             {rows.booked.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground text-body-sm">
+              <div className="text-center py-8 text-muted-foreground text-sm">
                 No meetings booked yet
               </div>
             )}

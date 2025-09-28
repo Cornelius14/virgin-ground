@@ -112,13 +112,13 @@ export default function CriteriaEditModal({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-heading-h2 font-medium">Edit Deal Criteria</DialogTitle>
+          <DialogTitle className="text-xl font-medium">Edit Deal Criteria</DialogTitle>
         </DialogHeader>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Form Section */}
           <div className="space-y-6">
-            <h3 className="text-heading-h3 font-medium text-foreground">Structured Fields</h3>
+            <h3 className="text-lg font-medium text-foreground">Structured Fields</h3>
             
             <div className="space-y-4">
               <div className="space-y-2">
@@ -220,11 +220,11 @@ export default function CriteriaEditModal({
 
           {/* Preview Section */}
           <div className="space-y-6">
-            <h3 className="text-heading-h3 font-medium text-foreground">Preview</h3>
+            <h3 className="text-lg font-medium text-foreground">Preview</h3>
             
             <div className="cosmic-card rounded-xl p-4 min-h-[200px]">
-              <h4 className="text-body-sm font-medium text-muted-foreground mb-3">Generated Criteria:</h4>
-              <div className="text-body-sm text-foreground">
+              <h4 className="text-sm font-medium text-muted-foreground mb-3">Generated Criteria:</h4>
+              <div className="text-sm text-foreground leading-relaxed">
                 {previewText ? (
                   <div className="whitespace-pre-line">
                     {previewText.replace(/•/g, '\n•')}
