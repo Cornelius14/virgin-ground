@@ -236,12 +236,6 @@ export default function CriteriaEditModal({
                 )}
               </div>
             </div>
-
-            {error && (
-              <div className="cosmic-card rounded-lg p-3 border-l-4 border-l-destructive bg-destructive/5">
-                <div className="text-sm text-destructive">{error}</div>
-              </div>
-            )}
           </div>
         </div>
 
