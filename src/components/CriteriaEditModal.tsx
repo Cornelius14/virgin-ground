@@ -21,14 +21,14 @@ interface CriteriaEditModalProps {
   open: boolean;
   onClose: () => void;
   initialCriteria: string;
-  onConfirm: (criteriaText: string, parsed: ParsedBuyBox) => void;
+  onDone: (criteriaText: string) => void;
 }
 
 export default function CriteriaEditModal({ 
   open, 
   onClose, 
   initialCriteria, 
-  onConfirm 
+  onDone 
 }: CriteriaEditModalProps) {
   const [fields, setFields] = useState<CriteriaFields>({
     intent: '',
@@ -97,32 +97,10 @@ export default function CriteriaEditModal({
     setFields(prev => ({ ...prev, [fieldName]: value }));
   };
 
-  const handleConfirm = async () => {
-    setBusy(true);
-    setError(null);
-    
-    try {
-      const criteriaText = generateCriteriaText(fields);
-      const parsed = await parseBuyBox(criteriaText);
-      onConfirm(criteriaText, parsed);
-      onClose();
-    } catch (e: any) {
-      const message = String(e?.message || e);
-      if (message.includes("llm_unavailable") || message.includes("llm") || message.includes("model")) {
-        setError("LLM unavailable. Try again in a moment.");
-      } else {
-        setError(message === "supabase_not_configured" 
-          ? "Supabase not configured. Add VITE_SUPABASE_URL & VITE_SUPABASE_ANON_KEY." 
-          : message.startsWith("http-") 
-            ? `Server ${message.replace("http-", "")}` 
-            : message.includes("timeout") 
-              ? "Function timeout." 
-              : "Network error or function unreachable."
-        );
-      }
-    } finally {
-      setBusy(false);
-    }
+  const handleDone = () => {
+    const criteriaText = generateCriteriaText(fields);
+    onDone(criteriaText);
+    onClose();
   };
 
   const handleCancel = () => {
@@ -247,7 +225,11 @@ export default function CriteriaEditModal({
             <div className="cosmic-card rounded-xl p-4 min-h-[200px]">
               <h4 className="text-sm font-medium text-muted-foreground mb-3">Generated Criteria:</h4>
               <div className="text-sm text-foreground leading-relaxed">
-                {previewText || (
+                {previewText ? (
+                  <div className="whitespace-pre-line">
+                    {previewText.replace(/•/g, '\n•')}
+                  </div>
+                ) : (
                   <span className="text-muted-foreground italic">
                     Fill in the fields above to see the generated criteria
                   </span>
@@ -268,11 +250,11 @@ export default function CriteriaEditModal({
             Cancel
           </Button>
           <Button 
-            onClick={handleConfirm} 
-            disabled={busy || !previewText}
+            onClick={handleDone} 
+            disabled={!previewText}
             className="min-w-[120px]"
           >
-            {busy ? "Processing..." : "Confirm"}
+            Done
           </Button>
         </div>
       </DialogContent>

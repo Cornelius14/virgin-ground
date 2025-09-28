@@ -188,12 +188,8 @@ export default function Demo(){
     setNeedsVerify(missingCore);
   }
 
-  function handleModalConfirm(criteriaText: string, parsed: ParsedBuyBox) {
+  function handleModalDone(criteriaText: string) {
     setFinalCriteriaText(criteriaText);
-    setParsed(parsed);
-    setConfirmed(true);
-    setNeedsVerify(false);
-    setRows(generateProspects(parsed, criteriaText, 12));
   }
 
   return (
@@ -293,7 +289,7 @@ export default function Demo(){
           open={modalOpen}
           onClose={() => setModalOpen(false)}
           initialCriteria={text}
-          onConfirm={handleModalConfirm}
+          onDone={handleModalDone}
         />
       </div>
     </div>
