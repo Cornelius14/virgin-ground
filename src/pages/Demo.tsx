@@ -77,6 +77,7 @@ export default function Demo(){
   }
 
   async function onParse(){
+    console.log('🔥 CONFIRM BUTTON CLICKED - onParse function started');
     setBusy(true);
     setErr(null);
     setDiag(null);
@@ -91,12 +92,22 @@ export default function Demo(){
         ? `Company: ${firmIntel.firmName || ''} ${firmIntel.snapshot?.join(' ') || ''} • ${finalCriteriaText}`
         : finalCriteriaText;
       
+      console.log('📝 Full text to be sent to API:', fullText);
+      console.log('📦 Full text length:', fullText.length);
+      
       // Call the parseBuyBox API directly
+      console.log('🚀 About to call parseBuyBox API...');
       const res = await parseBuyBox(fullText);
+      console.log('✅ API response received:', res);
+      
       setParsed(res);
       setConfirmed(true);
       setRows(generateProspects(res, fullText, 12));
+      console.log('🎉 Successfully processed API response');
     } catch(e:any) {
+      console.error('❌ Error in onParse:', e);
+      console.error('❌ Error object details:', { message: e?.message, stack: e?.stack, name: e?.name });
+      
       const m = String(e?.message||e);
       if (m.includes("llm_unavailable") || m.includes("llm") || m.includes("model")) {
         setErr("LLM unavailable. Try again in a moment.");
@@ -109,6 +120,7 @@ export default function Demo(){
       setDiag(h);
     } finally {
       setBusy(false);
+      console.log('🏁 onParse function completed');
     }
   }
   
