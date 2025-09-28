@@ -145,8 +145,6 @@ export default function Demo(){
                m.startsWith("http-") ? `Server ${m.replace("http-","")}` :
                m.includes("timeout") ? "Function timeout." : "Network error or function unreachable.");
       }
-      const h = await checkHealth(); 
-      setDiag(h);
     } finally {
       setBusy(false);
       console.log('🏁 onParse function completed');
