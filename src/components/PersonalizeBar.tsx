@@ -78,7 +78,7 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
         
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
           <div className="flex-1">
-            <label className="block text-body-sm font-medium text-foreground mb-2">
+            <label className="block font-medium text-foreground mb-2">
               Firm Name
             </label>
             <input
