@@ -69,10 +69,10 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
   return (
     <div className="space-y-4">
       <h3 className="text-base font-medium text-foreground">Structured Queries</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {queries.map((query) => (
-          <div key={query.id} className="cosmic-card rounded-2xl p-6 shadow-sm">
-            <div className="space-y-4">
+          <div key={query.id} className="cosmic-card rounded-2xl p-6 shadow-sm flex flex-col">
+            <div className="space-y-4 flex-grow">
               {/* Header */}
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{query.emoji}</span>
@@ -93,8 +93,8 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
                 ))}
               </div>
 
-              {/* Two bullet points */}
-              <div className="space-y-1">
+              {/* Two bullet points - 2 per row */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                 {query.bullets.map((bullet, index) => (
                   <div key={index} className="text-sm text-muted-foreground flex items-start gap-2">
                     <span className="text-foreground mt-1">•</span>
@@ -120,16 +120,16 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
                   ))}
                 </div>
               )}
-
-              {/* Use This Query button */}
-              <Button 
-                onClick={() => handleUseQuery(query)}
-                className="w-full"
-                variant="default"
-              >
-                Use This Query
-              </Button>
             </div>
+
+            {/* Use This Query button - Always at bottom */}
+            <Button 
+              onClick={() => handleUseQuery(query)}
+              className="w-full mt-4"
+              variant="default"
+            >
+              Use This Query
+            </Button>
           </div>
         ))}
       </div>
