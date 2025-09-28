@@ -99,11 +99,11 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
           </div>
         </div>
 
-        {/* Query Chips Section */}
+        {/* Basic Queries Section - Keep simple queries here */}
         <div className="space-y-4">
-          <h3 className="text-base font-medium text-foreground">Suggested Queries</h3>
+          <h3 className="text-base font-medium text-foreground">Quick Queries</h3>
           <div className="space-y-2">
-            {intel.queries.slice(0, 6).map((query, index) => (
+            {intel.queries.slice(0, 4).map((query, index) => (
               <button
                 key={index}
                 onClick={() => onQuerySelect(query)}

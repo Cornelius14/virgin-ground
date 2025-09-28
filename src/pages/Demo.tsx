@@ -5,6 +5,9 @@ import RefineBanner from "../components/RefineBanner";
 import { generateProspects } from "../lib/generateProspects";
 import PersonalizeBar from "../components/PersonalizeBar";
 import PersonalizedPanel from "../components/PersonalizedPanel";
+import SuggestedQueries from "../components/SuggestedQueries";
+import VerifyBuyBox from "../components/VerifyBuyBox";
+import PipelineBoard from "../components/PipelineBoard";
 import type { FirmIntelResponse } from "../lib/firmIntelClient";
 
 function isReadyForCRM(p: ParsedBuyBox | null) {
@@ -26,6 +29,8 @@ export default function Demo(){
   const [hasAccess, setHasAccess] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [firmIntel, setFirmIntel] = useState<FirmIntelResponse | null>(null);
+  const [needsVerify, setNeedsVerify] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
 
   // Check for demo access on component mount
   useEffect(() => {
@@ -68,18 +73,31 @@ export default function Demo(){
   }
 
   async function onParse(){
-    setBusy(true); setErr(null); setDiag(null); setPlan(null); setParsed(null); setRows({prospects:[],qualified:[],booked:[]});
+    setBusy(true); setErr(null); setDiag(null); setPlan(null); setParsed(null); setRows({prospects:[],qualified:[],booked:[]}); setNeedsVerify(false); setConfirmed(false);
     try{
       const res = await parseBuyBox(text);       // LLM-first (server-side)
       setParsed(res);
       const rp = buildRefinePlan(res);
       setPlan(rp.items.length ? rp : null);
-      if (isReadyForCRM(res)) setRows(generateProspects(res, text, 12));
+      
+      // Check if verification is needed
+      const missingCore = !res.intent || !res.market?.city || !res.asset_type || (!res.units && !res.size_sf) || (!res.budget && !res.cap_rate);
+      setNeedsVerify(missingCore);
+      
+      // Only generate prospects if not missing core fields
+      if (!missingCore) {
+        setConfirmed(true);
+        setRows(generateProspects(res, text, 12));
+      }
     }catch(e:any){
       const m = String(e?.message||e);
-      setErr(m === "supabase_not_configured" ? "Supabase not configured. Add VITE_SUPABASE_URL & VITE_SUPABASE_ANON_KEY." :
-             m.startsWith("http-") ? `Server ${m.replace("http-","")}` :
-             m.includes("timeout") ? "Function timeout." : "Network error or function unreachable.");
+      if (m.includes("llm_unavailable") || m.includes("llm") || m.includes("model")) {
+        setErr("LLM unavailable. Try again in a moment.");
+      } else {
+        setErr(m === "supabase_not_configured" ? "Supabase not configured. Add VITE_SUPABASE_URL & VITE_SUPABASE_ANON_KEY." :
+               m.startsWith("http-") ? `Server ${m.replace("http-","")}` :
+               m.includes("timeout") ? "Function timeout." : "Network error or function unreachable.");
+      }
       const h = await checkHealth(); setDiag(h);
     }finally{ setBusy(false); }
   }
@@ -92,6 +110,25 @@ export default function Demo(){
     setTimeout(() => onParse(), 100);
   }
 
+  function handleAddFragment(fragment: string) {
+    setText(prev => prev ? `${prev} • ${fragment}` : fragment);
+  }
+
+  function handleConfirmParsed() {
+    setConfirmed(true);
+    setNeedsVerify(false);
+    if (parsed) {
+      setRows(generateProspects(parsed, text, 12));
+    }
+  }
+
+  function handleEditParsed(updatedParsed: ParsedBuyBox) {
+    setParsed(updatedParsed);
+    // Check if still needs verification
+    const missingCore = !updatedParsed.intent || !updatedParsed.market?.city || !updatedParsed.asset_type || (!updatedParsed.units && !updatedParsed.size_sf) || (!updatedParsed.budget && !updatedParsed.cap_rate);
+    setNeedsVerify(missingCore);
+  }
+
   return (
     <div className="relative min-h-screen bg-background text-foreground">
       {/* Cosmic grid background */}
@@ -100,7 +137,7 @@ export default function Demo(){
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 py-12 md:py-20">
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
-          <h1 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
             Deal Finder — Live Demo
           </h1>
           <p className="text-muted-foreground text-lg">
@@ -111,12 +148,19 @@ export default function Demo(){
         <PersonalizeBar onIntelReceived={setFirmIntel} />
 
         {firmIntel && (
-          <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
+          <div className="space-y-6 mb-8">
+            <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
+            <SuggestedQueries 
+              intel={firmIntel} 
+              onQuerySelect={handleQuerySelect}
+              onAddFragment={handleAddFragment}
+            />
+          </div>
         )}
 
         {/* Deal Input Section */}
         <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
-          <label className="block text-sm font-medium text-foreground mb-3">
+          <label className="block text-lg font-medium text-foreground mb-3">
             Deal Criteria
           </label>
           <textarea 
@@ -134,17 +178,31 @@ export default function Demo(){
             >
               {busy? "Parsing…" : "Parse Criteria"}
             </button>
-            {err && <div className="text-sm text-destructive">{err}</div>}
-            {diag && <div className="text-xs text-muted-foreground">Diagnostics: {diag}</div>}
+            {err && (
+              <div className="cosmic-card rounded-lg p-3 border-l-4 border-l-destructive bg-destructive/5">
+                <div className="text-sm text-destructive">{err}</div>
+                {diag && <div className="text-xs text-muted-foreground mt-1">Diagnostics: {diag}</div>}
+              </div>
+            )}
           </div>
         </div>
 
         <RefineBanner plan={plan} onInsert={onInsert} />
 
+        {/* Verification Flow */}
+        {parsed && needsVerify && !confirmed && (
+          <VerifyBuyBox
+            parsed={parsed}
+            onConfirm={handleConfirmParsed}
+            onEdit={handleEditParsed}
+            onReparse={onParse}
+          />
+        )}
+
         {/* Parsed Results */}
-        <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg">
-          <h2 className="text-xl font-medium text-foreground mb-4">Parsed Buy-Box</h2>
-          {parsed ? (
+        {parsed && (
+          <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg">
+            <h2 className="text-xl font-medium text-foreground mb-4">Parsed Buy-Box</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
               <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
               <div><span className="font-medium text-foreground">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? parsed.asset ?? "-"}</span></div>
@@ -155,101 +213,13 @@ export default function Demo(){
               <div><span className="font-medium text-foreground">Cap Rate:</span> <span className="text-muted-foreground">{parsed.cap_rate?.min ? `≥ ${parsed.cap_rate.min}%` : (parsed.cap_rate?.max ? `≤ ${parsed.cap_rate.max}%` : "-")}</span></div>
               <div><span className="font-medium text-foreground">Timing/Notes:</span> <span className="text-muted-foreground">{parsed.timing ?? "-"}</span></div>
             </div>
-          ) : (
-            <div className="text-sm text-muted-foreground">Nothing parsed yet.</div>
-          )}
-        </div>
-
-        {/* CRM Pipeline */}
-        <div className="space-y-6">
-          <div className="text-center">
-            <h2 className="text-2xl font-medium text-foreground mb-2">Deal Pipeline</h2>
-            <p className="text-muted-foreground">Prospects → Qualified Targets → Meetings Booked</p>
           </div>
+        )}
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">Prospected</h3>
-                <span className="text-xs bg-muted px-2 py-1 rounded-full text-muted-foreground">{rows.prospects.length}</span>
-              </div>
-              <div className="space-y-3">
-                {rows.prospects.map((p:any,i:number)=>(
-                  <div key={`p-${i}`} className="cosmic-card rounded-xl p-4 shadow-sm">
-                    <div className="text-sm font-medium text-foreground">{p.title}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{p.subtitle}</div>
-                    <div className="mt-2 text-xs text-muted-foreground">{p.contact?.name} — {p.contact?.email} — {p.contact?.phone}</div>
-                    <div className="mt-3 flex gap-1">
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.email ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>email</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.sms ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>sms</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.vm ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>vm</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.call ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>call</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">Qualified Target</h3>
-                <span className="text-xs bg-muted px-2 py-1 rounded-full text-muted-foreground">{rows.qualified.length}</span>
-              </div>
-              <div className="space-y-3">
-                {rows.qualified.map((p:any,i:number)=>(
-                  <div key={`q-${i}`} className="cosmic-card rounded-xl p-4 shadow-sm">
-                    <div className="text-sm font-medium text-foreground">{p.title}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{p.subtitle}</div>
-                    <div className="mt-2 text-xs text-muted-foreground">{p.contact?.name} — {p.contact?.email} — {p.contact?.phone}</div>
-                    <div className="mt-3 flex gap-1">
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.email ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>email</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.sms ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>sms</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.vm ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>vm</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.call ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>call</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">Meeting Booked</h3>
-                <span className="text-xs bg-muted px-2 py-1 rounded-full text-muted-foreground">{rows.booked.length}</span>
-              </div>
-              <div className="space-y-3">
-                {rows.booked.map((p:any,i:number)=>(
-                  <div key={`b-${i}`} className="cosmic-card rounded-xl p-4 shadow-sm">
-                    <div className="text-sm font-medium text-foreground">{p.title}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{p.subtitle}</div>
-                    <div className="mt-2 text-xs text-muted-foreground">{p.contact?.name} — {p.contact?.email} — {p.contact?.phone}</div>
-                    <div className="mt-3 flex gap-1">
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.email ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>email</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.sms ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>sms</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.vm ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>vm</span>
-                      <span className={`px-2 py-1 rounded-md text-xs font-medium ${p.channels.call ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}>call</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* CRM Action */}
-        <div className="mt-8 text-center">
-          <button 
-            disabled={!isReadyForCRM(parsed)} 
-            className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-6 ${isReadyForCRM(parsed) ? "bg-green-600 text-white hover:bg-green-700" : "bg-muted text-muted-foreground"}`}
-          >
-            Send to CRM
-          </button>
-          {!isReadyForCRM(parsed) && (
-            <div className="mt-3 text-xs text-muted-foreground max-w-md mx-auto">
-              Need: intent + market + asset + (units or SF) + (budget or cap). Use the refine chips above.
-            </div>
-          )}
-        </div>
+        {/* Pipeline Board - Only show if confirmed */}
+        {confirmed && rows.prospects.length > 0 && (
+          <PipelineBoard rows={rows} onUpdateRows={setRows} />
+        )}
       </div>
     </div>
   );
