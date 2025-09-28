@@ -72,24 +72,91 @@ export default function Demo(){
     return null;
   }
 
-  async function onParse(){
-    setBusy(true); setErr(null); setDiag(null); setPlan(null); setParsed(null); setRows({prospects:[],qualified:[],booked:[]}); setNeedsVerify(false); setConfirmed(false);
-    try{
-      const res = await parseBuyBox(text);       // LLM-first (server-side)
-      setParsed(res);
-      const rp = buildRefinePlan(res);
-      setPlan(rp.items.length ? rp : null);
-      
-      // Check if verification is needed
-      const missingCore = !res.intent || !res.market?.city || !res.asset_type || (!res.units && !res.size_sf) || (!res.budget && !res.cap_rate);
-      setNeedsVerify(missingCore);
-      
-      // Only generate prospects if not missing core fields
-      if (!missingCore) {
-        setConfirmed(true);
-        setRows(generateProspects(res, text, 12));
+  function onParse(){
+    // Don't call API - just show verification step
+    setBusy(false); setErr(null); setDiag(null); setPlan(null); setRows({prospects:[],qualified:[],booked:[]}); setNeedsVerify(true); setConfirmed(false);
+    
+    // Create mock parsed data from text for verification
+    const mockParsed: ParsedBuyBox = {
+      intent: extractField(text, ['intent:', 'Intent:']),
+      market: { 
+        city: extractField(text, ['market:', 'Market:', 'in ']),
+        state: null,
+        country: null
+      },
+      asset_type: extractField(text, ['asset type:', 'Asset Type:', 'asset:']),
+      units: parseRange(extractField(text, ['units:', 'Units:'])),
+      size_sf: parseRange(extractField(text, ['size:', 'Size:', 'sf:', 'SF:'])),
+      budget: parseRange(extractField(text, ['budget:', 'Budget:', '$'])),
+      cap_rate: parseRange(extractField(text, ['cap rate:', 'Cap Rate:', 'cap:', '≥', '>='])),
+      timing: extractField(text, ['timing:', 'Timing:', 'notes:', 'Notes:']),
+      missing: []
+    };
+    
+    setParsed(mockParsed);
+    const rp = buildRefinePlan(mockParsed);
+    setPlan(rp.items.length ? rp : null);
+  }
+  
+  function extractField(text: string, patterns: string[]): string | undefined {
+    for (const pattern of patterns) {
+      const regex = new RegExp(`${pattern.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*([^•]+)`, 'i');
+      const match = text.match(regex);
+      if (match && match[1]) {
+        return match[1].trim();
       }
-    }catch(e:any){
+    }
+    return undefined;
+  }
+  
+  function parseRange(text: string | undefined): { min?: number | null; max?: number | null } | null {
+    if (!text) return null;
+    
+    // Look for ranges like "50-100", "≤ $20M", "≥ 6%"
+    const rangeMatch = text.match(/(\d+)\s*[-–]\s*(\d+)/);
+    if (rangeMatch) {
+      return { min: parseInt(rangeMatch[1]), max: parseInt(rangeMatch[2]) };
+    }
+    
+    const maxMatch = text.match(/[≤<=]\s*\$?(\d+)/);
+    if (maxMatch) {
+      return { min: null, max: parseInt(maxMatch[1]) };
+    }
+    
+    const minMatch = text.match(/[≥>=]\s*(\d+)/);
+    if (minMatch) {
+      return { min: parseInt(minMatch[1]), max: null };
+    }
+    
+    const singleMatch = text.match(/(\d+)/);
+    if (singleMatch) {
+      return { min: parseInt(singleMatch[1]), max: null };
+    }
+    
+    return null;
+  }
+
+  function onInsert(snippet:string){ setText(prev => (prev?.trim()? `${prev.trim()} ${snippet}` : snippet)); }
+
+  function handleQuerySelect(query: string) {
+    setText(query);
+    // Don't auto-run parser - user needs to click Parse
+  }
+
+  function handleAddFragment(fragment: string) {
+    setText(prev => prev ? `${prev} • ${fragment}` : fragment);
+  }
+
+  async function handleConfirmParsed() {
+    setBusy(true);
+    try {
+      // Now call the actual API with the verified data
+      const res = await parseBuyBox(text);
+      setParsed(res);
+      setConfirmed(true);
+      setNeedsVerify(false);
+      setRows(generateProspects(res, text, 12));
+    } catch(e:any) {
       const m = String(e?.message||e);
       if (m.includes("llm_unavailable") || m.includes("llm") || m.includes("model")) {
         setErr("LLM unavailable. Try again in a moment.");
@@ -98,27 +165,10 @@ export default function Demo(){
                m.startsWith("http-") ? `Server ${m.replace("http-","")}` :
                m.includes("timeout") ? "Function timeout." : "Network error or function unreachable.");
       }
-      const h = await checkHealth(); setDiag(h);
-    }finally{ setBusy(false); }
-  }
-
-  function onInsert(snippet:string){ setText(prev => (prev?.trim()? `${prev.trim()} ${snippet}` : snippet)); }
-
-  function handleQuerySelect(query: string) {
-    setText(query);
-    // Auto-run the parser after selecting a query
-    setTimeout(() => onParse(), 100);
-  }
-
-  function handleAddFragment(fragment: string) {
-    setText(prev => prev ? `${prev} • ${fragment}` : fragment);
-  }
-
-  function handleConfirmParsed() {
-    setConfirmed(true);
-    setNeedsVerify(false);
-    if (parsed) {
-      setRows(generateProspects(parsed, text, 12));
+      const h = await checkHealth(); 
+      setDiag(h);
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -137,10 +187,10 @@ export default function Demo(){
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 py-12 md:py-20">
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-foreground">
             Deal Finder — Live Demo
           </h1>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-xl">
             Type your criteria and find qualified targets instantly
           </p>
         </div>
@@ -199,10 +249,10 @@ export default function Demo(){
           />
         )}
 
-        {/* Parsed Results */}
-        {parsed && (
+        {/* Parsed Results - Only show grid after confirmation */}
+        {parsed && confirmed && (
           <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg">
-            <h2 className="text-xl font-medium text-foreground mb-4">Parsed Buy-Box</h2>
+            <h2 className="text-2xl font-medium tracking-tight text-foreground mb-6">Parsed Buy-Box</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
               <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
               <div><span className="font-medium text-foreground">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? parsed.asset ?? "-"}</span></div>
