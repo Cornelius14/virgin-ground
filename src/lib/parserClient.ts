@@ -54,9 +54,9 @@ export async function parseBuyBox(text: string): Promise<ApiResponse> {
 export async function checkHealth(): Promise<string> {
   try {
     const supabase = getSupabase();
-    const { data, error } = await supabase.functions.invoke("parseBuyBox", { method: "GET" });
+    const { data, error } = await supabase.functions.invoke("parseBuyBox", { body: { text: "health_check" } });
     if (error) return `Health error: ${error.message || error.status}`;
-    return data?.ok ? "Health OK" : "Health unknown";
+    return data ? "Health OK" : "Health unknown";
   } catch (e:any) {
     const msg = String(e?.message || e);
     if (msg === "supabase_not_configured") return "Supabase not configured (set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY).";

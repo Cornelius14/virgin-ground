@@ -88,9 +88,15 @@ export default function Demo(){
     
     try {
       // Build full text from company info + deal criteria
-      const fullText = firmIntel 
-        ? `Company: ${firmIntel.firmName || ''} ${firmIntel.snapshot?.join(' ') || ''} • ${finalCriteriaText}`
-        : finalCriteriaText;
+      const segments: string[] = [];
+      if (firmIntel) {
+        const companySnippet = `Company: ${firmIntel.firmName || ''} ${firmIntel.snapshot?.join(' ') || ''}`.trim();
+        if (companySnippet) segments.push(companySnippet);
+      }
+      if (finalCriteriaText && finalCriteriaText.trim()) {
+        segments.push(finalCriteriaText.trim());
+      }
+      const fullText = segments.join(' • ');
       
       // Validate that we have text to send
       if (!fullText || fullText.trim().length === 0) {
@@ -242,12 +248,12 @@ export default function Demo(){
               >
                 Edit
               </Button>
-              {finalCriteriaText && (
+              {finalCriteriaText.trim().length > 0 && (
                 <Button 
                   onClick={onParse}
                   variant="default"
                   className="text-sm"
-                  disabled={busy}
+                  disabled={busy || finalCriteriaText.trim().length === 0}
                 >
                   {busy ? "Processing..." : "Confirm"}
                 </Button>
