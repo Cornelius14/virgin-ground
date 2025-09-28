@@ -34,8 +34,9 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
       <h2 className="text-xl font-medium text-foreground mb-6">
         Personalized for {firmName}
       </h2>
-
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      
+      {/* Main content row */}
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 mb-8">
         {/* Logo Section */}
         <div className="flex flex-col items-center space-y-4">
           <div className="cosmic-card rounded-2xl p-6 w-32 h-32 flex items-center justify-center shadow-sm">
@@ -99,18 +100,18 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
             })}
           </div>
         </div>
+      </div>
 
-        {/* Structured Queries Section */}
-        <div className="space-y-4">
-          <SuggestedQueries 
-            intel={intel} 
-            onQuerySelect={onQuerySelect}
-            onAddFragment={(fragment) => {
-              // For now, just append to the query - this should be handled by parent
-              console.log('Add fragment:', fragment);
-            }}
-          />
-        </div>
+      {/* Structured Queries Section - Now in its own full-width column */}
+      <div className="space-y-4">
+        <SuggestedQueries 
+          intel={intel} 
+          onQuerySelect={onQuerySelect}
+          onAddFragment={(fragment) => {
+            // For now, just append to the query - this should be handled by parent
+            console.log('Add fragment:', fragment);
+          }}
+        />
       </div>
     </div>
   );
