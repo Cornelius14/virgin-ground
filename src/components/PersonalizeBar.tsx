@@ -74,11 +74,11 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
   return (
     <div className="mb-6">
       <div className="cosmic-card rounded-2xl p-6 shadow-lg">
-        <h3 className="text-lg font-medium text-foreground mb-4">Personalize for my firm</h3>
+        <h3 className="text-2xl font-medium text-foreground mb-4">Personalize for my firm</h3>
         
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-foreground mb-2">
+            <label className="block font-medium text-foreground mb-2">
               Firm Name
             </label>
             <input
@@ -113,7 +113,7 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
 
         {showUrlInput && (
           <div className="mt-4">
-            <label className="block text-sm font-medium text-foreground mb-2">
+            <label className="block font-medium text-foreground mb-2">
               Website URL
             </label>
             <input

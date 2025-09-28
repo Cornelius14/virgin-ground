@@ -68,7 +68,7 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
 
   return (
     <div className="space-y-4">
-      <h3 className="text-base font-medium text-foreground">Structured Queries</h3>
+      <h3 className="text-lg font-medium text-foreground">Structured Queries</h3>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {queries.map((query) => (
           <div key={query.id} className="cosmic-card rounded-2xl p-6 shadow-sm flex flex-col">
