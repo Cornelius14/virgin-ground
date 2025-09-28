@@ -92,6 +92,13 @@ export default function Demo(){
         ? `Company: ${firmIntel.firmName || ''} ${firmIntel.snapshot?.join(' ') || ''} • ${finalCriteriaText}`
         : finalCriteriaText;
       
+      // Validate that we have text to send
+      if (!fullText || fullText.trim().length === 0) {
+        setErr("Please set your deal criteria before confirming.");
+        setBusy(false);
+        return;
+      }
+      
       console.log('📝 Full text to be sent to API:', fullText);
       console.log('📦 Full text length:', fullText.length);
       
