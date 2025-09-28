@@ -29,15 +29,34 @@ export type FirmCriteria = {
   timing_hints: string[];
 };
 
+export type StructuredQuery = {
+  id: string;
+  title: string;
+  emoji: string;
+  bullets: string[];
+  fields: {
+    intent?: string;
+    assetType?: string;
+    market?: string;
+    units?: string;
+    sizeSf?: string;
+    budget?: string;
+    capRate?: string;
+    timing?: string;
+  };
+  text: string;
+  missingKeys: string[];
+};
+
 export type FirmIntelResponse = {
+  success: boolean;
+  firmName: string;
   firmUrl?: string | null;
   logoUrl?: string | null;
   brandColor?: string | null;
   snapshot: string[];
-  transactions: FirmTransaction[];
-  criteria: FirmCriteria;
-  queries: string[];
-  needsInput?: "url";
+  structuredQueries: StructuredQuery[];
+  needsInput?: "url" | null;
   error?: string | null;
 };
 
