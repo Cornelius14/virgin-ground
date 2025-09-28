@@ -6,7 +6,7 @@ import { generateProspects } from "../lib/generateProspects";
 import PersonalizeBar from "../components/PersonalizeBar";
 import PersonalizedPanel from "../components/PersonalizedPanel";
 import SuggestedQueries from "../components/SuggestedQueries";
-import VerifyBuyBox from "../components/VerifyBuyBox";
+
 import PipelineBoard from "../components/PipelineBoard";
 import CriteriaEditModal from "../components/CriteriaEditModal";
 import { Button } from "../components/ui/button";
@@ -31,7 +31,7 @@ export default function Demo(){
   const [hasAccess, setHasAccess] = useState(false);
   const [isChecking, setIsChecking] = useState(true);
   const [firmIntel, setFirmIntel] = useState<FirmIntelResponse | null>(null);
-  const [needsVerify, setNeedsVerify] = useState(false);
+  
   const [confirmed, setConfirmed] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [finalCriteriaText, setFinalCriteriaText] = useState("");
@@ -76,30 +76,40 @@ export default function Demo(){
     return null;
   }
 
-  function onParse(){
-    // Don't call API - just show verification step
-    setBusy(false); setErr(null); setDiag(null); setPlan(null); setRows({prospects:[],qualified:[],booked:[]}); setNeedsVerify(true); setConfirmed(false);
+  async function onParse(){
+    setBusy(true);
+    setErr(null);
+    setDiag(null);
+    setPlan(null);
+    setRows({prospects:[],qualified:[],booked:[]});
     
-    // Create mock parsed data from text for verification
-    const mockParsed: ParsedBuyBox = {
-      intent: extractField(text, ['intent:', 'Intent:']),
-      market: { 
-        city: extractField(text, ['market:', 'Market:', 'in ']),
-        state: null,
-        country: null
-      },
-      asset_type: extractField(text, ['asset type:', 'Asset Type:', 'asset:']),
-      units: parseRange(extractField(text, ['units:', 'Units:'])),
-      size_sf: parseRange(extractField(text, ['size:', 'Size:', 'sf:', 'SF:'])),
-      budget: parseRange(extractField(text, ['budget:', 'Budget:', '$'])),
-      cap_rate: parseRange(extractField(text, ['cap rate:', 'Cap Rate:', 'cap:', '≥', '>='])),
-      timing: extractField(text, ['timing:', 'Timing:', 'notes:', 'Notes:']),
-      missing: []
-    };
+    setConfirmed(false);
     
-    setParsed(mockParsed);
-    const rp = buildRefinePlan(mockParsed);
-    setPlan(rp.items.length ? rp : null);
+    try {
+      // Build full text from company info + deal criteria
+      const fullText = firmIntel 
+        ? `Company: ${firmIntel.firmName || ''} ${firmIntel.snapshot?.join(' ') || ''} • ${finalCriteriaText}`
+        : finalCriteriaText;
+      
+      // Call the parseBuyBox API directly
+      const res = await parseBuyBox(fullText);
+      setParsed(res);
+      setConfirmed(true);
+      setRows(generateProspects(res, fullText, 12));
+    } catch(e:any) {
+      const m = String(e?.message||e);
+      if (m.includes("llm_unavailable") || m.includes("llm") || m.includes("model")) {
+        setErr("LLM unavailable. Try again in a moment.");
+      } else {
+        setErr(m === "supabase_not_configured" ? "Supabase not configured. Add VITE_SUPABASE_URL & VITE_SUPABASE_ANON_KEY." :
+               m.startsWith("http-") ? `Server ${m.replace("http-","")}` :
+               m.includes("timeout") ? "Function timeout." : "Network error or function unreachable.");
+      }
+      const h = await checkHealth(); 
+      setDiag(h);
+    } finally {
+      setBusy(false);
+    }
   }
   
   function extractField(text: string, patterns: string[]): string | undefined {
@@ -156,37 +166,6 @@ export default function Demo(){
     setText(prev => prev ? `${prev} • ${fragment}` : fragment);
   }
 
-  async function handleConfirmParsed() {
-    setBusy(true);
-    try {
-      // Now call the actual API with the verified data
-      const res = await parseBuyBox(text);
-      setParsed(res);
-      setConfirmed(true);
-      setNeedsVerify(false);
-      setRows(generateProspects(res, text, 12));
-    } catch(e:any) {
-      const m = String(e?.message||e);
-      if (m.includes("llm_unavailable") || m.includes("llm") || m.includes("model")) {
-        setErr("LLM unavailable. Try again in a moment.");
-      } else {
-        setErr(m === "supabase_not_configured" ? "Supabase not configured. Add VITE_SUPABASE_URL & VITE_SUPABASE_ANON_KEY." :
-               m.startsWith("http-") ? `Server ${m.replace("http-","")}` :
-               m.includes("timeout") ? "Function timeout." : "Network error or function unreachable.");
-      }
-      const h = await checkHealth(); 
-      setDiag(h);
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  function handleEditParsed(updatedParsed: ParsedBuyBox) {
-    setParsed(updatedParsed);
-    // Check if still needs verification
-    const missingCore = !updatedParsed.intent || !updatedParsed.market?.city || !updatedParsed.asset_type || (!updatedParsed.units && !updatedParsed.size_sf) || (!updatedParsed.budget && !updatedParsed.cap_rate);
-    setNeedsVerify(missingCore);
-  }
 
   function handleModalDone(criteriaText: string) {
     setFinalCriteriaText(criteriaText);
@@ -252,14 +231,12 @@ export default function Demo(){
           )}
         </div>
 
-        {/* Verification Flow */}
-        {parsed && needsVerify && !confirmed && (
-          <VerifyBuyBox
-            parsed={parsed}
-            onConfirm={handleConfirmParsed}
-            onEdit={handleEditParsed}
-            onReparse={onParse}
-          />
+        {/* Error Display */}
+        {err && (
+          <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg border-l-4 border-l-destructive bg-destructive/5">
+            <div className="text-sm text-destructive">{err}</div>
+            {diag && <div className="text-xs text-muted-foreground mt-2">Diagnostic: {diag}</div>}
+          </div>
         )}
 
         {/* Parsed Results - Only show grid after confirmation */}
