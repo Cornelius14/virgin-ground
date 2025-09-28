@@ -224,13 +224,25 @@ export default function Demo(){
         <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-medium text-foreground">Deal Criteria</h2>
-            <Button 
-              onClick={() => setModalOpen(true)}
-              variant="outline"
-              className="text-sm"
-            >
-              Edit/Confirm Criteria
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                onClick={() => setModalOpen(true)}
+                variant="outline"
+                className="text-sm"
+              >
+                Edit
+              </Button>
+              {finalCriteriaText && (
+                <Button 
+                  onClick={onParse}
+                  variant="default"
+                  className="text-sm"
+                  disabled={busy}
+                >
+                  {busy ? "Processing..." : "Confirm"}
+                </Button>
+              )}
+            </div>
           </div>
           
           {finalCriteriaText ? (
