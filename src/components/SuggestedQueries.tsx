@@ -69,7 +69,7 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
   return (
     <div className="space-y-4">
       <h3 className="text-base font-medium text-foreground">Structured Queries</h3>
-      <div className="grid gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {queries.map((query) => (
           <div key={query.id} className="cosmic-card rounded-2xl p-6 shadow-sm">
             <div className="space-y-4">
@@ -80,7 +80,7 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
               </div>
 
               {/* Structured Fields Display */}
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+              <div className="grid grid-cols-1 gap-y-2 text-sm">
                 {Object.entries(query.fields).map(([key, value]) => (
                   <div key={key} className="flex items-center gap-2">
                     <span className="text-muted-foreground font-medium min-w-[80px]">
