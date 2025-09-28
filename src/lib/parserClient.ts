@@ -12,6 +12,15 @@ export type ParsedBuyBox = {
   missing?: string[];
 };
 
+export type ApiResponse = {
+  buyBox?: ParsedBuyBox;
+  prospects?: {
+    prospects: any[];
+    qualified: any[];
+    booked: any[];
+  };
+} | ParsedBuyBox;
+
 function getSupabase() {
   // Lovable's Supabase integration usually injects these envs; if not, user must set them.
   const url = "https://bwvvahpaszgpoedhlkxy.supabase.co";
@@ -29,7 +38,7 @@ function withTimeout<T>(p: Promise<T>, ms = 12000) {
   ]);
 }
 
-export async function parseBuyBox(text: string): Promise<ParsedBuyBox> {
+export async function parseBuyBox(text: string): Promise<ApiResponse> {
   const supabase = getSupabase();
   const { data, error } = await withTimeout(
     supabase.functions.invoke("parseBuyBox", { body: { text } }),
@@ -39,7 +48,7 @@ export async function parseBuyBox(text: string): Promise<ParsedBuyBox> {
     // Bubble up descriptive error codes
     throw new Error(error.message || `http-${error.status || 500}`);
   }
-  return (data ?? {}) as ParsedBuyBox;
+  return (data ?? {}) as ApiResponse;
 }
 
 export async function checkHealth(): Promise<string> {

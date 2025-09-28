@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { parseBuyBox, checkHealth, type ParsedBuyBox } from "../lib/parserClient";
+import { parseBuyBox, checkHealth, type ParsedBuyBox, type ApiResponse } from "../lib/parserClient";
 import { buildRefinePlan } from "../lib/buildRefinePlan";
 import RefineBanner from "../components/RefineBanner";
 import { generateProspects } from "../lib/generateProspects";
@@ -100,9 +100,25 @@ export default function Demo(){
       const res = await parseBuyBox(fullText);
       console.log('✅ API response received:', res);
       
-      setParsed(res);
+      // Handle new API response format with fallback
+      let buyBoxData: ParsedBuyBox;
+      let prospectsData: { prospects: any[]; qualified: any[]; booked: any[] };
+      
+      if ('buyBox' in res && res.buyBox) {
+        // New format with buyBox and prospects
+        buyBoxData = res.buyBox;
+        prospectsData = res.prospects || { prospects: [], qualified: [], booked: [] };
+        console.log('📊 Using API-generated prospects:', prospectsData);
+      } else {
+        // Legacy format - just the buyBox data
+        buyBoxData = res as ParsedBuyBox;
+        prospectsData = generateProspects(buyBoxData, fullText, 12);
+        console.log('📊 Using fallback prospect generation');
+      }
+      
+      setParsed(buyBoxData);
       setConfirmed(true);
-      setRows(generateProspects(res, fullText, 12));
+      setRows(prospectsData);
       console.log('🎉 Successfully processed API response');
     } catch(e:any) {
       console.error('❌ Error in onParse:', e);
