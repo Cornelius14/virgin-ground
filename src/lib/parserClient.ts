@@ -14,7 +14,7 @@ export type ParsedBuyBox = {
 
 function getSupabase() {
   // Lovable's Supabase integration usually injects these envs; if not, user must set them.
-  const url = "https://bwvvahpaszgpoedhlkxy.supabase.co/functions/v1/firm-intel" || import.meta.env.VITE_SUPABASE_URL;
+  const url = "https://bwvvahpaszgpoedhlkxy.supabase.co" || import.meta.env.VITE_SUPABASE_URL;
   const anon = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3dnZhaHBhc3pncG9lZGhsa3h5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg5MjA5ODYsImV4cCI6MjA3NDQ5Njk4Nn0._BbYYvaMdvZMaX47-tGUvcVTgOsgi0aBxoU5MBTIx2o" || import.meta.env.VITE_SUPABASE_ANON_KEY;
   if (!url || !anon) {
     throw new Error("supabase_not_configured");
