@@ -42,7 +42,7 @@ export async function parseBuyBox(text: string): Promise<ApiResponse> {
   const supabase = getSupabase();
   const { data, error } = await withTimeout(
     supabase.functions.invoke("parseBuyBox", { body: { text } }),
-    12000
+    120000
   );
   if (error) {
     // Bubble up descriptive error codes
