@@ -136,11 +136,11 @@ export default function Demo(){
       
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 py-12 md:py-20">
-        <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
+          <h1 className="text-3xl md:text-4xl lg:text-6xl font-medium tracking-tighter text-foreground">
             Deal Finder — Live Demo
           </h1>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-muted-foreground text-xl">
             Type your criteria and find qualified targets instantly
           </p>
         </div>
@@ -159,10 +159,12 @@ export default function Demo(){
         )}
 
         {/* Deal Input Section */}
-        <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
-          <label className="block text-lg font-medium text-foreground mb-3">
-            Deal Criteria
-          </label>
+        <div className="cosmic-card rounded-2xl p-8 mb-8 shadow-lg">
+          <div className="text-center space-y-2 mb-6">
+            <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+              Deal Criteria
+            </h2>
+          </div>
           <textarea 
             value={text} 
             onChange={(e)=>setText(e.target.value)}
@@ -179,9 +181,9 @@ export default function Demo(){
               {busy? "Parsing…" : "Parse Criteria"}
             </button>
             {err && (
-              <div className="cosmic-card rounded-lg p-3 border-l-4 border-l-destructive bg-destructive/5">
-                <div className="text-sm text-destructive">{err}</div>
-                {diag && <div className="text-xs text-muted-foreground mt-1">Diagnostics: {diag}</div>}
+              <div className="cosmic-card rounded-lg p-4 border-l-4 border-l-destructive bg-destructive/10 text-center">
+                <div className="text-sm text-destructive font-medium">{err}</div>
+                {diag && <div className="text-xs text-muted-foreground mt-2">Diagnostics: {diag}</div>}
               </div>
             )}
           </div>
@@ -201,8 +203,12 @@ export default function Demo(){
 
         {/* Parsed Results */}
         {parsed && (
-          <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg">
-            <h2 className="text-xl font-medium text-foreground mb-4">Parsed Buy-Box</h2>
+          <div className="cosmic-card rounded-2xl p-8 mb-8 shadow-lg">
+            <div className="text-center space-y-2 mb-6">
+              <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+                Parsed Buy-Box
+              </h2>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
               <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
               <div><span className="font-medium text-foreground">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? parsed.asset ?? "-"}</span></div>

@@ -22,14 +22,14 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   
   const getInteractionNote = () => {
     const notes = [
-      "✅ Expressed urgency to transact this quarter",
-      "🕒 Asked for financing options and cap rate details", 
-      "📞 Call returned; wants 80–100 units in target area",
-      "📧 Replied by email; shared offering memorandum",
-      "🔍 Requested additional property details and financials",
-      "⏰ Meeting scheduled for property tour next week",
-      "💰 Discussed pricing and terms; very interested",
-      "📋 Submitted LOI; waiting on seller response"
+      "✅ Interested; wants call this week",
+      "🕒 Asked for OM; follow up Fri", 
+      "📞 Returned call; prefers 80–100 units",
+      "✉️ Replied by email; shared offering memorandum",
+      "🔍 Requested financials and rent roll",
+      "⏰ Meeting scheduled for next week",
+      "💰 Discussed pricing; very interested",
+      "📋 Submitted LOI; awaiting response"
     ];
     
     // Use a deterministic index based on prospect title
@@ -51,7 +51,7 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   const buttonText = stage === 'prospects' ? 'Qualify →' : 'Book Meeting →';
   
   return (
-    <div className="cosmic-card rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1">
+    <div className="cosmic-card rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
       <div className="space-y-3">
         <div className="text-sm font-medium text-foreground">
           {getCardTitle()}
@@ -62,7 +62,7 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
         </div>
         
         <div className="text-xs text-muted-foreground">
-          {prospect.contact?.name} — {prospect.contact?.email} — {prospect.contact?.phone}
+          {prospect.contact?.name} • {prospect.contact?.email} • {prospect.contact?.phone}
         </div>
         
         <div className="flex gap-1 flex-wrap">
@@ -100,8 +100,8 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
           <Button
             onClick={handleMoveToNext}
             size="sm"
-            className="w-full mt-3 text-xs"
-            variant="outline"
+            className="w-full mt-3 text-xs bg-primary text-primary-foreground hover:bg-primary/90"
+            variant="default"
           >
             {buttonText}
           </Button>
@@ -140,21 +140,21 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
   };
   
   return (
-    <div className="space-y-6">
-      <div className="text-center space-y-2">
+    <div className="space-y-8">
+      <div className="text-center space-y-3">
         <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
           Deal Pipeline
         </h2>
         <p className="text-muted-foreground text-lg">
-          Prospects → Qualified Targets → Meetings Booked
+          Prospected → Qualified Target → Meeting Booked
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Prospected Column */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <h3 className="text-lg font-medium text-foreground tracking-tight">
               📋 Prospected
             </h3>
             <span className="text-xs bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
@@ -179,9 +179,9 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
         </div>
 
         {/* Qualified Target Column */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <h3 className="text-lg font-medium text-foreground tracking-tight">
               🎯 Qualified Target
             </h3>
             <span className="text-xs bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
@@ -206,9 +206,9 @@ export default function PipelineBoard({ rows, onUpdateRows }: PipelineBoardProps
         </div>
 
         {/* Meeting Booked Column */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between border-b border-border pb-3">
-            <h3 className="text-sm font-medium text-foreground uppercase tracking-wider">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between border-b border-border pb-4">
+            <h3 className="text-lg font-medium text-foreground tracking-tight">
               📅 Meeting Booked
             </h3>
             <span className="text-xs bg-muted px-3 py-1 rounded-full text-muted-foreground font-medium">
