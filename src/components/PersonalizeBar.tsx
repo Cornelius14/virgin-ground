@@ -74,11 +74,11 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
   return (
     <div className="mb-6">
       <div className="cosmic-card rounded-2xl p-6 shadow-lg">
-        <h3 className="text-lg font-medium text-foreground mb-4">Personalize for my firm</h3>
+        <h3 className="text-heading-h3 font-medium text-foreground mb-4">Personalize for my firm</h3>
         
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-foreground mb-2">
+            <label className="block text-body-sm font-medium text-foreground mb-2">
               Firm Name
             </label>
             <input
@@ -91,7 +91,7 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
           </div>
           
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <label className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <label className="flex items-center gap-2 text-body-sm text-muted-foreground hover:text-foreground transition-colors">
               <input
                 type="checkbox"
                 checked={showUrlInput}
@@ -104,7 +104,7 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
             <button
               onClick={handlePersonalize}
               disabled={!firmName.trim() || !!loadingStep}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-body-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6"
             >
               {loadingStep ? "Processing…" : "Personalize"}
             </button>
@@ -113,7 +113,7 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
 
         {showUrlInput && (
           <div className="mt-4">
-            <label className="block text-sm font-medium text-foreground mb-2">
+            <label className="block text-body-sm font-medium text-foreground mb-2">
               Website URL
             </label>
             <input
@@ -128,7 +128,7 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
 
         {loadingStep && (
           <div className="mt-6">
-            <div className="flex items-center justify-between text-sm text-muted-foreground mb-3">
+            <div className="flex items-center justify-between text-body-sm text-muted-foreground mb-3">
               <div className="flex items-center gap-2">
                 <div className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse"></div>
                 <span>Processing: {loadingStep}</span>
@@ -145,13 +145,13 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
         )}
 
         {error && (
-          <div className="mt-4 text-sm text-destructive bg-destructive/10 rounded-lg px-3 py-2">
+          <div className="mt-4 text-body-sm text-destructive bg-destructive/10 rounded-lg px-3 py-2">
             {error}
           </div>
         )}
 
         {needsUrl && (
-          <div className="mt-4 text-sm text-amber-600 bg-amber-50/10 rounded-lg px-3 py-2">
+          <div className="mt-4 text-body-sm text-amber-600 bg-amber-50/10 rounded-lg px-3 py-2">
             We couldn't confirm the website—paste a URL and try again.
           </div>
         )}

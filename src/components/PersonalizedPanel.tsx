@@ -31,7 +31,7 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
 
   return (
     <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg cosmic-glow">
-      <h2 className="text-xl font-medium text-foreground mb-6">
+      <h2 className="text-heading-h2 font-medium text-foreground mb-6">
         Personalized for {firmName}
       </h2>
       
@@ -66,7 +66,7 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
               href={intel.firmUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
+              className="text-body-sm text-muted-foreground hover:text-foreground transition-colors underline-offset-4 hover:underline"
             >
               {getDomainFromUrl(intel.firmUrl)}
             </a>
@@ -75,7 +75,7 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
 
         {/* Snapshot Section */}
         <div className="space-y-4">
-          <h3 className="text-base font-medium text-foreground">Recent Activity</h3>
+          <h3 className="text-heading-h4 font-medium text-foreground">Recent Activity</h3>
           <div className="space-y-3">
             {intel.snapshot.slice(0, 3).map((bullet, index) => {
               const parts = bullet.split('(source: ');
@@ -83,14 +83,14 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
               const source = parts[1]?.replace(')', '');
               
               return (
-                <div key={index} className="text-sm text-muted-foreground leading-relaxed">
+                <div key={index} className="text-body-sm text-muted-foreground">
                   <span className="text-foreground">•</span> {text}
                   {source && (
                     <a
                       href={`https://${source}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-1 text-xs text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
+                      className="ml-1 text-caption-base text-muted-foreground hover:text-foreground underline-offset-4 hover:underline"
                     >
                       ({source})
                     </a>

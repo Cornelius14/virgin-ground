@@ -218,10 +218,10 @@ export default function Demo(){
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 py-12 md:py-20">
         <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-foreground">
+          <h1 className="text-display-xl font-medium tracking-tighter text-foreground">
             Deal Finder — Live Demo
           </h1>
-          <p className="text-muted-foreground text-xl">
+          <p className="text-muted-foreground text-body-xl">
             Type your criteria and find qualified targets instantly
           </p>
         </div>
@@ -237,12 +237,12 @@ export default function Demo(){
         {/* Deal Criteria Display Section */}
         <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-medium text-foreground">Deal Criteria</h2>
+            <h2 className="text-heading-h3 font-medium text-foreground">Deal Criteria</h2>
             <div className="flex gap-2">
               <Button 
                 onClick={() => setModalOpen(true)}
                 variant="outline"
-                className="text-sm"
+                className="text-body-sm"
               >
                 Edit
               </Button>
@@ -250,7 +250,7 @@ export default function Demo(){
                 <Button 
                   onClick={onParse}
                   variant="default"
-                  className="text-sm"
+                  className="text-body-sm"
                   disabled={busy || finalCriteriaText.trim().length === 0}
                 >
                   {busy ? "Processing..." : "Confirm"}
@@ -260,11 +260,11 @@ export default function Demo(){
           </div>
           
           {finalCriteriaText ? (
-            <div className="text-sm text-foreground leading-relaxed whitespace-pre-line bg-muted/50 rounded-xl p-4">
+            <div className="text-body-sm text-foreground whitespace-pre-line bg-muted/50 rounded-xl p-4">
               {finalCriteriaText.replace(/•/g, '\n•')}
             </div>
           ) : (
-            <div className="text-sm text-muted-foreground italic">
+            <div className="text-body-sm text-muted-foreground italic">
               Click "Edit/Confirm Criteria" to set your deal parameters
             </div>
           )}
@@ -273,16 +273,16 @@ export default function Demo(){
         {/* Error Display */}
         {err && (
           <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg border-l-4 border-l-destructive bg-destructive/5">
-            <div className="text-sm text-destructive">{err}</div>
-            {diag && <div className="text-xs text-muted-foreground mt-2">Diagnostic: {diag}</div>}
+            <div className="text-body-sm text-destructive">{err}</div>
+            {diag && <div className="text-caption-base text-muted-foreground mt-2">Diagnostic: {diag}</div>}
           </div>
         )}
 
         {/* Parsed Results - Only show grid after confirmation */}
         {parsed && confirmed && (
           <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg">
-            <h2 className="text-2xl font-medium tracking-tight text-foreground mb-6">Parsed Buy-Box</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+            <h2 className="text-heading-h2 font-medium tracking-tight text-foreground mb-6">Parsed Buy-Box</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-body-sm">
               <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
               <div><span className="font-medium text-foreground">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? parsed.asset ?? "-"}</span></div>
               <div><span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state? ", "+parsed.market.state:""}${parsed.market?.country? ", "+parsed.market.country:""}` : "-"}</span></div>

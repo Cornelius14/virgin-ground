@@ -56,6 +56,34 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontSize: {
+        // Display sizes (for hero sections, main titles)
+        'display-2xl': ['var(--display-2xl)', { lineHeight: 'var(--leading-display)' }],
+        'display-xl': ['var(--display-xl)', { lineHeight: 'var(--leading-display)' }],
+        'display-lg': ['var(--display-lg)', { lineHeight: 'var(--leading-display)' }],
+        'display-md': ['var(--display-md)', { lineHeight: 'var(--leading-display)' }],
+        'display-sm': ['var(--display-sm)', { lineHeight: 'var(--leading-display)' }],
+        
+        // Heading sizes (for section titles, card headers)
+        'heading-h1': ['var(--heading-h1)', { lineHeight: 'var(--leading-heading)' }],
+        'heading-h2': ['var(--heading-h2)', { lineHeight: 'var(--leading-heading)' }],
+        'heading-h3': ['var(--heading-h3)', { lineHeight: 'var(--leading-heading)' }],
+        'heading-h4': ['var(--heading-h4)', { lineHeight: 'var(--leading-heading)' }],
+        'heading-h5': ['var(--heading-h5)', { lineHeight: 'var(--leading-heading)' }],
+        'heading-h6': ['var(--heading-h6)', { lineHeight: 'var(--leading-heading)' }],
+        
+        // Body sizes (for content, descriptions)
+        'body-xl': ['var(--body-xl)', { lineHeight: 'var(--leading-body)' }],
+        'body-lg': ['var(--body-lg)', { lineHeight: 'var(--leading-body)' }],
+        'body-base': ['var(--body-base)', { lineHeight: 'var(--leading-body)' }],
+        'body-sm': ['var(--body-sm)', { lineHeight: 'var(--leading-body)' }],
+        'body-xs': ['var(--body-xs)', { lineHeight: 'var(--leading-body)' }],
+        
+        // Caption sizes (for labels, metadata)
+        'caption-lg': ['var(--caption-lg)', { lineHeight: 'var(--leading-caption)' }],
+        'caption-base': ['var(--caption-base)', { lineHeight: 'var(--leading-caption)' }],
+        'caption-sm': ['var(--caption-sm)', { lineHeight: 'var(--leading-caption)' }],
+      },
       keyframes: {
         "fade-up": {
           "0%": {
