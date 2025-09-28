@@ -1,5 +1,6 @@
 import React from "react";
 import type { FirmIntelResponse } from "../lib/firmIntelClient";
+import SuggestedQueries from "./SuggestedQueries";
 
 interface PersonalizedPanelProps {
   intel: FirmIntelResponse;
@@ -99,20 +100,16 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
           </div>
         </div>
 
-        {/* Structured Queries Section - Keep simple queries here */}
+        {/* Structured Queries Section */}
         <div className="space-y-4">
-          <h3 className="text-base font-medium text-foreground">Structured Queries</h3>
-          <div className="space-y-2">
-            {intel.queries.slice(0, 3).map((query, index) => (
-              <button
-                key={index}
-                onClick={() => onQuerySelect(query)}
-                className="w-full rounded-xl border border-border bg-card px-4 py-3 text-left text-sm text-foreground hover:bg-accent hover:text-accent-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 shadow-sm"
-              >
-                {query}
-              </button>
-            ))}
-          </div>
+          <SuggestedQueries 
+            intel={intel} 
+            onQuerySelect={onQuerySelect}
+            onAddFragment={(fragment) => {
+              // For now, just append to the query
+              onQuerySelect(fragment);
+            }}
+          />
         </div>
       </div>
     </div>
