@@ -23,7 +23,7 @@ interface StructuredQuery {
 
 interface SuggestedQueriesProps {
   intel: FirmIntelResponse | null;
-  onQuerySelect: (query: string) => void;
+  onQuerySelect: (query: string, fields?: any) => void;
   onAddFragment: (fragment: string) => void;
 }
 
@@ -284,7 +284,7 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
   if (!queries.length) return null;
 
   const handleUseQuery = (query: StructuredQuery) => {
-    // Fill the deal criteria with structured fields
+    // Create structured fields object
     const criteriaFields = {
       intent: query.fields.intent || '',
       assetType: query.fields.assetType || '',
@@ -296,8 +296,8 @@ export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }
       timing: query.fields.timing || ''
     };
     
-    // Call onQuerySelect with the structured query text for backward compatibility
-    onQuerySelect(query.text);
+    // Pass both the text and structured fields
+    onQuerySelect(query.text, criteriaFields);
   };
 
   const getFieldLabel = (key: string): string => {

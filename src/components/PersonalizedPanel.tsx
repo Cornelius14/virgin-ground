@@ -4,7 +4,7 @@ import SuggestedQueries from "./SuggestedQueries";
 
 interface PersonalizedPanelProps {
   intel: FirmIntelResponse;
-  onQuerySelect: (query: string) => void;
+  onQuerySelect: (query: string, fields?: any) => void;
 }
 
 export default function PersonalizedPanel({ intel, onQuerySelect }: PersonalizedPanelProps) {
@@ -106,8 +106,8 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
             intel={intel} 
             onQuerySelect={onQuerySelect}
             onAddFragment={(fragment) => {
-              // For now, just append to the query
-              onQuerySelect(fragment);
+              // For now, just append to the query - this should be handled by parent
+              console.log('Add fragment:', fragment);
             }}
           />
         </div>

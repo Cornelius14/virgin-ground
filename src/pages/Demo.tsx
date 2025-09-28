@@ -142,9 +142,14 @@ export default function Demo(){
 
   function onInsert(snippet:string){ setText(prev => (prev?.trim()? `${prev.trim()} ${snippet}` : snippet)); }
 
-  function handleQuerySelect(query: string) {
+  function handleQuerySelect(query: string, fields?: any) {
     setText(query);
-    // Don't auto-run parser - user needs to click Parse
+    
+    // If structured fields are provided, set them directly as final criteria and open modal
+    if (fields) {
+      setFinalCriteriaText(query);
+      setModalOpen(true);
+    }
   }
 
   function handleAddFragment(fragment: string) {
