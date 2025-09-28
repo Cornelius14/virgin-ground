@@ -57,39 +57,39 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
   };
   
   return (
-    <div className="cosmic-card rounded-xl p-6 mb-6 shadow-md border-l-4 border-l-amber-400">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium text-foreground">
+    <div className="cosmic-card rounded-xl p-6 mb-6 shadow-lg border-l-4 border-l-amber-400 border border-border">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-2xl md:text-3xl font-medium tracking-tighter text-foreground">
           {needsInput ? '⚠️ Verify Buy-Box' : '✅ Confirm Buy-Box'}
         </h3>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-lg text-muted-foreground">
           Did we understand this correctly?
         </div>
       </div>
       
       {needsInput && (
-        <div className="mb-4 p-3 rounded-lg bg-amber-50/10 border border-amber-300/30">
-          <div className="text-sm text-amber-400 mb-2">
+        <div className="mb-6 p-4 rounded-lg bg-amber-500/10 border border-amber-400/30">
+          <div className="text-sm font-medium text-amber-400 mb-3">
             <strong>Needs input:</strong> {missingFields.join(', ')}
           </div>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-2">
             {missingFields.includes('intent') && getExampleChips('intent').map(chip => (
-              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
+              <button key={chip} className="px-3 py-1.5 text-xs font-medium rounded bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 transition-colors">
                 {chip}
               </button>
             ))}
             {missingFields.includes('asset_type') && getExampleChips('asset_type').map(chip => (
-              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
+              <button key={chip} className="px-3 py-1.5 text-xs font-medium rounded bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 transition-colors">
                 {chip}
               </button>
             ))}
             {missingFields.includes('units OR size') && [...getExampleChips('units'), ...getExampleChips('size')].map(chip => (
-              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
+              <button key={chip} className="px-3 py-1.5 text-xs font-medium rounded bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 transition-colors">
                 {chip}
               </button>
             ))}
             {missingFields.includes('budget OR cap') && [...getExampleChips('budget'), ...getExampleChips('cap')].map(chip => (
-              <button key={chip} className="px-2 py-1 text-xs rounded bg-amber-100/20 text-amber-300 hover:bg-amber-100/30">
+              <button key={chip} className="px-3 py-1.5 text-xs font-medium rounded bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 transition-colors">
                 {chip}
               </button>
             ))}
@@ -144,7 +144,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm mb-6">
           <div className={needsInput && !parsed.intent ? 'text-amber-400' : ''}>
             <span className="font-medium">Intent:</span> <span className="text-muted-foreground">{parsed.intent || "—"}</span>
           </div>
@@ -172,7 +172,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
         </div>
       )}
       
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         {isEditing ? (
           <>
             <Button onClick={handleSaveEdits} className="flex-1">
@@ -187,7 +187,7 @@ export default function VerifyBuyBox({ parsed, onConfirm, onEdit, onReparse }: V
             <Button 
               onClick={onConfirm} 
               disabled={needsInput}
-              className="flex-1"
+              className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
             >
               {needsInput ? 'Complete Missing Fields' : 'Confirm & Continue'}
             </Button>
