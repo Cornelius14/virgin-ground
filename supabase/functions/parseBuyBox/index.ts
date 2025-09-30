@@ -1,5 +1,5 @@
 // Deno Edge Function (server-side)
-// Calls OpenAI and returns strict JSON; never expose the key to browser.
+// Calls OpenAI and returns strict JSON with buyBox + prospects; never expose the key to browser.
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 
 const cors = {
@@ -31,6 +31,63 @@ If ambiguous, fill what you can and list missing fields in "missing".
 `.trim();
 }
 
+function generateRandomContact() {
+  const firstNames = ["John", "Jane", "Michael", "Sarah", "David", "Emily", "Robert", "Lisa", "James", "Maria"];
+  const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"];
+  const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+  const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+  
+  return {
+    name: `${firstName} ${lastName}`,
+    email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+    phone: `(${Math.floor(Math.random() * 900) + 100}) ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`
+  };
+}
+
+function generateProspect(address: string, market: any) {
+  const channels = {
+    email: Math.random() > 0.2,
+    sms: Math.random() > 0.5,
+    call: Math.random() > 0.3,
+    vm: Math.random() > 0.6
+  };
+  
+  const notes = [
+    "High-quality property in prime location",
+    "Recently renovated with modern amenities",
+    "Strong rental history and occupancy rates",
+    "Excellent investment opportunity",
+    "Well-maintained building with potential upside",
+    "Strategic location near major transportation",
+    "Value-add opportunity with proven track record"
+  ];
+  
+  return {
+    title: address,
+    subtitle: address.split(',')[0] || address,
+    market: market?.city || "Unknown",
+    channels,
+    note: notes[Math.floor(Math.random() * notes.length)],
+    contact: generateRandomContact()
+  };
+}
+
+function generateAddresses(market: any, count: number): string[] {
+  const city = market?.city || "Unknown City";
+  const state = market?.state || "";
+  const country = market?.country || "";
+  
+  const streetNumbers = Array.from({ length: count }, () => Math.floor(Math.random() * 9000) + 1000);
+  const streetNames = ["Main St", "Oak Ave", "Park Blvd", "Market St", "Broadway", "First Ave", "Second St", "Commerce Dr", "Industrial Way", "Harbor Rd"];
+  const postalCodes = Array.from({ length: count }, () => Math.floor(Math.random() * 90000) + 10000);
+  
+  return streetNumbers.map((num, i) => {
+    const street = streetNames[i % streetNames.length];
+    const postal = postalCodes[i];
+    return `${num} ${street}, ${city}${state ? ', ' + state : ''}${country ? ', ' + country : ''} ${postal}`;
+  });
+}
+
 async function openai(text: string) {
   const key = Deno.env.get("OPENAI_API_KEY");
   if (!key) {
@@ -60,7 +117,23 @@ async function openai(text: string) {
 
   const data = await r.json();
   const content = data?.choices?.[0]?.message?.content || "{}";
-  return new Response(content, { status: 200, headers: { ...cors, "Content-Type": "application/json" } });
+  const buyBox = JSON.parse(content);
+  
+  // Generate prospects with addresses and random data
+  const prospectAddresses = generateAddresses(buyBox.market, 3);
+  const qualifiedAddresses = generateAddresses(buyBox.market, 2);
+  const bookedAddresses = generateAddresses(buyBox.market, 1);
+  
+  const response = {
+    buyBox,
+    prospects: {
+      prospects: prospectAddresses.map(addr => generateProspect(addr, buyBox.market)),
+      qualified: qualifiedAddresses.map(addr => generateProspect(addr, buyBox.market)),
+      booked: bookedAddresses.map(addr => generateProspect(addr, buyBox.market))
+    }
+  };
+  
+  return new Response(JSON.stringify(response), { status: 200, headers: { ...cors, "Content-Type": "application/json" } });
 }
 
 serve(async (req) => {

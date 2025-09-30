@@ -135,14 +135,13 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
       <div className="space-y-4">
         {structuredQueries.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 space-y-4">
-            <Button 
+            <button
               onClick={handleGetQueries}
               disabled={loadingQueries}
-              size="lg"
-              className="px-8"
+              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6"
             >
               {loadingQueries ? "Generating Queries..." : "Get Queries"}
-            </Button>
+            </button>
             {queriesError && (
               <div className="text-sm text-destructive bg-destructive/10 rounded-lg px-3 py-2">
                 {queriesError}
