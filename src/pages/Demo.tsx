@@ -129,9 +129,57 @@ export default function Demo(){
         console.log('📊 Using fallback prospect generation');
       }
       
+      // Normalize prospect rows: convert address strings to objects with random details
+      const firstNames = ["John","Jane","Michael","Sarah","David","Emily","Robert","Lisa","James","Maria"];
+      const lastNames = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez"];
+      const randomContact = () => {
+        const fn = firstNames[Math.floor(Math.random()*firstNames.length)];
+        const ln = lastNames[Math.floor(Math.random()*lastNames.length)];
+        const email = `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`;
+        const phone = `(${Math.floor(Math.random()*900)+100}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`;
+        return { name: `${fn} ${ln}`, email, phone };
+      };
+      const randomChannels = () => ({
+        email: Math.random() > 0.2,
+        sms: Math.random() > 0.5,
+        call: Math.random() > 0.3,
+        vm: Math.random() > 0.6,
+      });
+      const notes = [
+        "High-quality property in prime location",
+        "Recently renovated with modern amenities",
+        "Strong rental history and occupancy rates",
+        "Excellent investment opportunity",
+        "Well-maintained building with potential upside",
+        "Strategic location near major transportation",
+        "Value-add opportunity with proven track record",
+      ];
+      const pickNote = () => notes[Math.floor(Math.random()*notes.length)];
+      const toProspectObj = (item: any) => {
+        if (typeof item === "string") {
+          const address = item;
+          return {
+            title: address,
+            subtitle: address.split(",")[0] || address,
+            market: buyBoxData?.market?.city || "Unknown",
+            channels: randomChannels(),
+            note: pickNote(),
+            contact: randomContact(),
+          };
+        }
+        return item;
+      };
+
+      const normalizedRows = {
+        prospects: (prospectsData.prospects || []).map(toProspectObj),
+        qualified: (prospectsData.qualified || []).map(toProspectObj),
+        booked: (prospectsData.booked || []).map(toProspectObj),
+      };
+
       setParsed(buyBoxData);
       setConfirmed(true);
-      setRows(prospectsData);
+      setRows(normalizedRows);
+      console.log('🧪 Normalized pipeline rows sample:', normalizedRows.prospects[0]);
       console.log('🎉 Successfully processed API response');
     } catch(e:any) {
       console.error('❌ Error in onParse:', e);

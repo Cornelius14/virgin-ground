@@ -9,14 +9,16 @@ interface PipelineCardProps {
 
 function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   const getCardTitle = () => {
-    const asset = prospect.assetType || prospect.asset_type || 'Asset';
-    const units = prospect.units || prospect.size_sf || 'Units';
-    const market = prospect.market || 'Market';
-    
     let emoji = '💬';
     if (stage === 'qualified') emoji = '🎯';
     if (stage === 'booked') emoji = '📅';
-    
+
+    const title = typeof prospect === 'string' ? prospect : (prospect.title || '');
+    if (title) return `${emoji} ${title}`;
+
+    const asset = prospect.assetType || prospect.asset_type || 'Asset';
+    const units = prospect.units || prospect.size_sf || 'Units';
+    const market = prospect.market || 'Market';
     return `${emoji} ${asset} — ${units} (${market})`;
   };
   
@@ -32,8 +34,9 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
       "📋 Submitted LOI; waiting on seller response"
     ];
     
-    // Use a deterministic index based on prospect title
-    const index = (prospect.title?.length || 0) % notes.length;
+    // Use a deterministic index based on title or string
+    const key = typeof prospect === 'string' ? prospect : (prospect.title || '');
+    const index = (key.length || 0) % notes.length;
     return notes[index];
   };
   
