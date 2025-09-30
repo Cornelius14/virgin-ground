@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 
 // Set your OpenAI API key in Supabase Edge Function Environment Variables
-const OPENAI_API_KEY = "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" || Deno.env.get("OPENAI_API_KEY");
+const OPENAI_API_KEY = Deno.env.get("OPENAI_API_KEY");
 
 interface FirmIntelRequest {
   firmName: string;
@@ -29,13 +29,12 @@ interface FirmCriteria {
 }
 
 interface FirmIntelResponse {
+  success: boolean;
+  firmName: string;
   firmUrl?: string | null;
   logoUrl?: string | null;
   brandColor?: string | null;
   snapshot: string[];
-  transactions: FirmTransaction[];
-  criteria: FirmCriteria;
-  queries: string[];
   needsInput?: "url";
   error?: string | null;
 }
@@ -204,49 +203,16 @@ function createTextBundle(html: string, firmUrl: string): string {
   return `URL: ${firmUrl}\nTitle: ${title}\nDescription: ${description}\nContent: ${textContent}`;
 }
 
-// Simplified schema to avoid complex nested validation
+// Simplified schema - only snapshot needed
 const ANALYSIS_SCHEMA = {
   type: "object",
   properties: {
-    transactions: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          type: { type: "string" },
-          asset_type: { type: "string" },
-          market: { type: "string" },
-          size: { type: "string" },
-          value: { type: "string" },
-          date: { type: "string" },
-          headline: { type: "string" },
-          url: { type: "string" }
-        },
-        required: ["type", "asset_type", "market", "headline"]
-      }
-    },
-    criteria: {
-      type: "object",
-      properties: {
-        role: { type: "string" },
-        assets: { type: "array", items: { type: "string" } },
-        markets: { type: "array", items: { type: "string" } },
-        size_bands: { type: "array", items: { type: "string" } },
-        price_bands: { type: "array", items: { type: "string" } },
-        timing_hints: { type: "array", items: { type: "string" } }
-      },
-      required: ["role", "assets", "markets", "size_bands", "price_bands", "timing_hints"]
-    },
     snapshot: {
-      type: "array",
-      items: { type: "string" }
-    },
-    queries: {
       type: "array",
       items: { type: "string" }
     }
   },
-  required: ["transactions", "criteria", "snapshot", "queries"]
+  required: ["snapshot"]
 };
 
 async function analyzeWithOpenAI(textBundle: string, firmName: string): Promise<any> {
@@ -257,12 +223,12 @@ async function analyzeWithOpenAI(textBundle: string, firmName: string): Promise<
 
   const prompt = `Analyze this real estate firm's website data for "${firmName}" and extract:
 
-1. Recent transactions/deals (up to 5) with specific details
-2. Investment criteria and preferences based on their activity
-3. A 2-3 bullet snapshot of recent notable activity
-4. 4-6 personalized search queries for deal sourcing
+A concise 5-8 bullet snapshot of their recent deals and notable activity. Each bullet should:
+- Highlight a specific transaction or deal
+- Include relevant details (asset type, market, value if available)
+- Reference the source domain at the end
 
-Focus on concrete deals, press releases, and transaction history. Each snapshot bullet should reference the source domain.
+Focus on concrete deals, press releases, and transaction history.
 
 Website data:
 ${textBundle}`;
@@ -279,7 +245,7 @@ ${textBundle}`;
         messages: [
           {
             role: "system",
-            content: "You are a real estate market analyst. Extract structured data about firms' transactions and investment preferences. Always return valid JSON matching the exact schema. If information is not available, use reasonable defaults or empty arrays."
+            content: "You are a real estate market analyst. Extract recent deals and activity from firm websites. Always return valid JSON with a 'snapshot' array of strings."
           },
           {
             role: "user",
@@ -385,25 +351,12 @@ serve(async (req: Request) => {
     console.log("OpenAI analysis completed successfully");
 
     const response: FirmIntelResponse = {
+      success: true,
+      firmName,
       firmUrl,
       logoUrl,
       brandColor: null,
-      snapshot: analysis.snapshot || [`${firmName} investment activity analysis (source: ${new URL(firmUrl).hostname})`],
-      transactions: analysis.transactions || [],
-      criteria: analysis.criteria || {
-        role: "investor",
-        assets: ["office", "industrial", "retail"],
-        markets: ["major metros"],
-        size_bands: ["50K-200K SF"],
-        price_bands: ["$10M-$50M"],
-        timing_hints: ["6-12 months"]
-      },
-      queries: analysis.queries || [
-        `${firmName} preferred asset types`,
-        `Off-market opportunities in ${firmName} target markets`,
-        `Value-add deals matching ${firmName} criteria`,
-        `Industrial properties for institutional buyers`
-      ]
+      snapshot: analysis.snapshot || [`${firmName} recent activity analysis (source: ${new URL(firmUrl).hostname})`]
     };
 
     return Response.json(response, { headers: corsHeaders });
@@ -412,18 +365,10 @@ serve(async (req: Request) => {
     console.error("Error in firm-intel function:", error);
     
     const errorResponse: FirmIntelResponse = {
+      success: false,
+      firmName: "",
       error: error.message === "llm_unavailable" ? "llm_unavailable" : "processing_error",
-      snapshot: [],
-      transactions: [],
-      criteria: {
-        role: "",
-        assets: [],
-        markets: [],
-        size_bands: [],
-        price_bands: [],
-        timing_hints: []
-      },
-      queries: []
+      snapshot: []
     };
 
     return Response.json(errorResponse, { 

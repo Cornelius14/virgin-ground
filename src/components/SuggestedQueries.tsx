@@ -2,7 +2,7 @@ import React from 'react';
 import type { FirmIntelResponse, StructuredQuery } from '../lib/firmIntelClient';
 
 interface SuggestedQueriesProps {
-  intel: FirmIntelResponse | null;
+  queries: StructuredQuery[];
   onQuerySelect: (query: string, fields?: any) => void;
   onAddFragment: (fragment: string) => void;
 }
@@ -10,15 +10,7 @@ interface SuggestedQueriesProps {
 // Import Button component
 import { Button } from './ui/button';
 
-// Use structured queries from API response directly
-function getStructuredQueries(intel: FirmIntelResponse | null): StructuredQuery[] {
-  if (!intel?.structuredQueries) return [];
-  return intel.structuredQueries;
-}
-
-export default function SuggestedQueries({ intel, onQuerySelect, onAddFragment }: SuggestedQueriesProps) {
-  const queries = getStructuredQueries(intel);
-
+export default function SuggestedQueries({ queries, onQuerySelect, onAddFragment }: SuggestedQueriesProps) {
   if (!queries.length) return null;
 
   const handleUseQuery = (query: StructuredQuery) => {

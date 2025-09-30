@@ -1,1 +1,10 @@
 project_id = "szjacsrrygeqynzrbpok"
+
+[functions.parseBuyBox]
+verify_jwt = false
+
+[functions.firm-intel]
+verify_jwt = false
+
+[functions.firm-queries]
+verify_jwt = false

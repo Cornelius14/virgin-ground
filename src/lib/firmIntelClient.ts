@@ -55,8 +55,18 @@ export type FirmIntelResponse = {
   logoUrl?: string | null;
   brandColor?: string | null;
   snapshot: string[];
-  structuredQueries: StructuredQuery[];
   needsInput?: "url" | null;
+  error?: string | null;
+};
+
+export type FirmQueriesRequest = {
+  firmName: string;
+  snapshot: string[];
+};
+
+export type FirmQueriesResponse = {
+  success: boolean;
+  structuredQueries: StructuredQuery[];
   error?: string | null;
 };
 
@@ -71,6 +81,24 @@ export async function fetchFirmIntel(body: FirmIntelRequest): Promise<FirmIntelR
   
   if (!res.ok) {
     throw new Error(`firm-intel ${res.status}`);
+  }
+  
+  return res.json();
+}
+
+const QUERIES_FN_URL = import.meta.env.VITE_FIRM_INTEL_URL?.replace('firm-intel', 'firm-queries') || "https://bwvvahpaszgpoedhlkxy.supabase.co/functions/v1/firm-queries";
+
+export async function fetchFirmQueries(body: FirmQueriesRequest): Promise<FirmQueriesResponse> {
+  const res = await fetch(QUERIES_FN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    cache: 'no-store',
+    mode: "cors",
+  });
+  
+  if (!res.ok) {
+    throw new Error(`firm-queries ${res.status}`);
   }
   
   return res.json();

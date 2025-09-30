@@ -1,6 +1,8 @@
-import React from "react";
-import type { FirmIntelResponse } from "../lib/firmIntelClient";
+import React, { useState } from "react";
+import type { FirmIntelResponse, StructuredQuery } from "../lib/firmIntelClient";
+import { fetchFirmQueries } from "../lib/firmIntelClient";
 import SuggestedQueries from "./SuggestedQueries";
+import { Button } from "./ui/button";
 
 interface PersonalizedPanelProps {
   intel: FirmIntelResponse;
@@ -8,6 +10,10 @@ interface PersonalizedPanelProps {
 }
 
 export default function PersonalizedPanel({ intel, onQuerySelect }: PersonalizedPanelProps) {
+  const [structuredQueries, setStructuredQueries] = useState<StructuredQuery[]>([]);
+  const [loadingQueries, setLoadingQueries] = useState(false);
+  const [queriesError, setQueriesError] = useState<string | null>(null);
+
   const getInitials = (firmName: string) => {
     return firmName
       .split(' ')
@@ -28,6 +34,29 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
 
   const firmName = intel.firmUrl ? getDomainFromUrl(intel.firmUrl) : 'Firm';
   const initials = getInitials(firmName);
+
+  const handleGetQueries = async () => {
+    setLoadingQueries(true);
+    setQueriesError(null);
+    
+    try {
+      const response = await fetchFirmQueries({
+        firmName: intel.firmName,
+        snapshot: intel.snapshot
+      });
+      
+      if (response.success) {
+        setStructuredQueries(response.structuredQueries);
+      } else {
+        setQueriesError(response.error || "Failed to generate queries");
+      }
+    } catch (error: any) {
+      console.error("Error fetching queries:", error);
+      setQueriesError("Network error or function unreachable");
+    } finally {
+      setLoadingQueries(false);
+    }
+  };
 
   return (
     <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg cosmic-glow">
@@ -102,16 +131,33 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
         </div>
       </div>
 
-      {/* Structured Queries Section - Now in its own full-width column */}
+      {/* Get Queries Section */}
       <div className="space-y-4">
-        <SuggestedQueries 
-          intel={intel} 
-          onQuerySelect={onQuerySelect}
-          onAddFragment={(fragment) => {
-            // For now, just append to the query - this should be handled by parent
-            console.log('Add fragment:', fragment);
-          }}
-        />
+        {structuredQueries.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-8 space-y-4">
+            <Button 
+              onClick={handleGetQueries}
+              disabled={loadingQueries}
+              size="lg"
+              className="px-8"
+            >
+              {loadingQueries ? "Generating Queries..." : "Get Queries"}
+            </Button>
+            {queriesError && (
+              <div className="text-sm text-destructive bg-destructive/10 rounded-lg px-3 py-2">
+                {queriesError}
+              </div>
+            )}
+          </div>
+        ) : (
+          <SuggestedQueries 
+            queries={structuredQueries} 
+            onQuerySelect={onQuerySelect}
+            onAddFragment={(fragment) => {
+              console.log('Add fragment:', fragment);
+            }}
+          />
+        )}
       </div>
     </div>
   );
