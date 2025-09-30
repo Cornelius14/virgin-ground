@@ -81,10 +81,15 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
                 src={intel.logoUrl}
                 alt={`${firmName} logo`}
                 className="max-h-20 max-w-20 rounded-xl object-contain"
-                style={intel.brandColor ? { 
-                  backgroundColor: intel.brandColor,
-                  padding: '8px'
-                } : {}}
+                style={
+                  intel.brandColor
+                    ? { backgroundColor: intel.brandColor, padding: "8px" }
+                    : {}
+                }
+                onError={(e) => {
+                  e.currentTarget.onerror = null; // prevent loop
+                  e.currentTarget.src = `https://placehold.co/80x80?text=${encodeURIComponent(firmName)}`;
+                }}
               />
             ) : (
               <div
