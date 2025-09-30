@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import type { FirmIntelResponse, StructuredQuery } from "../lib/firmIntelClient";
 import { fetchFirmQueries } from "../lib/firmIntelClient";
 import SuggestedQueries from "./SuggestedQueries";
@@ -13,6 +13,13 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
   const [structuredQueries, setStructuredQueries] = useState<StructuredQuery[]>([]);
   const [loadingQueries, setLoadingQueries] = useState(false);
   const [queriesError, setQueriesError] = useState<string | null>(null);
+  
+  // Reset queries when new intel is received
+  useEffect(() => {
+    setStructuredQueries([]);
+    setLoadingQueries(false);
+    setQueriesError(null);
+  }, [intel]);
 
   const getInitials = (firmName: string) => {
     return firmName

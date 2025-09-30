@@ -3,9 +3,10 @@ import { fetchFirmIntel, type FirmIntelResponse } from "../lib/firmIntelClient";
 
 interface PersonalizeBarProps {
   onIntelReceived: (intel: FirmIntelResponse) => void;
+  onReset?: () => void;
 }
 
-export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps) {
+export default function PersonalizeBar({ onIntelReceived, onReset }: PersonalizeBarProps) {
   const [firmName, setFirmName] = useState("");
   const [showUrlInput, setShowUrlInput] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState("");
@@ -16,6 +17,9 @@ export default function PersonalizeBar({ onIntelReceived }: PersonalizeBarProps)
   const handlePersonalize = async () => {
     if (!firmName.trim()) return;
 
+    // Reset everything before starting new personalization
+    onReset?.();
+    
     setError(null);
     setNeedsUrl(false);
     setLoadingStep("logo");

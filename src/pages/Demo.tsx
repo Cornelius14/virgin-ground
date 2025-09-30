@@ -35,6 +35,15 @@ export default function Demo(){
   const [confirmed, setConfirmed] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [finalCriteriaText, setFinalCriteriaText] = useState("");
+  
+  function handleReset() {
+    setParsed(null);
+    setConfirmed(false);
+    setRows({prospects:[],qualified:[],booked:[]});
+    setErr(null);
+    setDiag(null);
+    setPlan(null);
+  }
 
   // Check for demo access on component mount
   useEffect(() => {
@@ -274,7 +283,7 @@ export default function Demo(){
           </p>
         </div>
 
-        <PersonalizeBar onIntelReceived={setFirmIntel} />
+        <PersonalizeBar onIntelReceived={setFirmIntel} onReset={handleReset} />
 
         {firmIntel && (
           <div className="space-y-6 mb-8">
