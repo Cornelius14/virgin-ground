@@ -77,7 +77,7 @@ export default function PersonalizedPanel({ intel, onQuerySelect }: Personalized
         <div className="space-y-4">
           <h3 className="text-lg font-medium text-foreground">Recent Activity</h3>
           <div className="space-y-3">
-            {intel.snapshot.slice(0, 3).map((bullet, index) => {
+            {intel.snapshot.slice(0, 8).map((bullet, index) => {
               const parts = bullet.split('(source: ');
               const text = parts[0].trim();
               const source = parts[1]?.replace(')', '');
