@@ -6,147 +6,104 @@ import { Task } from './TaskCard';
 // Initial data for the task board
 const initialColumns: Column[] = [
   {
-    id: 'prospecting',
-    title: 'Prospecting',
+    id: 'prospects',
+    title: 'Prospects',
     color: 'muted',
     tasks: [
       {
         id: 't1',
-        title: 'Multifamily Market Analysis - Atlanta',
-        description: 'Analyze cap rates, rent growth, and demographic trends in target submarkets',
-        tag: { color: 'blue', label: 'Acquisition' },
-        dueDate: 'May 20',
+        title: '850 Market St, Denver CO',
+        description: 'Mixed-use building, 42 units | Owner: Thompson Properties LLC',
+        tag: { color: 'blue', label: 'Multifamily' },
+        dueDate: 'Jun 5',
         assignees: 2,
-        progress: { completed: 3, total: 5 }
+        progress: { completed: 1, total: 4 }
       },
       {
         id: 't2',
-        title: 'Industrial Property Deal Flow Review',
-        description: 'Evaluate 12 warehouse opportunities in Nashville market',
-        tag: { color: 'blue', label: 'Acquisition' },
-        dueDate: 'May 22',
+        title: '1200 Industrial Blvd, Phoenix AZ',
+        description: '85,000 SF warehouse | Owner: Redwood Capital Group',
+        tag: { color: 'purple', label: 'Industrial' },
+        dueDate: 'Jun 8',
         assignees: 1,
-        progress: { completed: 0, total: 4 }
+        progress: { completed: 0, total: 3 }
       },
       {
         id: 't3',
-        title: 'Owner Outreach Campaign - Class B Apartments',
-        description: 'Contact 487 identified owners in target price range ($5-15M)',
-        tag: { color: 'purple', label: 'Marketing' },
-        dueDate: 'May 24',
+        title: '430 Retail Plaza, Austin TX',
+        description: '28,000 SF shopping center | Owner: Heritage Investments',
+        tag: { color: 'green', label: 'Retail' },
+        dueDate: 'Jun 10',
         assignees: 2,
-        progress: { completed: 0, total: 6 }
+        progress: { completed: 2, total: 5 }
       },
       {
         id: 't4',
-        title: 'Underwriting Model Updates',
-        description: 'Update acquisition models for current interest rate environment',
-        tag: { color: 'green', label: 'Finance' },
-        dueDate: 'May 25',
+        title: '2100 Office Park Dr, Seattle WA',
+        description: '120,000 SF Class A office | Owner: Cascade Real Estate Fund',
+        tag: { color: 'orange', label: 'Office' },
+        dueDate: 'Jun 12',
         assignees: 1,
-        progress: { completed: 0, total: 3 }
+        progress: { completed: 0, total: 4 }
       }
     ]
   },
   {
-    id: 'due-diligence',
-    title: 'Due Diligence',
+    id: 'qualified',
+    title: 'Qualified',
     color: 'blue',
     tasks: [
       {
         id: 't5',
-        title: '123 Main St Apartment Complex - Phase I ESA',
-        description: 'Environmental site assessment and soil contamination review',
-        tag: { color: 'orange', label: 'Due Diligence' },
-        dueDate: 'May 18',
-        assignees: 1,
-        progress: { completed: 2, total: 3 }
+        title: '3400 Commerce Ave, Dallas TX',
+        description: '156 units, 1995 build | Contact: Sarah Martinez, Skyline Partners',
+        tag: { color: 'blue', label: 'Multifamily' },
+        dueDate: 'Jun 3',
+        assignees: 2,
+        progress: { completed: 3, total: 5 }
       },
       {
         id: 't6',
-        title: 'Financial Audit - Riverside Industrial Park',
-        description: 'Review 3 years of NOI, rent rolls, and operating expenses',
-        tag: { color: 'green', label: 'Finance' },
-        dueDate: 'May 19',
-        assignees: 2,
-        progress: { completed: 5, total: 8 }
+        title: '750 Logistics Center, Charlotte NC',
+        description: '200,000 SF distribution facility | Contact: Michael Chen, Horizon Industrial',
+        tag: { color: 'purple', label: 'Industrial' },
+        dueDate: 'Jun 4',
+        assignees: 1,
+        progress: { completed: 4, total: 6 }
       },
       {
         id: 't7',
-        title: 'Title & Survey Review - Downtown Office',
-        description: 'Examine title insurance, easements, and boundary survey',
-        tag: { color: 'red', label: 'Legal' },
-        dueDate: 'May 17',
-        assignees: 1,
-        progress: { completed: 3, total: 4 }
-      }
-    ]
-  },
-  {
-    id: 'under-contract',
-    title: 'Under Contract',
-    color: 'amber',
-    tasks: [
-      {
-        id: 't8',
-        title: 'Debt Financing - $12M Acquisition Loan',
-        description: 'Coordinate with lender on loan docs and closing conditions',
-        tag: { color: 'green', label: 'Finance' },
-        dueDate: 'May 15',
-        assignees: 1,
-        progress: { completed: 4, total: 5 }
-      },
-      {
-        id: 't9',
-        title: 'Property Management Transition Plan',
-        description: 'Coordinate handoff with current PM and tenant communications',
-        tag: { color: 'teal', label: 'Asset Management' },
-        dueDate: 'May 16',
+        title: '5200 Downtown Plaza, Nashville TN',
+        description: '65,000 SF retail center | Contact: David Rodriguez, Urban Retail Ventures',
+        tag: { color: 'green', label: 'Retail' },
+        dueDate: 'Jun 6',
         assignees: 2,
-        progress: { completed: 6, total: 6 }
-      },
-      {
-        id: 't10',
-        title: 'Investor Capital Call - Fund II',
-        description: 'Prepare capital call notice for $8M equity requirement',
-        tag: { color: 'purple', label: 'Investor Relations' },
-        dueDate: 'May 14',
-        assignees: 1,
-        progress: { completed: 12, total: 12 }
+        progress: { completed: 5, total: 7 }
       }
     ]
   },
   {
-    id: 'closed',
-    title: 'Closed',
+    id: 'booked',
+    title: 'Booked',
     color: 'accent',
     tasks: [
       {
-        id: 't11',
-        title: 'Oak Street Retail Center - Acquisition Complete',
-        description: 'Successfully closed $24M retail acquisition with 7.2% IRR projection',
-        tag: { color: 'blue', label: 'Acquisition' },
-        dueDate: 'May 10',
-        assignees: 1,
-        progress: { completed: 5, total: 5 }
-      },
-      {
-        id: 't12',
-        title: 'Quarterly Investor Reporting - Q1 2024',
-        description: 'Distributed performance reports to 47 limited partners',
-        tag: { color: 'purple', label: 'Investor Relations' },
-        dueDate: 'May 9',
-        assignees: 1,
-        progress: { completed: 4, total: 4 }
-      },
-      {
-        id: 't13',
-        title: 'Portfolio Refinancing - 3 Properties',
-        description: 'Completed $45M refinancing across industrial portfolio',
-        tag: { color: 'green', label: 'Finance' },
-        dueDate: 'May 8',
+        id: 't8',
+        title: '920 Midtown Residences, Boston MA',
+        description: '88 units, value-add opportunity | Meeting: June 1, 2:00 PM with Jennifer Park',
+        tag: { color: 'blue', label: 'Multifamily' },
+        dueDate: 'Jun 1',
         assignees: 2,
-        progress: { completed: 7, total: 7 }
+        progress: { completed: 7, total: 8 }
+      },
+      {
+        id: 't9',
+        title: '1800 Tech Park Dr, Raleigh NC',
+        description: '145,000 SF flex industrial | Meeting: June 2, 10:00 AM with Robert Thompson',
+        tag: { color: 'purple', label: 'Industrial' },
+        dueDate: 'Jun 2',
+        assignees: 1,
+        progress: { completed: 6, total: 6 }
       }
     ]
   }
