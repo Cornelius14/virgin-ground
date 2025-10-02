@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import TaskBoard from './TaskBoard';
 import { Loader } from 'lucide-react';
+import DemoLeadModal from './DemoLeadModal';
 const TypewriterAnimation = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -48,6 +49,8 @@ const TypewriterAnimation = () => {
 };
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -97,10 +100,12 @@ const HeroSection = () => {
         </p>
         
         <div className="flex justify-center pt-6">
-          <Button onClick={() => window.location.href = '/book'} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
+          <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
             Get a 30-minute demo
           </Button>
         </div>
+        
+        <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
         
         
       </div>
