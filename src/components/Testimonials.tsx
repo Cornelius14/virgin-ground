@@ -28,17 +28,17 @@ const Testimonials = () => {
       avatar: "bg-muted"
     },
     {
-      title: "🏦💸⚡ Lending Specialty",
-      metric: "Fast quotes, nationwide coverage, and practical programs",
-      quote: "Oblique kept our pipeline full so borrowers didn't wait.",
+      title: "🏦 Lending Specialty",
+      metric: "612 lender calls in 10 days; quotes in 36 hours",
+      quote: "Oblique targeted owners with near-term maturities across 12 states. In 10 days we reached 18,400 owners, booked 612 lender conversations, and flagged 'docs-ready' borrowers for same-day quotes. Average quote turnaround: 36 hours. Funded volume from the first cycle covered platform cost 30×.",
       author: "Lending Specialty team",
       position: "Lending Team",
       avatar: "bg-muted"
     },
     {
-      title: "🏢📈📰 Meridian Capital Group",
-      metric: "From refis to investment sales",
-      quote: "Oblique's targeting delivered qualified owners with real timelines. It felt like an extra producer on the team.",
+      title: "📈 Meridian Capital Group",
+      metric: "318 owner calls → 6 exclusives in two weeks",
+      quote: "Oblique shifted the team from refinance chatter to seller meetings. We contacted 9,200 owners in NYC & Miami and booked 318 owner calls in two weeks, leading to 27 listing meetings and 6 signed exclusives. It felt like adding another producer to the team.",
       author: "Meridian client",
       position: "Investment Sales",
       avatar: "bg-muted"
