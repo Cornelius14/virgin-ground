@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +6,7 @@ import { Menu, X, Sun, Moon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
 import { z } from 'zod';
+import DemoLeadModal from './DemoLeadModal';
 
 const Header = () => {
   const [activePage, setActivePage] = useState('product');
@@ -15,6 +15,7 @@ const Header = () => {
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
   
   useEffect(() => {
     // Apply theme immediately on load without flash
@@ -354,13 +355,15 @@ const Header = () => {
           <div className="rounded-2xl">
             <Button 
               className="bg-primary text-primary-foreground hover:bg-primary/90" 
-              onClick={() => window.location.href = '/book'}
+              onClick={() => setModalOpen(true)}
             >
               Get a 30-minute demo
             </Button>
           </div>
         </div>
       </header>
+      
+      <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
     </div>
   );
 };

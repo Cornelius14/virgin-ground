@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
+import DemoLeadModal from './DemoLeadModal';
 const Pricing = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  
   const plans = [{
     name: "Teams",
     price: "Custom",
@@ -56,7 +59,7 @@ const Pricing = () => {
               </div>
               
               <div className="mt-6">
-                <Button className={plan.buttonVariant === "default" ? "w-full bg-primary text-primary-foreground hover:bg-primary/90" : "w-full border-border text-foreground hover:bg-muted"} variant={plan.buttonVariant as "default" | "outline"} onClick={() => window.location.href = '/book'}>
+                <Button className={plan.buttonVariant === "default" ? "w-full bg-primary text-primary-foreground hover:bg-primary/90" : "w-full border-border text-foreground hover:bg-muted"} variant={plan.buttonVariant as "default" | "outline"} onClick={() => setModalOpen(true)}>
                   {plan.buttonText}
                 </Button>
               </div>
@@ -65,6 +68,8 @@ const Pricing = () => {
         
         
       </div>
+      
+      <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
     </section>;
 };
 export default Pricing;
