@@ -42,7 +42,7 @@ const WhyItPaysOff = () => {
               key={index}
               className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-[300px] transition-all duration-300"
             >
-              <div className="text-5xl md:text-6xl font-semibold leading-none text-foreground mb-4">
+              <div className="text-4xl md:text-5xl font-semibold leading-none text-foreground mb-4">
                 {stat.topLine}
               </div>
               <h3 className="text-xl md:text-2xl text-foreground mb-4">
