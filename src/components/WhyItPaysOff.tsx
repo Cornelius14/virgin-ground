@@ -25,28 +25,30 @@ const WhyItPaysOff = () => {
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-20 md:py-28">
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <h2 
-          id="whyPaysOffHeading" 
-          className="text-3xl md:text-5xl tracking-tight font-semibold text-white text-center mb-12 md:mb-16"
-        >
-          Why it pays off
-        </h2>
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-16 md:py-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+          <h2 
+            id="whyPaysOffHeading" 
+            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
+          >
+            Why it pays off
+          </h2>
+        </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-6 md:p-8 shadow-sm hover:shadow-md transition"
+              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-[300px] transition-all duration-300"
             >
-              <div className="text-5xl md:text-6xl font-semibold text-white mb-4">
+              <div className="text-6xl md:text-7xl font-semibold leading-none text-foreground mb-4">
                 {stat.topLine}
               </div>
-              <h3 className="text-xl md:text-2xl font-medium text-white mb-3">
+              <h3 className="text-xl md:text-2xl text-foreground mb-4">
                 {stat.label}
               </h3>
-              <p className="text-base md:text-lg text-zinc-300">
+              <p className="text-base md:text-lg text-muted-foreground">
                 {stat.description}
               </p>
             </div>
