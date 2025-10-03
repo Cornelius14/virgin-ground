@@ -8,7 +8,7 @@ const Testimonials = () => {
       metric: "Same-day qualified calls booked",
       quote: "Identified luxury homeowners in legal STR markets. Outreach confirmed interest and pricing. Using Oblique, the company scaled from 0 to 70 properties in just 2 months—becoming the fastest-growing STR property manager in the US.",
       author: "The Solaire Collection",
-      position: "STR Portfolio Manager",
+      position: "Max Zheng",
       avatar: "bg-muted"
     },
     {
@@ -32,7 +32,7 @@ const Testimonials = () => {
       metric: "612 lender calls in 10 days; quotes in 36 hours",
       quote: "Oblique targeted owners with near-term maturities across 12 states. In 10 days we reached 18,400 owners, booked 612 lender conversations, and flagged 'docs-ready' borrowers for same-day quotes. Average quote turnaround: 36 hours. Funded volume from the first cycle covered platform cost 30×.",
       author: "Lending Specialty team",
-      position: "Lending Team",
+      position: "Bar Shechter",
       avatar: "bg-muted"
     },
     {
