@@ -51,13 +51,46 @@ const Header = () => {
     });
   }, [isDarkMode]);
   
+  // Manage body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+  
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [mobileMenuOpen]);
+  
   const handleNavClick = (page: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     setActivePage(page);
+    setMobileMenuOpen(false);
+    
+    // Handle home navigation
+    if (page === 'home') {
+      if (window.location.pathname === '/') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        window.location.href = '/';
+      }
+      return;
+    }
     
     // Handle special routes
     if (page === 'features') {
-      // Check if we're on the home page
       if (window.location.pathname === '/') {
         window.location.href = '/features';
       } else {
@@ -68,7 +101,6 @@ const Header = () => {
     
     if (page === 'demo') {
       setShowPasswordPrompt(true);
-      setMobileMenuOpen(false);
       return;
     }
     
@@ -82,7 +114,6 @@ const Header = () => {
       // Navigate to home page with hash
       window.location.href = `/#${page}`;
     }
-    setMobileMenuOpen(false);
   };
 
   const toggleMobileMenu = () => {
@@ -222,13 +253,34 @@ const Header = () => {
           </div>
         </nav>
         
+        {/* Mobile navigation backdrop */}
+        {mobileMenuOpen && (
+          <div 
+            className="md:hidden fixed inset-0 bg-black/40 z-40"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+        
         {/* Mobile navigation */}
         {mobileMenuOpen && (
-          <div className="md:hidden absolute top-20 left-4 right-4 bg-background/95 backdrop-blur-md py-4 px-6 border border-border rounded-2xl shadow-lg z-50">
-            <div className="flex flex-col gap-4">
+          <div 
+            className="md:hidden fixed top-20 left-4 right-4 bg-background/95 backdrop-blur-md py-4 px-6 border border-border rounded-2xl shadow-lg z-50"
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="flex flex-col gap-2">
+              <button 
+                onClick={handleNavClick('home')}
+                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
+                  activePage === 'home' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                }`}
+              >
+                Home
+              </button>
               <button 
                 onClick={handleNavClick('product')}
-                className={`px-3 py-2 text-sm rounded-md transition-colors text-left ${
+                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
                   activePage === 'product' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
@@ -236,7 +288,7 @@ const Header = () => {
               </button>
               <button 
                 onClick={handleNavClick('how')}
-                className={`px-3 py-2 text-sm rounded-md transition-colors text-left ${
+                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
                   activePage === 'how' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
@@ -244,7 +296,7 @@ const Header = () => {
               </button>
               <button 
                 onClick={handleNavClick('features')}
-                className={`px-3 py-2 text-sm rounded-md transition-colors text-left ${
+                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
                   activePage === 'features' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
@@ -252,7 +304,7 @@ const Header = () => {
               </button>
               <button 
                 onClick={handleNavClick('cases')}
-                className={`px-3 py-2 text-sm rounded-md transition-colors text-left ${
+                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
                   activePage === 'cases' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
@@ -260,7 +312,7 @@ const Header = () => {
               </button>
               <button 
                 onClick={handleNavClick('pricing')}
-                className={`px-3 py-2 text-sm rounded-md transition-colors text-left ${
+                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
                   activePage === 'pricing' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
@@ -268,7 +320,7 @@ const Header = () => {
               </button>
               <button 
                 onClick={handleNavClick('demo')}
-                className={`px-3 py-2 text-sm rounded-md transition-colors text-left ${
+                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
                   activePage === 'demo' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
@@ -276,7 +328,7 @@ const Header = () => {
               </button>
               
               {/* Theme toggle for mobile */}
-              <div className="flex items-center justify-between px-3 py-2 border-t border-border mt-4 pt-4">
+              <div className="flex items-center justify-between px-3 py-3 border-t border-border mt-2 pt-4">
                 <span className="text-sm text-muted-foreground">Theme</span>
                 <div className="flex items-center gap-2">
                   <Moon size={16} className={`${isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />

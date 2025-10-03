@@ -60,10 +60,10 @@ const Product = () => {
                 <div className="text-xs text-muted-foreground uppercase">Asset Types</div>
               </div>
               
-              <div className="flex gap-2 mb-4">
-                <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">Multifamily</span>
-                <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">Industrial</span>
-                <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">Land</span>
+              <div className="flex flex-wrap gap-2 mb-4">
+                <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full shrink-0">Multifamily</span>
+                <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full shrink-0">Industrial</span>
+                <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full shrink-0">Land</span>
               </div>
               
               <div className="space-y-6">
@@ -71,20 +71,20 @@ const Product = () => {
                 <div>
                   <h4 className="font-medium text-sm mb-3">Prospected</h4>
                   <div className="space-y-2">
-                    <div className="p-3 bg-muted/30 rounded-md">
-                      <div className="text-sm font-medium">🏭 Industrial — 92k SF (Atlanta, GA)</div>
+                    <div className="p-3 bg-muted/30 rounded-md min-w-0">
+                      <div className="text-sm font-medium break-words">🏭 Industrial — 92k SF (Atlanta, GA)</div>
                       <div className="text-xs text-muted-foreground mt-1">owner prefers email</div>
-                      <div className="flex gap-1 mt-2 text-xs">
+                      <div className="flex flex-wrap gap-1 mt-2 text-xs">
                         <span className="text-green-500">email</span> ·
                         <span className="text-red-500">sms</span> ·
                         <span className="text-green-500">call</span> ·
                         <span className="text-red-500">vm</span>
                       </div>
                     </div>
-                    <div className="p-3 bg-muted/30 rounded-md">
-                      <div className="text-sm font-medium">🏢 Multifamily — 76 units (Charlotte, NC)</div>
+                    <div className="p-3 bg-muted/30 rounded-md min-w-0">
+                      <div className="text-sm font-medium break-words">🏢 Multifamily — 76 units (Charlotte, NC)</div>
                       <div className="text-xs text-muted-foreground mt-1">screened for expansion criteria</div>
-                      <div className="flex gap-1 mt-2 text-xs">
+                      <div className="flex flex-wrap gap-1 mt-2 text-xs">
                         <span className="text-red-500">email</span> ·
                         <span className="text-green-500">sms</span> ·
                         <span className="text-red-500">call</span> ·
@@ -98,22 +98,22 @@ const Product = () => {
                 <div>
                   <h4 className="font-medium text-sm mb-3">Qualified Targets</h4>
                   <div className="space-y-2">
-                    <div className="p-3 bg-muted/30 rounded-md">
-                      <div className="text-sm font-medium">🏭 Industrial — 105k SF (Atlanta, GA)</div>
+                    <div className="p-3 bg-muted/30 rounded-md min-w-0">
+                      <div className="text-sm font-medium break-words">🏭 Industrial — 105k SF (Atlanta, GA)</div>
                       <div className="text-xs text-muted-foreground mt-1">loan maturing in 5 mo; responsive owner</div>
-                      <div className="text-xs text-muted-foreground">j.martinez@example.com • (404) 555-0123</div>
-                      <div className="flex gap-1 mt-2 text-xs">
+                      <div className="text-xs text-muted-foreground break-words">j.martinez@example.com • (404) 555-0123</div>
+                      <div className="flex flex-wrap gap-1 mt-2 text-xs">
                         <span className="text-green-500">email</span> ·
                         <span className="text-green-500">sms</span> ·
                         <span className="text-green-500">call</span> ·
                         <span className="text-green-500">vm</span>
                       </div>
                     </div>
-                    <div className="p-3 bg-muted/30 rounded-md">
-                      <div className="text-sm font-medium">🏬 Retail — 18k SF (Miami Beach, FL)</div>
+                    <div className="p-3 bg-muted/30 rounded-md min-w-0">
+                      <div className="text-sm font-medium break-words">🏬 Retail — 18k SF (Miami Beach, FL)</div>
                       <div className="text-xs text-muted-foreground mt-1">zoning OK; target price band</div>
-                      <div className="text-xs text-muted-foreground">s.cohen@example.com • (305) 555-0187</div>
-                      <div className="flex gap-1 mt-2 text-xs">
+                      <div className="text-xs text-muted-foreground break-words">s.cohen@example.com • (305) 555-0187</div>
+                      <div className="flex flex-wrap gap-1 mt-2 text-xs">
                         <span className="text-green-500">email</span> ·
                         <span className="text-red-500">sms</span> ·
                         <span className="text-green-500">call</span> ·
@@ -127,11 +127,11 @@ const Product = () => {
                 <div>
                   <h4 className="font-medium text-sm mb-3">Meetings Booked</h4>
                   <div className="space-y-2">
-                    <div className="p-3 bg-muted/30 rounded-md">
-                      <div className="text-sm font-medium">🏭 Industrial — 92k SF (Atlanta, GA)</div>
+                    <div className="p-3 bg-muted/30 rounded-md min-w-0">
+                      <div className="text-sm font-medium break-words">🏭 Industrial — 92k SF (Atlanta, GA)</div>
                       <div className="text-xs text-muted-foreground mt-1">Thu 2:30p ET · Intro + buy-box sync</div>
-                      <div className="text-xs text-muted-foreground">j.martinez@example.com • (404) 555-0123</div>
-                      <div className="flex gap-1 mt-2 text-xs">
+                      <div className="text-xs text-muted-foreground break-words">j.martinez@example.com • (404) 555-0123</div>
+                      <div className="flex flex-wrap gap-1 mt-2 text-xs">
                         <span className="text-green-500">email</span> ·
                         <span className="text-green-500">sms</span> ·
                         <span className="text-green-500">call</span> ·
