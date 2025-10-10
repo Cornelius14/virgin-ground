@@ -12,6 +12,14 @@ const Testimonials = () => {
       avatar: "bg-muted"
     },
     {
+      title: "🏘️ Makras Real Estate",
+      metric: "Off-Market Owner Pipeline Transformed",
+      quote: "With Oblique AI's outbound engine, Makras moved from reactive listings to sourcing hidden owners. In 30 days, we reached 6,500 off-market owner contacts in SF neighborhoods, qualified 320, and booked 27 high-value listing conversations — landing 3 exclusives we would never have uncovered otherwise.",
+      author: "Makras Real Estate",
+      position: "Victor G. Makras",
+      avatar: "bg-muted"
+    },
+    {
       title: "🏭 Southeast Industrial",
       metric: "612 warehouses → 6 at target price in ~58 minutes",
       quote: "612 warehouses identified in Nashville; 487 contactable; 121 live connects; 6 at target price. First live call in ~58 minutes.",
