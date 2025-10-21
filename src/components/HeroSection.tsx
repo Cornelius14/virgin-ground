@@ -75,7 +75,7 @@ const HeroSection = () => {
         </div>
         
         <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">
-          Type your criteria; we deliver qualified real-estate targets—fast.
+          AI revenue engine for real estate — sourcing and qualifying deal-ready prospects for you
         </h1>
         
         {/* Typewriter Demo Card */}
