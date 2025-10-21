@@ -50,7 +50,6 @@ const TypewriterAnimation = () => {
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -74,9 +73,7 @@ const HeroSection = () => {
           </span>
         </div>
         
-        <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">
-          AI revenue engine for real estate — sourcing and qualifying deal-ready prospects for you
-        </h1>
+        <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">AI revenue engine for real estate </h1>
         
         {/* Typewriter Demo Card */}
         <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
@@ -95,9 +92,7 @@ const HeroSection = () => {
           </div>
         </div>
         
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
-          Type your criteria. Oblique AI finds the right owners, buyers and borrowers, reaches them on every channel, and delivers only the ones ready to deal.
-        </p>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">Sources, qualifies, and connects you with high-intent real-estate opportunities — faster than any team</p>
         
         <div className="flex justify-center pt-6">
           <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
