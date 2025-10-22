@@ -42,14 +42,6 @@ const Testimonials = () => {
       author: "Lending Specialty team",
       position: "Bar Shechter",
       avatar: "bg-muted"
-    },
-    {
-      title: "📈 Meridian Capital Group",
-      metric: "318 owner calls → 6 exclusives in two weeks",
-      quote: "Oblique shifted the team from refinance chatter to seller meetings. We contacted 9,200 owners in NYC & Miami and booked 318 owner calls in two weeks, leading to 27 listing meetings and 6 signed exclusives. It felt like adding another producer to the team.",
-      author: "Meridian client",
-      position: "Investment Sales",
-      avatar: "bg-muted"
     }
   ];
   
