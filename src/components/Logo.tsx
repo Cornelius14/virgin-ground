@@ -5,16 +5,16 @@ const Logo = () => {
   if (imageError) {
     return <>
         <span className="h-9 w-9 rounded-md flex items-center justify-center ring-1 bg-muted ring-border text-foreground">
-          <span className="text-sm font-bold">OA</span>
+          <span className="text-sm font-bold">RF</span>
         </span>
-        <span className="text-foreground text-xl font-semibold tracking-tight">Oblique AI</span>
+        <span className="text-foreground text-xl font-semibold tracking-tight">Realflow</span>
       </>;
   }
   return <>
       <span className="h-10 w-10 rounded-md flex items-center justify-center ring-1 bg-muted ring-border mx-0 my-[15px]">
-        <img src={obliqueLogoNew} alt="Oblique AI" className="h-7 w-7 dark:brightness-0 dark:invert light-mode:brightness-0 light-mode:invert-0" onError={() => setImageError(true)} />
+        <img src={obliqueLogoNew} alt="Realflow" className="h-7 w-7 dark:brightness-0 dark:invert light-mode:brightness-0 light-mode:invert-0" onError={() => setImageError(true)} />
       </span>
-      <span className="text-foreground text-xl font-semibold tracking-tight">Oblique AI</span>
+      <span className="text-foreground text-xl font-semibold tracking-tight">Realflow</span>
     </>;
 };
 export default Logo;

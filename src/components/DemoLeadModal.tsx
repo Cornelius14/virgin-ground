@@ -72,7 +72,7 @@ const DemoLeadModal: React.FC<DemoLeadModalProps> = ({ open, onOpenChange }) => 
               {/* Left Panel - Dark Marketing Copy */}
               <div className="w-full md:w-2/5 bg-primary text-primary-foreground p-8 md:p-12 flex flex-col justify-center space-y-8">
                 <div>
-                  <h2 className="text-3xl font-semibold mb-2">Oblique AI</h2>
+                  <h2 className="text-3xl font-semibold mb-2">Realflow</h2>
                   <p className="text-xl opacity-90">Outbound for Commercial Real Estate</p>
                   <p className="text-lg mt-4 font-medium">Target. Automate. Schedule.</p>
                 </div>

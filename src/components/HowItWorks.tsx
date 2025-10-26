@@ -60,7 +60,7 @@ const HowItWorks = () => {
             </div>
 
             <div className="p-6 rounded-lg bg-card border border-border">
-              <h3 className="font-medium text-foreground mb-4">Oblique AI's agent calls, texts, leaves voicemails and emails every lead on your behalf, qualifying them in real time.</h3>
+              <h3 className="font-medium text-foreground mb-4">Realflow's agent calls, texts, leaves voicemails and emails every lead on your behalf, qualifying them in real time.</h3>
               <p className="text-sm text-muted-foreground">Our AI handles all outreach across multiple channels, qualifying prospects against your criteria requirements automatically.</p>
             </div>
 

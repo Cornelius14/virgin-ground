@@ -6,7 +6,7 @@ const Testimonials = () => {
     {
       title: "🏡 The Solaire Collection",
       metric: "Same-day qualified calls booked",
-      quote: "Identified luxury homeowners in legal STR markets. Outreach confirmed interest and pricing. Using Oblique, the company scaled from 0 to 70 properties in just 2 months—becoming the fastest-growing STR property manager in the US.",
+      quote: "Identified luxury homeowners in legal STR markets. Outreach confirmed interest and pricing. Using Realflow, the company scaled from 0 to 70 properties in just 2 months—becoming the fastest-growing STR property manager in the US.",
       author: "The Solaire Collection",
       position: "Max Zheng",
       avatar: "bg-muted"
@@ -14,7 +14,7 @@ const Testimonials = () => {
     {
       title: "🏘️ Makras Real Estate",
       metric: "Off-Market Owner Pipeline Transformed",
-      quote: "With Oblique AI's outbound engine, Makras moved from reactive listings to sourcing hidden owners. In 30 days, we reached 6,500 off-market owner contacts in SF neighborhoods, qualified 320, and booked 27 high-value listing conversations — landing 3 exclusives we would never have uncovered otherwise.",
+      quote: "With Realflow's outbound engine, Makras moved from reactive listings to sourcing hidden owners. In 30 days, we reached 6,500 off-market owner contacts in SF neighborhoods, qualified 320, and booked 27 high-value listing conversations — landing 3 exclusives we would never have uncovered otherwise.",
       author: "Makras Real Estate",
       position: "Victor G. Makras",
       avatar: "bg-muted"
@@ -38,7 +38,7 @@ const Testimonials = () => {
     {
       title: "🏦 Lending Specialty",
       metric: "612 lender calls in 10 days; quotes in 36 hours",
-      quote: "Oblique targeted owners with near-term maturities across 12 states. In 10 days we reached 18,400 owners, booked 612 lender conversations, and flagged 'docs-ready' borrowers for same-day quotes. Average quote turnaround: 36 hours. Funded volume from the first cycle covered platform cost 30×.",
+      quote: "Realflow targeted owners with near-term maturities across 12 states. In 10 days we reached 18,400 owners, booked 612 lender conversations, and flagged 'docs-ready' borrowers for same-day quotes. Average quote turnaround: 36 hours. Funded volume from the first cycle covered platform cost 30×.",
       author: "Lending Specialty team",
       position: "Bar Shechter",
       avatar: "bg-muted"
@@ -56,7 +56,7 @@ const Testimonials = () => {
             Field-proven results across use cases
           </h2>
           <p className="text-muted-foreground text-lg">
-            See how Oblique AI transforms real estate acquisition workflows
+            See how Realflow transforms real estate acquisition workflows
           </p>
         </div>
         

@@ -67,7 +67,7 @@ const Features = () => {
       <div className="max-w-7xl mx-auto space-y-12">
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-medium tracking-tighter">
-            How Oblique AI works
+            How Realflow works
           </h2>
           <p className="text-muted-foreground text-lg">
             From buy-box to qualified conversations—automated real estate deal finder at scale

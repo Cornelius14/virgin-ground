@@ -40,7 +40,7 @@ const Step4: React.FC<Step4Props> = ({ formData, onBack, onClose }) => {
 
     // Guaranteed email fallback
     const to = encodeURIComponent('sales@oblique-ai.com,tomer@oblique-ai.com');
-    const subject = encodeURIComponent('Oblique Demo Request');
+    const subject = encodeURIComponent('Realflow Demo Request');
     const body = encodeURIComponent(
       `Firm: ${formData.firm}\n` +
       `Email: ${formData.email}\n` +
