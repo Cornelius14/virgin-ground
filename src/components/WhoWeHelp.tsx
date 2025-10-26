@@ -45,15 +45,15 @@ const WhoWeHelp = () => {
           {categories.map((category, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 flex flex-col items-center justify-center min-h-[200px] transition-all duration-300"
+              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 flex flex-col items-center h-full transition-all duration-300"
             >
-              <div className="text-4xl mb-4">
+              <div className="text-4xl mb-4 mt-2">
                 {category.emoji}
               </div>
               <h3 className="text-lg font-semibold text-foreground mb-3 text-center">
                 {category.title}
               </h3>
-              <p className="text-sm text-muted-foreground text-left leading-relaxed">
+              <p className="text-sm text-muted-foreground text-left leading-relaxed w-full">
                 {category.description}
               </p>
             </div>
