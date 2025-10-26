@@ -22,7 +22,7 @@ const HowItWorks = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                 <span className="text-2xl font-bold text-primary">2</span>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">AI Sources Prospects</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">AI Sources Prospects and Captures Inbound Interest</h3>
               <div className="w-12 h-1 bg-primary/20 rounded-full mx-auto"></div>
             </div>
 
@@ -30,7 +30,7 @@ const HowItWorks = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
                 <span className="text-2xl font-bold text-primary">3</span>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">Multi-Channel Outreach</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">Multi-Channel Outreach + Live Call Answering</h3>
               <div className="w-12 h-1 bg-primary/20 rounded-full mx-auto"></div>
             </div>
 
@@ -53,14 +53,14 @@ const HowItWorks = () => {
             </div>
 
             <div className="p-6 rounded-lg bg-card border border-border">
-              <h3 className="font-medium text-foreground mb-4">Our system instantly sources a large pool of potential leads tailored to your criteria.</h3>
+              <h3 className="font-medium text-foreground mb-4">Our system instantly sources a large pool of potential leads tailored to your criteria — and also captures inbound interest from owners who call, text, or fill forms.</h3>
               <p className="text-sm text-muted-foreground">
                 We identify thousands of prospects from multiple data sources and filter them to match your exact specifications.
               </p>
             </div>
 
             <div className="p-6 rounded-lg bg-card border border-border">
-              <h3 className="font-medium text-foreground mb-4">Realflow's agent calls, texts, leaves voicemails and emails every lead on your behalf, qualifying them in real time.</h3>
+              <h3 className="font-medium text-foreground mb-4">Realflow's AI agent calls, texts, leaves voicemails, and emails every lead — and answers inbound calls as they come in — qualifying against your criteria in real time.</h3>
               <p className="text-sm text-muted-foreground">Our AI handles all outreach across multiple channels, qualifying prospects against your criteria requirements automatically.</p>
             </div>
 

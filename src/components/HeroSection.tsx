@@ -94,6 +94,8 @@ const HeroSection = () => {
         
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">Sources, qualifies, and connects you with high-intent real-estate opportunities — faster than any team</p>
         
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">From inbound calls to outbound outreach, Realflow runs every seller conversation and books the right meetings.</p>
+        
         <div className="flex justify-center pt-6">
           <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
             Get a 30-minute demo
