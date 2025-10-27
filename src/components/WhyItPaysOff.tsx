@@ -9,12 +9,12 @@ const WhyItPaysOff = () => {
     },
     {
       topLine: "20–30",
-      label: "Hours Saved",
+      label: "Hours Saved Weekly",
       description: "Teams reclaim valuable time from manual list-building and outreach efforts."
     },
     {
       topLine: "25–75×",
-      label: "ROI",
+      label: "Return on Investment",
       description: "Single-digit closes routinely produce significant returns on costs."
     },
     {
