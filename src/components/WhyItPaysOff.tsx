@@ -5,7 +5,7 @@ const WhyItPaysOff = () => {
     {
       topLine: "10K",
       label: "Targeted Owners",
-      description: "Expect hundreds of qualified meetings from every 10k targeted owners (conservative 4–8% of engaged targets)."
+      description: "Expect hundreds of qualified meetings from every 10k targeted owners."
     },
     {
       topLine: "20–30",
