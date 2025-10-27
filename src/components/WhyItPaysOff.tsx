@@ -4,33 +4,33 @@ const WhyItPaysOff = () => {
   const stats = [
     {
       topLine: "10K",
-      label: "Owners Reached",
+      label: "Targeted Owners",
       description: "Expect hundreds of qualified meetings from every 10k targeted owners (conservative 4–8% of engaged targets)."
     },
     {
       topLine: "20–30",
-      label: "Hrs Saved",
+      label: "Hours Saved Weekly",
       description: "Teams reclaim valuable time from manual list-building and outreach efforts."
     },
     {
       topLine: "25–75×",
-      label: "Return",
+      label: "ROI",
       description: "Single-digit closes routinely produce significant returns on costs."
     },
     {
-      topLine: "1",
-      label: "Stack, 8 Tools Replaced",
+      topLine: "⬇️",
+      label: "Lower Stack Cost",
       description: "Replace an 8-tool routine with one integrated outbound engine."
     }
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-12 md:py-16 bg-muted/30 border-y border-border/50">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-16 md:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-6">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
           <h2 
             id="whyPaysOffHeading" 
-            className="text-3xl md:text-5xl font-medium tracking-tighter text-foreground"
+            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
           >
             Why it pays off
           </h2>
@@ -40,12 +40,12 @@ const WhyItPaysOff = () => {
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 md:p-8 flex flex-col items-center justify-center text-center h-[320px] transition-all duration-300 shadow-sm"
+              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-[300px] transition-all duration-300"
             >
               <div className="text-4xl md:text-5xl font-semibold leading-none text-foreground mb-4">
                 {stat.topLine}
               </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-foreground mb-4">
+              <h3 className="text-xl md:text-2xl text-foreground mb-4">
                 {stat.label}
               </h3>
               <p className="text-base md:text-lg text-muted-foreground">
