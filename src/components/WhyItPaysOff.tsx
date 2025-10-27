@@ -9,7 +9,7 @@ const WhyItPaysOff = () => {
     },
     {
       topLine: "20–30",
-      label: "Hours Saved Weekly",
+      label: "Hours Saved",
       description: "Teams reclaim valuable time from manual list-building and outreach efforts."
     },
     {
@@ -18,7 +18,7 @@ const WhyItPaysOff = () => {
       description: "Single-digit closes routinely produce significant returns on costs."
     },
     {
-      topLine: "⬇️",
+      topLine: "1 Tool",
       label: "Lower Stack Cost",
       description: "Replace an 8-tool routine with one integrated outbound engine."
     }
