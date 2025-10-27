@@ -4,30 +4,30 @@ const WhyItPaysOff = () => {
   const stats = [
     {
       topLine: "10K",
-      label: "Targeted Owners",
+      label: "Owners Reached",
       description: "Expect hundreds of qualified meetings from every 10k targeted owners (conservative 4–8% of engaged targets)."
     },
     {
       topLine: "20–30",
-      label: "Hours Saved Weekly",
+      label: "Hrs Saved",
       description: "Teams reclaim valuable time from manual list-building and outreach efforts."
     },
     {
       topLine: "25–75×",
-      label: "ROI",
+      label: "Return",
       description: "Single-digit closes routinely produce significant returns on costs."
     },
     {
-      topLine: "⬇️",
-      label: "Lower Stack Cost",
+      topLine: "1",
+      label: "Stack, 8 Tools Replaced",
       description: "Replace an 8-tool routine with one integrated outbound engine."
     }
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-16 md:py-24">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-10 md:py-14">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-8">
           <h2 
             id="whyPaysOffHeading" 
             className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
