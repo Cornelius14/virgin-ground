@@ -175,7 +175,7 @@ const Header = () => {
 
 
   return (
-    <div className="sticky top-0 z-50 pt-8 px-4">
+    <div className="relative z-50 pt-8 px-4">
       <header className="w-full max-w-7xl mx-auto py-3 px-6 md:px-8 flex items-center justify-between">
         <div className="p-3">
           <a href="/" className="inline-flex items-center gap-2.5 -m-1.5 p-1.5 rounded-md hover:bg-white/5 light-mode:hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 light-mode:focus-visible:ring-black/20">
