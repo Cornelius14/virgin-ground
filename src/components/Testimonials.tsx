@@ -42,6 +42,14 @@ const Testimonials = () => {
       author: "Lending Specialty team",
       position: "Bar Shechter",
       avatar: "bg-muted"
+    },
+    {
+      title: "🏢 Meridian Capital Group",
+      metric: "Commercial debt placement at scale",
+      quote: "Meridian leveraged Realflow to identify qualified borrowers across major metros. The platform's precision targeting enabled us to connect with decision-makers at the right time, resulting in faster deal flow and higher conversion rates on our commercial lending pipeline.",
+      author: "Meridian Capital Group",
+      position: "Commercial Lending Team",
+      avatar: "bg-muted"
     }
   ];
   
@@ -64,7 +72,7 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="p-6 rounded-xl border border-border bg-background/80 backdrop-blur-sm hover:border-border/60 transition-all duration-300"
+              className="p-6 rounded-xl border border-border bg-background/80 backdrop-blur-sm hover:border-border/60 transition-all duration-300 flex flex-col items-center text-center"
             >
               <div className="mb-4">
                 <h3 className="text-lg/7 font-semibold text-strong">{testimonial.title}</h3>
@@ -76,9 +84,9 @@ const Testimonials = () => {
               
               <p className="text-foreground/90 mb-6 text-sm leading-relaxed">"{testimonial.quote}"</p>
               
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 mt-auto">
                 <div className={`h-10 w-10 rounded-full ${testimonial.avatar} bg-muted flex-shrink-0`}></div>
-                <div>
+                <div className="text-left">
                   <h4 className="font-medium text-foreground text-sm">{testimonial.author}</h4>
                   <p className="text-xs text-muted-foreground">{testimonial.position}</p>
                 </div>
