@@ -53,7 +53,7 @@ const WhoWeHelp = () => {
               <h3 className="text-lg font-semibold text-foreground mb-3 text-center">
                 {category.title}
               </h3>
-              <p className="text-sm text-muted-foreground text-left leading-relaxed w-full">
+              <p className="text-xs text-muted-foreground text-center leading-relaxed">
                 {category.description}
               </p>
             </div>
