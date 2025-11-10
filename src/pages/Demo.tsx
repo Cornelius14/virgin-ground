@@ -315,84 +315,121 @@ export default function Demo(){
     if (vertical === "Wholesaling") {
       const { city, price } = parseWholesalingQuery(query);
       
-      const motivations = ["Tax delinquent", "Probate", "Code violation", "Absentee owner"];
-      const statusNotes = [
-        "Discussed cash offer",
-        "Owner open to quick close",
-        "Transferred to acquisitions rep",
-        "Follow-up scheduled",
-        "Sent comp analysis"
+      // All 12 motivation reasons that must be used
+      const motivations = [
+        "Foreclosure / Pre-foreclosure",
+        "Divorce filing",
+        "Eviction / bad tenant",
+        "Job loss / income shock",
+        "Inherited / probate",
+        "Storm / disaster damage",
+        "Tax-delinquent owner",
+        "Fire / code violation",
+        "FSBO sitting too long",
+        "Vacant / absentee owner",
+        "MLS 'as-is' / distressed",
+        "Tired landlord (non-renewal)"
       ];
+      
       const notes = [
+        "Open to cash if quick and no repairs",
+        "Executor wants clean sale; tenant leaving",
+        "Wants to sell fast; open to 14-day close",
         "Said he's ready to sell for the right offer",
         "Tenant left; open to cash offer",
-        "Wants fast cash, ok with 14-day close",
-        "Open to creative financing",
-        "Motivated seller, needs quick exit"
+        "Needs quick exit, flexible on terms",
+        "Open to creative financing options",
+        "Motivated seller, will consider all offers",
+        "Looking for fast close, no contingencies",
+        "Would accept slightly below market for speed",
+        "Open to assignment or double close",
+        "Ready to move, wants hassle-free sale"
       ];
       
-      const streets = ['Seabreeze Blvd', 'Main St', 'Oak Ave', 'Bay Dr', 'Palm Ct', 'Ridge Rd', 'Pine St', 'Maple Ave'];
+      const streets = [
+        'W Main St', 'Bayshore Ct', 'Orange Blossom Dr', 'Seabreeze Blvd', 
+        'Palm Ave', 'Oak Ridge Rd', 'Sunset Blvd', 'Harbor View Dr',
+        'Cypress Way', 'Magnolia Ln', 'Beach Dr', 'Park Ave'
+      ];
       
-      // Generate prospects (3-4 cards)
-      const numProspects = Math.floor(Math.random() * 2) + 3;
+      const cities = city.includes('Tampa') || city.includes('tampa') 
+        ? ['Tampa', 'St. Petersburg', 'Clearwater', 'Brandon']
+        : [city, city, city, city]; // Use the parsed city if not Tampa
+      
+      // Generate 9-12 cards total, distributed across columns
+      const totalCards = Math.floor(Math.random() * 4) + 9; // 9-12 cards
+      
+      // Distribute cards: 40% prospects, 35% qualified, 25% booked
+      const numProspects = Math.ceil(totalCards * 0.4);
+      const numQualified = Math.ceil(totalCards * 0.35);
+      const numBooked = totalCards - numProspects - numQualified;
+      
       const prospects = Array.from({length: numProspects}, (_, i) => {
         const fn = firstNames[i % firstNames.length];
         const ln = lastNames[(i + 2) % lastNames.length];
-        const estValue = Math.floor((price * 0.85) + (Math.random() * (price * 0.3)));
+        const motivation = motivations[i % motivations.length];
+        const estValue = Math.floor((price * 0.75) + (Math.random() * (price * 0.2)));
+        const cityName = cities[i % cities.length];
         
         return {
-          title: `${700 + i * 150} ${streets[i % streets.length]}`,
-          subtitle: `${city}, FL`,
-          market: city,
-          channels: { email: true, sms: true, call: Math.random() > 0.5, vm: false },
+          title: `${700 + i * 235} ${streets[i % streets.length]} — ${cityName}, FL`,
+          subtitle: `Motivation: ${motivation}`,
+          market: cityName,
+          channels: { email: true, sms: true, call: true, vm: Math.random() > 0.4 },
           note: notes[i % notes.length],
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
-            phone: `(${Math.floor(Math.random()*900)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+            phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
+          motivation,
+          estValue: `Est. value: $${estValue.toLocaleString()}`
         };
       });
       
-      // Generate qualified targets (1-2 cards)
-      const numQualified = Math.floor(Math.random() * 2) + 1;
       const qualified = Array.from({length: numQualified}, (_, i) => {
-        const fn = firstNames[(i + 4) % firstNames.length];
-        const ln = lastNames[(i + 6) % lastNames.length];
-        const estValue = Math.floor((price * 0.88) + (Math.random() * (price * 0.2)));
+        const fn = firstNames[(i + numProspects) % firstNames.length];
+        const ln = lastNames[(i + numProspects + 2) % lastNames.length];
+        const motivation = motivations[(i + numProspects) % motivations.length];
+        const estValue = Math.floor((price * 0.8) + (Math.random() * (price * 0.15)));
+        const cityName = cities[(i + numProspects) % cities.length];
         
         return {
-          title: `${1200 + i * 200} ${streets[(i + 3) % streets.length]}`,
-          subtitle: `${city}, FL`,
-          market: city,
-          channels: { email: true, sms: true, call: true, vm: Math.random() > 0.5 },
-          note: statusNotes[i % statusNotes.length],
+          title: `${1200 + i * 310} ${streets[(i + numProspects) % streets.length]} — ${cityName}, FL`,
+          subtitle: `Motivation: ${motivation}`,
+          market: cityName,
+          channels: { email: true, sms: true, call: true, vm: true },
+          note: notes[(i + numProspects) % notes.length],
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
-            phone: `(${Math.floor(Math.random()*900)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+            phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
+          motivation,
+          estValue: `Est. value: $${estValue.toLocaleString()}`
         };
       });
       
-      // Generate booked meetings (0-1 cards)
-      const numBooked = Math.random() > 0.5 ? 1 : 0;
       const booked = Array.from({length: numBooked}, (_, i) => {
-        const fn = firstNames[(i + 8) % firstNames.length];
-        const ln = lastNames[(i + 10) % lastNames.length];
-        const estValue = Math.floor((price * 0.90) + (Math.random() * (price * 0.15)));
+        const fn = firstNames[(i + numProspects + numQualified) % firstNames.length];
+        const ln = lastNames[(i + numProspects + numQualified + 2) % lastNames.length];
+        const motivation = motivations[(i + numProspects + numQualified) % motivations.length];
+        const estValue = Math.floor((price * 0.85) + (Math.random() * (price * 0.1)));
+        const cityName = cities[(i + numProspects + numQualified) % cities.length];
         
         return {
-          title: `${2400 + i * 300} ${streets[(i + 6) % streets.length]}`,
-          subtitle: `${city}, FL`,
-          market: city,
+          title: `${2400 + i * 420} ${streets[(i + numProspects + numQualified) % streets.length]} — ${cityName}, FL`,
+          subtitle: `Motivation: ${motivation}`,
+          market: cityName,
           channels: { email: true, sms: true, call: true, vm: true },
-          note: "Site visit scheduled",
+          note: `Confirmed for cash buyer call ${['Mon', 'Tue', 'Wed', 'Thu', 'Fri'][i % 5]} ${['10am', '2pm', '4pm'][i % 3]}`,
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
-            phone: `(${Math.floor(Math.random()*900)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+            phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
+          motivation,
+          estValue: `Est. value: $${estValue.toLocaleString()}`
         };
       });
       
@@ -482,54 +519,77 @@ export default function Demo(){
           </div>
         )}
 
+        {/* Wholesaling Query Input - Show only when Wholesaling is selected */}
+        {selectedVertical === "Wholesaling" && (
+          <div className="cosmic-card rounded-2xl p-4 mb-6 shadow-lg">
+            <label className="block text-sm font-medium text-foreground mb-2">
+              Describe the sellers you want to find
+            </label>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={wholesalingQuery}
+                onChange={(e) => setWholesalingQuery(e.target.value)}
+                placeholder="Off-market single-family in Tampa under $500k, likely to sell in 30 days, tax or code issue."
+                className="flex-1 px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                onKeyDown={(e) => e.key === 'Enter' && handleWholesalingSearch()}
+              />
+              <Button 
+                onClick={handleWholesalingSearch}
+                variant="default"
+                disabled={busy || !wholesalingQuery.trim()}
+                className="px-6"
+              >
+                {busy ? "Searching..." : "Apply"}
+              </Button>
+            </div>
+          </div>
+        )}
+
         {/* Deal Criteria Display Section - Show for all verticals */}
         <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-medium text-foreground">Deal Criteria</h2>
-            <div className="flex gap-2">
-              {selectedVertical !== "Wholesaling" && (
-                <>
-                  <Button 
-                    onClick={() => setModalOpen(true)}
-                    variant="outline"
-                    className="text-sm"
-                  >
-                    Edit
-                  </Button>
-                  {finalCriteriaText.trim().length > 0 && (
-                    <Button 
-                      onClick={onParse}
-                      variant="default"
-                      className="text-sm"
-                      disabled={busy || finalCriteriaText.trim().length === 0}
-                    >
-                      {busy ? "Processing..." : "Confirm"}
-                    </Button>
-                  )}
-                </>
-              )}
-              {selectedVertical === "Wholesaling" && (
+            {selectedVertical !== "Wholesaling" && (
+              <div className="flex gap-2">
                 <Button 
-                  onClick={handleWholesalingSearch}
-                  variant="default"
+                  onClick={() => setModalOpen(true)}
+                  variant="outline"
                   className="text-sm"
-                  disabled={busy || !wholesalingQuery.trim()}
                 >
-                  {busy ? "Searching..." : "Run Search"}
+                  Edit
                 </Button>
-              )}
-            </div>
+                {finalCriteriaText.trim().length > 0 && (
+                  <Button 
+                    onClick={onParse}
+                    variant="default"
+                    className="text-sm"
+                    disabled={busy || finalCriteriaText.trim().length === 0}
+                  >
+                    {busy ? "Processing..." : "Confirm"}
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
           
           {selectedVertical === "Wholesaling" ? (
-            <input
-              type="text"
-              value={wholesalingQuery}
-              onChange={(e) => setWholesalingQuery(e.target.value)}
-              placeholder="Find me homes below $1.5M in Tampa area potentially looking to sell in the next 30 days…"
-              className="w-full px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-              onKeyDown={(e) => e.key === 'Enter' && handleWholesalingSearch()}
-            />
+            <>
+              {wholesalingQuery && confirmed ? (
+                <div className="text-sm text-foreground leading-relaxed bg-muted/50 rounded-xl p-4 space-y-1">
+                  <div>• <span className="font-medium">Intent:</span> acquisition (off-market)</div>
+                  <div>• <span className="font-medium">Market:</span> {parsed?.market?.city || "Tampa"}, FL</div>
+                  <div>• <span className="font-medium">Property Type:</span> single-family</div>
+                  <div>• <span className="font-medium">Price Range:</span> ≤ ${parsed?.budget?.max?.toLocaleString() || "500,000"}</div>
+                  <div>• <span className="font-medium">Motivation:</span> tax delinquent, code violation, probate, foreclosure</div>
+                  <div>• <span className="font-medium">Timing:</span> likely to sell within 30 days</div>
+                </div>
+              ) : (
+                <div className="text-sm text-muted-foreground italic">
+                  Enter your search criteria above and click "Apply"
+                </div>
+              )}
+            </>
           ) : (
             <>
               {finalCriteriaText ? (
@@ -564,9 +624,9 @@ export default function Demo(){
                   <div><span className="font-medium text-foreground">Property Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? "-"}</span></div>
                   <div><span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state? ", "+parsed.market.state:""}` : "-"}</span></div>
                   <div><span className="font-medium text-foreground">Price Ceiling:</span> <span className="text-muted-foreground">{parsed.budget?.max ? `≤ $${Number(parsed.budget.max).toLocaleString()}` : "-"}</span></div>
-                  <div><span className="font-medium text-foreground">Signal:</span> <span className="text-muted-foreground">Tax Delinquent / Code Violation</span></div>
+                  <div><span className="font-medium text-foreground">Signal:</span> <span className="text-muted-foreground">tax delinquent, code violation, probate</span></div>
                   <div><span className="font-medium text-foreground">Motivation:</span> <span className="text-muted-foreground">High</span></div>
-                  <div><span className="font-medium text-foreground">Timing:</span> <span className="text-muted-foreground">{parsed.timing ?? "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Timing:</span> <span className="text-muted-foreground">{parsed.timing ?? "30 days"}</span></div>
                 </>
               ) : (
                 <>
