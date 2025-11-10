@@ -510,18 +510,9 @@ export default function Demo(){
           ))}
         </div>
 
-        {/* PersonalizeBar - Show for all verticals */}
-        <PersonalizeBar onIntelReceived={setFirmIntel} onReset={handleReset} />
-
-        {firmIntel && (
-          <div className="space-y-6 mb-8">
-            <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
-          </div>
-        )}
-
-        {/* Wholesaling Query Input - Show only when Wholesaling is selected */}
-        {selectedVertical === "Wholesaling" && (
-          <div className="cosmic-card rounded-2xl p-4 mb-6 shadow-lg">
+        {/* Wholesaling Query Input - Show only for Wholesaling vertical */}
+        {selectedVertical === "Wholesaling" ? (
+          <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg">
             <label className="block text-sm font-medium text-foreground mb-2">
               Describe the sellers you want to find
             </label>
@@ -530,7 +521,7 @@ export default function Demo(){
                 type="text"
                 value={wholesalingQuery}
                 onChange={(e) => setWholesalingQuery(e.target.value)}
-                placeholder="Off-market single-family in Tampa under $500k, likely to sell in 30 days, tax or code issue."
+                placeholder="Off-market single-family homes in Tampa under $500k, likely to sell in 30 days, tax or code issue."
                 className="flex-1 px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 onKeyDown={(e) => e.key === 'Enter' && handleWholesalingSearch()}
               />
@@ -544,6 +535,17 @@ export default function Demo(){
               </Button>
             </div>
           </div>
+        ) : (
+          <>
+            {/* PersonalizeBar - Show for all non-Wholesaling verticals */}
+            <PersonalizeBar onIntelReceived={setFirmIntel} onReset={handleReset} />
+
+            {firmIntel && (
+              <div className="space-y-6 mb-8">
+                <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
+              </div>
+            )}
+          </>
         )}
 
         {/* Deal Criteria Display Section - Show for all verticals */}
