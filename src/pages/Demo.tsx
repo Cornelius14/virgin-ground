@@ -272,111 +272,80 @@ export default function Demo(){
   }
 
   function generateVerticalResults(vertical: string, query: string = "") {
-    const firstNames = ["John","Jane","Michael","Sarah","David","Emily","Robert","Lisa","James","Maria"];
-    const lastNames = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez"];
+    const firstNames = ["John","Jane","Michael","Sarah","David","Emily","Robert","Lisa","James","Maria","Ana","Carlos"];
+    const lastNames = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez","Lopez","Chen"];
     
     if (vertical === "Wholesaling") {
-      const cities = query.toLowerCase().includes("tampa") ? "Tampa" : 
-                     query.toLowerCase().includes("daytona") ? "Daytona Beach" :
-                     query.toLowerCase().includes("orlando") ? "Orlando" : "Tampa";
-      const priceMatch = query.match(/(\d+(?:\.\d+)?)[kKmM]/);
-      const price = priceMatch ? 
-        (priceMatch[1].includes('.') ? parseFloat(priceMatch[1]) : parseInt(priceMatch[1])) * 
-        (priceMatch[0].toLowerCase().includes('m') ? 1000000 : 1000) : 
-        500000;
+      // Parse city from query
+      const cityPatterns = [
+        /in\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/i,
+        /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+area/i,
+        /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?),?\s*FL/i
+      ];
+      let city = "Tampa";
+      for (const pattern of cityPatterns) {
+        const match = query.match(pattern);
+        if (match) {
+          city = match[1].trim();
+          break;
+        }
+      }
       
-      const motivations = ["Tax Delinquent", "Probate", "Code Violation", "Absentee Owner"];
+      // Parse price from query
+      const pricePatterns = [
+        /below\s+\$?([\d,.]+)\s*([kKmM])?/i,
+        /under\s+\$?([\d,.]+)\s*([kKmM])?/i,
+        /\$?([\d,.]+)\s*([kKmM])?\s+or\s+less/i
+      ];
+      let price = 500000;
+      for (const pattern of pricePatterns) {
+        const match = query.match(pattern);
+        if (match) {
+          const num = parseFloat(match[1].replace(/,/g, ''));
+          const multiplier = match[2]?.toLowerCase() === 'm' ? 1000000 : 
+                           match[2]?.toLowerCase() === 'k' ? 1000 : 1;
+          price = num * multiplier;
+          break;
+        }
+      }
+      
+      const motivations = ["Tax delinquent", "Probate", "Code violation", "Absentee owner"];
       const notes = [
+        "Said he's ready to sell for the right offer",
         "Tenant left; open to cash offer",
-        "Said yes to quick sale",
         "Wants fast cash, ok with 14-day close",
-        "Motivated seller, needs quick exit",
-        "Open to creative financing"
+        "Open to creative financing",
+        "Motivated seller, needs quick exit"
       ];
       
-      const prospects = Array.from({length: 6}, (_, i) => ({
-        title: `${firstNames[i % firstNames.length]} ${lastNames[i % lastNames.length].charAt(0)}.`,
-        subtitle: `${1200 + i * 100} ${['W Main St', 'E Bay Ave', 'S Oak Dr', 'N Pine Rd', 'Kennedy Blvd', 'Dale Mabry'][i]}, ${cities}, FL`,
-        market: cities,
-        motivation: motivations[i % motivations.length],
-        value: `Est. value: $${Math.floor((price * 0.7) + Math.random() * (price * 0.6)).toLocaleString()}`,
-        note: notes[i % notes.length],
-        contact: {
-          name: `${firstNames[i % firstNames.length]} ${lastNames[i % lastNames.length]}`,
-          email: `${firstNames[i % firstNames.length].toLowerCase()}@example.com`,
-          phone: `(813) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
-        },
-        channels: { email: true, sms: true, call: Math.random() > 0.5, vm: false }
-      }));
+      const streets = ['Seabreeze Blvd', 'Main St', 'Oak Ave', 'Bay Dr', 'Palm Ct', 'Ridge Rd'];
+      const numCards = Math.floor(Math.random() * 3) + 3; // 3-5 cards
+      
+      const prospects = Array.from({length: numCards}, (_, i) => {
+        const fn = firstNames[i % firstNames.length];
+        const ln = lastNames[i % lastNames.length];
+        const estValue = Math.floor((price * 0.85) + (Math.random() * (price * 0.3)));
+        
+        return {
+          title: `${fn} ${ln}`,
+          subtitle: `${700 + i * 150} ${streets[i % streets.length]} — ${city}, FL`,
+          market: city,
+          motivation: motivations[i % motivations.length],
+          value: `Est. value: $${estValue.toLocaleString()}`,
+          note: notes[i % notes.length],
+          contact: {
+            name: `${fn} ${ln}`,
+            email: `${fn.toLowerCase()}${ln.toLowerCase()}@example.com`,
+            phone: `(${Math.floor(Math.random()*900)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+          },
+          channels: { email: true, sms: true, call: Math.random() > 0.5, vm: false }
+        };
+      });
       
       return { prospects, qualified: [], booked: [] };
     }
     
-    if (vertical === "Multifamily") {
-      const prospects = Array.from({length: 4}, (_, i) => ({
-        title: `${firstNames[i]} ${lastNames[i]}`,
-        subtitle: `${12 + i * 6}-unit ${['walk-up', 'garden-style', 'mid-rise', 'low-rise'][i]} — Charlotte, NC`,
-        market: "Charlotte",
-        note: `Loan maturing in ${3 + i * 2} months — owner open to offers`,
-        contact: {
-          name: `${firstNames[i]} ${lastNames[i]}`,
-          email: `${firstNames[i].toLowerCase()}@example.com`,
-          phone: `(704) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
-        },
-        channels: { email: true, sms: false, call: true, vm: false }
-      }));
-      return { prospects, qualified: [], booked: [] };
-    }
-    
-    if (vertical === "Lenders / Originators") {
-      const prospects = Array.from({length: 4}, (_, i) => ({
-        title: `${firstNames[i]} ${lastNames[i]}`,
-        subtitle: `Owner/Borrower — ${['Miami', 'Austin', 'Denver', 'Phoenix'][i]}`,
-        market: ['Miami', 'Austin', 'Denver', 'Phoenix'][i],
-        note: `${['Refi in 3-6 months', 'Docs-ready', 'Rate sheet requested', 'Pre-qual completed'][i]}`,
-        contact: {
-          name: `${firstNames[i]} ${lastNames[i]}`,
-          email: `${firstNames[i].toLowerCase()}@example.com`,
-          phone: `(${[305, 512, 303, 602][i]}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
-        },
-        channels: { email: true, sms: true, call: true, vm: false }
-      }));
-      return { prospects, qualified: [], booked: [] };
-    }
-    
-    if (vertical === "Developers / Construction") {
-      const prospects = Array.from({length: 4}, (_, i) => ({
-        title: `${firstNames[i]} ${lastNames[i]}`,
-        subtitle: `Developer — ${['Seattle', 'Portland', 'Nashville', 'Raleigh'][i]}`,
-        market: ['Seattle', 'Portland', 'Nashville', 'Raleigh'][i],
-        note: `${['Permits pulled', '150k+ SF planned', 'Open to GC/vendor call', 'Breaking ground Q2'][i]}`,
-        contact: {
-          name: `${firstNames[i]} ${lastNames[i]}`,
-          email: `${firstNames[i].toLowerCase()}@example.com`,
-          phone: `(${[206, 503, 615, 919][i]}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
-        },
-        channels: { email: true, sms: false, call: true, vm: false }
-      }));
-      return { prospects, qualified: [], booked: [] };
-    }
-    
-    if (vertical === "Title / Closing") {
-      const prospects = Array.from({length: 4}, (_, i) => ({
-        title: `${firstNames[i]} ${lastNames[i]}`,
-        subtitle: `Property owner — ${['Dallas', 'Houston', 'Atlanta', 'Boston'][i]}`,
-        market: ['Dallas', 'Houston', 'Atlanta', 'Boston'][i],
-        note: `${['Active deed', 'Refi in process', 'Needs title contact', 'Closing in 30 days'][i]}`,
-        contact: {
-          name: `${firstNames[i]} ${lastNames[i]}`,
-          email: `${firstNames[i].toLowerCase()}@example.com`,
-          phone: `(${[214, 713, 404, 617][i]}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
-        },
-        channels: { email: true, sms: true, call: false, vm: false }
-      }));
-      return { prospects, qualified: [], booked: [] };
-    }
-    
-    // Commercial / Brokers - keep current behavior
+    // For other verticals, return null (they use the existing parseBuyBox flow)
     return null;
   }
 
@@ -400,15 +369,8 @@ export default function Demo(){
     setConfirmed(false);
     setRows({prospects:[],qualified:[],booked:[]});
     setErr(null);
-    
-    // If switching to non-Commercial/Brokers vertical, generate sample results
-    if (vertical !== "Commercial / Brokers" && vertical !== "Wholesaling") {
-      const results = generateVerticalResults(vertical);
-      if (results) {
-        setRows(results);
-        setConfirmed(true);
-      }
-    }
+    setWholesalingQuery("");
+    // Don't auto-generate results - wait for user to run search
   }
 
   return (
@@ -452,7 +414,7 @@ export default function Demo(){
                 type="text"
                 value={wholesalingQuery}
                 onChange={(e) => setWholesalingQuery(e.target.value)}
-                placeholder="Find me off-market homes in Tampa under $1.5M that may sell in the next 30 days…"
+                placeholder="Find me homes below $1.5M in Tampa area potentially looking to sell in the next 30 days…"
                 className="flex-1 px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 onKeyDown={(e) => e.key === 'Enter' && handleWholesalingSearch()}
               />
@@ -461,7 +423,7 @@ export default function Demo(){
                 disabled={busy || !wholesalingQuery.trim()}
                 className="px-6"
               >
-                {busy ? "Searching..." : "Run search"}
+                {busy ? "Searching..." : "Run Search"}
               </Button>
             </div>
           </div>
@@ -545,41 +507,25 @@ export default function Demo(){
         {confirmed && rows.prospects.length > 0 && (
           <div className="cosmic-card rounded-2xl p-6 shadow-lg">
             <h2 className="text-2xl font-medium tracking-tight text-foreground mb-6">
-              {selectedVertical === "Wholesaling" ? "Motivated Sellers" : "Pipeline Results"}
+              {selectedVertical === "Wholesaling" ? "Search Results" : "Pipeline Results"}
             </h2>
             
             {selectedVertical === "Wholesaling" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {rows.prospects.map((prospect: any, idx: number) => (
-                  <div key={idx} className="bg-muted/30 rounded-lg p-4 space-y-2 border border-border/50">
-                    <div className="font-medium text-foreground">{prospect.title}</div>
-                    <div className="text-sm text-muted-foreground">{prospect.subtitle}</div>
-                    <div className="flex items-center gap-2 text-xs">
+                  <div key={idx} className="bg-muted/30 rounded-lg p-4 space-y-2.5 border border-border/50 hover:border-border transition-colors">
+                    <div className="font-medium text-foreground text-base">{prospect.title}</div>
+                    <div className="text-sm text-muted-foreground leading-snug">{prospect.subtitle}</div>
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
                       <span className="px-2 py-1 bg-primary/20 text-primary rounded">{prospect.motivation}</span>
                       <span className="text-muted-foreground">{prospect.value}</span>
                     </div>
-                    <div className="text-sm text-foreground italic">"{prospect.note}"</div>
-                    <div className="text-xs text-muted-foreground pt-2 border-t border-border/30">
-                      {prospect.contact.phone}
-                    </div>
+                    <div className="text-sm text-foreground italic leading-relaxed">"{prospect.note}"</div>
                   </div>
                 ))}
               </div>
-            ) : selectedVertical === "Commercial / Brokers" ? (
-              <PipelineBoard rows={rows} onUpdateRows={setRows} />
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {rows.prospects.map((prospect: any, idx: number) => (
-                  <div key={idx} className="bg-muted/30 rounded-lg p-4 space-y-2 border border-border/50">
-                    <div className="font-medium text-foreground">{prospect.title}</div>
-                    <div className="text-sm text-muted-foreground">{prospect.subtitle}</div>
-                    <div className="text-sm text-foreground italic">"{prospect.note}"</div>
-                    <div className="text-xs text-muted-foreground pt-2 border-t border-border/30">
-                      {prospect.contact.email} • {prospect.contact.phone}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <PipelineBoard rows={rows} onUpdateRows={setRows} />
             )}
           </div>
         )}
