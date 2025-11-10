@@ -331,19 +331,23 @@ export default function Demo(){
         "Tired landlord (non-renewal)"
       ];
       
-      const notes = [
+      // Wholesaler-specific notes (conversational, seller-focused)
+      const wholesalerNotes = [
         "Open to cash if quick and no repairs",
         "Executor wants clean sale; tenant leaving",
         "Wants to sell fast; open to 14-day close",
         "Said he's ready to sell for the right offer",
-        "Tenant left; open to cash offer",
-        "Needs quick exit, flexible on terms",
-        "Open to creative financing options",
-        "Motivated seller, will consider all offers",
-        "Looking for fast close, no contingencies",
-        "Would accept slightly below market for speed",
-        "Open to assignment or double close",
-        "Ready to move, wants hassle-free sale"
+        "Tenant just left; wants out fast",
+        "Needs quick exit to avoid more fees",
+        "Would take less for a clean cash offer",
+        "Open to any serious offer, just wants it sold",
+        "Behind on payments; ready to walk away",
+        "Can't afford repairs; selling as-is",
+        "Moving out of state; needs fast close",
+        "Just wants to be done with the property",
+        "Will accept cash offer if we close quickly",
+        "Tired of dealing with it; open to all offers",
+        "Ready to sell below market for speed"
       ];
       
       const streets = [
@@ -370,20 +374,21 @@ export default function Demo(){
         const motivation = motivations[i % motivations.length];
         const estValue = Math.floor((price * 0.75) + (Math.random() * (price * 0.2)));
         const cityName = cities[i % cities.length];
+        const showEstValue = i < 2; // Only show est. value on first 2 cards
         
         return {
           title: `${700 + i * 235} ${streets[i % streets.length]} — ${cityName}, FL`,
           subtitle: `Motivation: ${motivation}`,
           market: cityName,
           channels: { email: true, sms: true, call: true, vm: Math.random() > 0.4 },
-          note: notes[i % notes.length],
+          note: wholesalerNotes[i % wholesalerNotes.length],
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
             phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
           motivation,
-          estValue: `Est. value: $${estValue.toLocaleString()}`
+          ...(showEstValue && { estValue: `Est. value: $${estValue.toLocaleString()}` })
         };
       });
       
@@ -393,20 +398,21 @@ export default function Demo(){
         const motivation = motivations[(i + numProspects) % motivations.length];
         const estValue = Math.floor((price * 0.8) + (Math.random() * (price * 0.15)));
         const cityName = cities[(i + numProspects) % cities.length];
+        const showEstValue = i === 0; // Only show est. value on first qualified card
         
         return {
           title: `${1200 + i * 310} ${streets[(i + numProspects) % streets.length]} — ${cityName}, FL`,
           subtitle: `Motivation: ${motivation}`,
           market: cityName,
           channels: { email: true, sms: true, call: true, vm: true },
-          note: notes[(i + numProspects) % notes.length],
+          note: wholesalerNotes[(i + numProspects) % wholesalerNotes.length],
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
             phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
           motivation,
-          estValue: `Est. value: $${estValue.toLocaleString()}`
+          ...(showEstValue && { estValue: `Est. value: $${estValue.toLocaleString()}` })
         };
       });
       
@@ -414,22 +420,22 @@ export default function Demo(){
         const fn = firstNames[(i + numProspects + numQualified) % firstNames.length];
         const ln = lastNames[(i + numProspects + numQualified + 2) % lastNames.length];
         const motivation = motivations[(i + numProspects + numQualified) % motivations.length];
-        const estValue = Math.floor((price * 0.85) + (Math.random() * (price * 0.1)));
         const cityName = cities[(i + numProspects + numQualified) % cities.length];
+        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+        const times = ['10am', '2pm', '4pm'];
         
         return {
           title: `${2400 + i * 420} ${streets[(i + numProspects + numQualified) % streets.length]} — ${cityName}, FL`,
           subtitle: `Motivation: ${motivation}`,
           market: cityName,
           channels: { email: true, sms: true, call: true, vm: true },
-          note: `Confirmed for cash buyer call ${['Mon', 'Tue', 'Wed', 'Thu', 'Fri'][i % 5]} ${['10am', '2pm', '4pm'][i % 3]}`,
+          note: `Confirmed for cash buyer call ${days[i % days.length]} ${times[i % times.length]}`,
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
             phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
-          motivation,
-          estValue: `Est. value: $${estValue.toLocaleString()}`
+          motivation
         };
       });
       
