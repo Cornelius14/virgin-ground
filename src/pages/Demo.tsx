@@ -269,6 +269,31 @@ export default function Demo(){
 
   function handleModalDone(criteriaText: string) {
     setFinalCriteriaText(criteriaText);
+    
+    // For wholesaling, regenerate results based on updated criteria
+    if (selectedVertical === "Wholesaling") {
+      setBusy(true);
+      setTimeout(() => {
+        const results = generateVerticalResults("Wholesaling", criteriaText);
+        if (results) {
+          const { city, price } = parseWholesalingQuery(criteriaText);
+          
+          // Create wholesaling-specific parsed data
+          const wholesalingParsed: ParsedBuyBox = {
+            intent: "acquisition (off-market)",
+            market: { city, state: "FL", country: "USA" },
+            asset_type: "single-family",
+            budget: { max: price },
+            timing: "30 days",
+          };
+          
+          setParsed(wholesalingParsed);
+          setRows(results);
+          setConfirmed(true);
+        }
+        setBusy(false);
+      }, 800);
+    }
   }
 
   function parseWholesalingQuery(query: string) {
@@ -278,7 +303,7 @@ export default function Demo(){
       /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+area/i,
       /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?),?\s*FL/i
     ];
-    let city = "Tampa";
+    let city = "Sarasota"; // Default to Sarasota per prompt requirement
     for (const pattern of cityPatterns) {
       const match = query.match(pattern);
       if (match) {
@@ -291,7 +316,8 @@ export default function Demo(){
     const pricePatterns = [
       /below\s+\$?([\d,.]+)\s*([kKmM])?/i,
       /under\s+\$?([\d,.]+)\s*([kKmM])?/i,
-      /\$?([\d,.]+)\s*([kKmM])?\s+or\s+less/i
+      /\$?([\d,.]+)\s*([kKmM])?\s+or\s+less/i,
+      /≤\s*\$?([\d,.]+)\s*([kKmM])?/i
     ];
     let price = 500000;
     for (const pattern of pricePatterns) {
@@ -315,127 +341,255 @@ export default function Demo(){
     if (vertical === "Wholesaling") {
       const { city, price } = parseWholesalingQuery(query);
       
-      // All 12 motivation reasons that must be used
-      const motivations = [
-        "Foreclosure / Pre-foreclosure",
-        "Divorce filing",
-        "Eviction / bad tenant",
-        "Job loss / income shock",
-        "Inherited / probate",
-        "Storm / disaster damage",
-        "Tax-delinquent owner",
-        "Fire / code violation",
-        "FSBO sitting too long",
-        "Vacant / absentee owner",
-        "MLS 'as-is' / distressed",
-        "Tired landlord (non-renewal)"
-      ];
-      
-      // Wholesaler-specific notes (conversational, seller-focused)
-      const wholesalerNotes = [
-        "Open to cash if quick and no repairs",
-        "Executor wants clean sale; tenant leaving",
-        "Wants to sell fast; open to 14-day close",
-        "Said he's ready to sell for the right offer",
-        "Tenant just left; wants out fast",
-        "Needs quick exit to avoid more fees",
-        "Would take less for a clean cash offer",
-        "Open to any serious offer, just wants it sold",
-        "Behind on payments; ready to walk away",
-        "Can't afford repairs; selling as-is",
-        "Moving out of state; needs fast close",
-        "Just wants to be done with the property",
-        "Will accept cash offer if we close quickly",
-        "Tired of dealing with it; open to all offers",
-        "Ready to sell below market for speed"
+      // Wholesaling trigger catalog with detailed contexts
+      const triggers = [
+        { 
+          name: "Tax-delinquent owner",
+          contexts: [
+            "$4,110 owed (2024), notice mailed 10/12",
+            "$6,320 owed (2023-24), lien filed",
+            "$3,890 past due, auction notice sent",
+            "$5,200 delinquent, final notice period"
+          ]
+        },
+        { 
+          name: "Foreclosure / Pre-foreclosure",
+          contexts: [
+            "NOD filed 10/28, auction window 21–35 days",
+            "Pre-foreclosure stage, 45 days to auction",
+            "Bank initiated proceedings 9/15",
+            "Default notice received, 60-day timeline"
+          ]
+        },
+        { 
+          name: "Divorce filing",
+          contexts: [
+            "Docket #2025-DR-01432, property listed in filing",
+            "Case #2025-DR-00891, asset division pending",
+            "Divorce settlement: must liquidate within 90 days",
+            "Court-ordered sale, docket #2025-DR-02134"
+          ]
+        },
+        { 
+          name: "Eviction / Bad tenant",
+          contexts: [
+            "Case 2025-EV-00812, non-payment 3 months",
+            "Eviction filed 11/2, tenant unresponsive",
+            "Case 2025-EV-01203, property damage claim",
+            "Non-payment eviction, hearing scheduled"
+          ]
+        },
+        { 
+          name: "Job loss / Income shock",
+          contexts: [
+            "Recent layoff flagged, missed mortgage 1 month",
+            "Unemployment claim filed, 2 months behind",
+            "Income loss documented, forbearance ending",
+            "Job termination 8/15, payment default imminent"
+          ]
+        },
+        { 
+          name: "Inherited / Probate",
+          contexts: [
+            "Estate of Williams, PR: Sarah Williams",
+            "Probate case #2025-PR-00432, out-of-state heir",
+            "Estate of Martinez, executor ready to liquidate",
+            "Inherited property, family wants quick sale"
+          ]
+        },
+        { 
+          name: "Storm / Disaster damage",
+          contexts: [
+            "Hurricane impact zone; partial roof damage",
+            "Storm damage claim filed, repairs needed",
+            "FEMA inspection completed, owner overwhelmed",
+            "Wind damage documented, insurance pending"
+          ]
+        },
+        { 
+          name: "Fire / Code violation",
+          contexts: [
+            "Code case #CV-42519: unsafe deck",
+            "Fire damage to kitchen, repairs $40k+",
+            "Code violation notice 9/20, compliance deadline",
+            "Structural issues cited, city red-tagged"
+          ]
+        },
+        { 
+          name: "Distressed MLS listing",
+          contexts: [
+            "DOM 126, 3 price drops (-11%)",
+            "Listed 'as-is', DOM 89, no offers",
+            "Expired listing twice, open to creative offers",
+            "DOM 142, reduced $35k, still no activity"
+          ]
+        },
+        { 
+          name: "FSBO sitting too long",
+          contexts: [
+            "Owner-listed 17 days, no agent",
+            "FSBO 34 days, minimal showings",
+            "DIY sale attempt failed, now considering offers",
+            "Self-listed 28 days, getting discouraged"
+          ]
+        },
+        { 
+          name: "Vacant / Absentee owner",
+          contexts: [
+            "Owner mailing addr out-of-state; utility usage low",
+            "Property vacant 8+ months, owner in California",
+            "Absentee since 2023, maintenance issues mounting",
+            "Empty for 11 months, HOA violations piling up"
+          ]
+        },
+        { 
+          name: "Tired landlord",
+          contexts: [
+            "14 years as rental, owner ready to exit",
+            "Non-renewal notice sent, wants to sell before vacancy",
+            "Tenant leaving 12/31, owner won't re-rent",
+            "Long-time landlord retiring, selling portfolio"
+          ]
+        }
       ];
       
       const streets = [
         'W Main St', 'Bayshore Ct', 'Orange Blossom Dr', 'Seabreeze Blvd', 
         'Palm Ave', 'Oak Ridge Rd', 'Sunset Blvd', 'Harbor View Dr',
-        'Cypress Way', 'Magnolia Ln', 'Beach Dr', 'Park Ave'
+        'Cypress Way', 'Magnolia Ln', 'Beach Dr', 'Park Ave',
+        'Hillcrest Ave', 'Marina Dr', 'Garden Ln', 'Ocean Blvd',
+        'Lake Shore Dr', 'Riverside Ave', 'Pine St', 'Maple Dr',
+        'Cedar Ln', 'Willow Way', 'Elmwood Dr', 'Birch St'
       ];
       
-      const cities = city.includes('Tampa') || city.includes('tampa') 
+      const cityName = city.includes('Tampa') || city.includes('tampa') 
+        ? 'Tampa'
+        : city.includes('Sarasota') || city.includes('sarasota')
+        ? 'Sarasota'
+        : city;
+      
+      const metroCities = cityName === 'Tampa' 
         ? ['Tampa', 'St. Petersburg', 'Clearwater', 'Brandon']
-        : [city, city, city, city]; // Use the parsed city if not Tampa
+        : cityName === 'Sarasota'
+        ? ['Sarasota', 'Bradenton', 'Venice', 'Englewood']
+        : [cityName, cityName, cityName, cityName];
       
-      // Generate 9-12 cards total, distributed across columns
-      const totalCards = Math.floor(Math.random() * 4) + 9; // 9-12 cards
+      const motivationQuotes = [
+        "Open to cash; wants to close in 10 days. 'Can move in 72 hours if all-cash.'",
+        "Needs quick exit. 'Will take less for fast closing.'",
+        "Ready to sell fast. 'Just want to be done with it.'",
+        "Looking for cash buyer. 'Flexible if we can close this month.'",
+        "Motivated to move quickly. 'Open to reasonable offers.'",
+        "Wants clean transaction. 'Cash preferred, as-is sale.'",
+        "Ready to negotiate. 'Need to close within 14 days.'",
+        "Will discount for speed. 'Can't deal with repairs.'",
+        "Seeking all-cash offer. 'Want simple, fast close.'",
+        "Open to creative terms. 'Just need out quickly.'",
+        "Flexible on price for speed. 'Cash talks.'",
+        "Ready to move on. 'Make me an offer.'",
+        "Willing to negotiate. 'Fast close is priority.'",
+        "Looking for quick sale. 'Tired of the hassle.'",
+        "Open to below market. 'Need to sell now.'",
+        "Will consider all offers. 'Speed matters most.'",
+        "Cash is king. 'Can close anytime this month.'",
+        "Ready to liquidate. 'As-is, all cash preferred.'",
+        "Needs fast closing. 'Will work with serious buyers.'",
+        "Motivated seller. 'Let's make a deal.'",
+        "Open to wholesale offer. 'Just want it sold.'",
+        "Will accept reasonable offer. 'Need quick exit.'",
+        "Flexible terms available. 'Cash gets priority.'",
+        "Ready for next chapter. 'Selling below appraisal.'"
+      ];
       
-      // Distribute cards: 40% prospects, 35% qualified, 25% booked
-      const numProspects = Math.ceil(totalCards * 0.4);
-      const numQualified = Math.ceil(totalCards * 0.35);
-      const numBooked = totalCards - numProspects - numQualified;
-      
-      const prospects = Array.from({length: numProspects}, (_, i) => {
+      // Generate 24 cards: 12 prospects, 8 qualified, 4 booked
+      const prospects = Array.from({length: 12}, (_, i) => {
         const fn = firstNames[i % firstNames.length];
         const ln = lastNames[(i + 2) % lastNames.length];
-        const motivation = motivations[i % motivations.length];
-        const estValue = Math.floor((price * 0.75) + (Math.random() * (price * 0.2)));
-        const cityName = cities[i % cities.length];
-        const showEstValue = i < 2; // Only show est. value on first 2 cards
+        const trigger = triggers[i % triggers.length];
+        const triggerContext = trigger.contexts[Math.floor(Math.random() * trigger.contexts.length)];
+        const estValue = Math.floor((price * 0.75) + (Math.random() * (price * 0.25)));
+        const beds = Math.floor(Math.random() * 3) + 2; // 2-4 beds
+        const baths = Math.floor(Math.random() * 2) + 1; // 1-2 baths
+        const sqft = Math.floor(Math.random() * 800) + 1200; // 1200-2000 SF
+        const built = Math.floor(Math.random() * 35) + 1980; // 1980-2015
+        const cityChoice = metroCities[i % metroCities.length];
         
         return {
-          title: `${700 + i * 235} ${streets[i % streets.length]} — ${cityName}, FL`,
-          subtitle: `Motivation: ${motivation}`,
-          market: cityName,
+          title: `🏠 ${700 + i * 235} ${streets[i % streets.length]} — ${cityChoice}, FL`,
+          subtitle: "Requested additional property details and financials",
+          market: cityChoice,
           channels: { email: true, sms: true, call: true, vm: Math.random() > 0.4 },
-          note: wholesalerNotes[i % wholesalerNotes.length],
+          note: motivationQuotes[i % motivationQuotes.length],
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
             phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
-          motivation,
-          ...(showEstValue && { estValue: `Est. value: $${estValue.toLocaleString()}` })
+          trigger: trigger.name,
+          triggerContext,
+          propertySnapshot: `Est. value: $${estValue.toLocaleString()} • ${beds}bd/${baths}ba • ${sqft.toLocaleString()} SF • Built ${built}`,
+          stage: "Prospected"
         };
       });
       
-      const qualified = Array.from({length: numQualified}, (_, i) => {
-        const fn = firstNames[(i + numProspects) % firstNames.length];
-        const ln = lastNames[(i + numProspects + 2) % lastNames.length];
-        const motivation = motivations[(i + numProspects) % motivations.length];
+      const qualified = Array.from({length: 8}, (_, i) => {
+        const fn = firstNames[(i + 12) % firstNames.length];
+        const ln = lastNames[(i + 14) % lastNames.length];
+        const trigger = triggers[(i + 12) % triggers.length];
+        const triggerContext = trigger.contexts[Math.floor(Math.random() * trigger.contexts.length)];
         const estValue = Math.floor((price * 0.8) + (Math.random() * (price * 0.15)));
-        const cityName = cities[(i + numProspects) % cities.length];
-        const showEstValue = i === 0; // Only show est. value on first qualified card
+        const beds = Math.floor(Math.random() * 3) + 2;
+        const baths = Math.floor(Math.random() * 2) + 1;
+        const sqft = Math.floor(Math.random() * 800) + 1200;
+        const built = Math.floor(Math.random() * 35) + 1980;
+        const cityChoice = metroCities[(i + 12) % metroCities.length];
         
         return {
-          title: `${1200 + i * 310} ${streets[(i + numProspects) % streets.length]} — ${cityName}, FL`,
-          subtitle: `Motivation: ${motivation}`,
-          market: cityName,
+          title: `🏠 ${3200 + i * 310} ${streets[(i + 12) % streets.length]} — ${cityChoice}, FL`,
+          subtitle: "Meeting scheduled for property tour next week",
+          market: cityChoice,
           channels: { email: true, sms: true, call: true, vm: true },
-          note: wholesalerNotes[(i + numProspects) % wholesalerNotes.length],
+          note: motivationQuotes[(i + 12) % motivationQuotes.length],
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
             phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
-          motivation,
-          ...(showEstValue && { estValue: `Est. value: $${estValue.toLocaleString()}` })
+          trigger: trigger.name,
+          triggerContext,
+          propertySnapshot: `Est. value: $${estValue.toLocaleString()} • ${beds}bd/${baths}ba • ${sqft.toLocaleString()} SF • Built ${built}`,
+          stage: "Qualified"
         };
       });
       
-      const booked = Array.from({length: numBooked}, (_, i) => {
-        const fn = firstNames[(i + numProspects + numQualified) % firstNames.length];
-        const ln = lastNames[(i + numProspects + numQualified + 2) % lastNames.length];
-        const motivation = motivations[(i + numProspects + numQualified) % motivations.length];
-        const cityName = cities[(i + numProspects + numQualified) % cities.length];
-        const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
-        const times = ['10am', '2pm', '4pm'];
+      const booked = Array.from({length: 4}, (_, i) => {
+        const fn = firstNames[(i + 20) % firstNames.length];
+        const ln = lastNames[(i + 22) % lastNames.length];
+        const trigger = triggers[(i + 20) % triggers.length];
+        const triggerContext = trigger.contexts[Math.floor(Math.random() * trigger.contexts.length)];
+        const estValue = Math.floor((price * 0.82) + (Math.random() * (price * 0.12)));
+        const beds = Math.floor(Math.random() * 3) + 2;
+        const baths = Math.floor(Math.random() * 2) + 1;
+        const sqft = Math.floor(Math.random() * 800) + 1200;
+        const built = Math.floor(Math.random() * 35) + 1980;
+        const cityChoice = metroCities[(i + 20) % metroCities.length];
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         
         return {
-          title: `${2400 + i * 420} ${streets[(i + numProspects + numQualified) % streets.length]} — ${cityName}, FL`,
-          subtitle: `Motivation: ${motivation}`,
-          market: cityName,
+          title: `🏠 ${5400 + i * 420} ${streets[(i + 20) % streets.length]} — ${cityChoice}, FL`,
+          subtitle: `Contract review penciled for ${days[i % days.length]}`,
+          market: cityChoice,
           channels: { email: true, sms: true, call: true, vm: true },
-          note: `Confirmed for cash buyer call ${days[i % days.length]} ${times[i % times.length]}`,
+          note: motivationQuotes[(i + 20) % motivationQuotes.length],
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
             phone: `(${Math.floor(Math.random()*700)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
-          motivation
+          trigger: trigger.name,
+          triggerContext,
+          propertySnapshot: `Est. value: $${estValue.toLocaleString()} • ${beds}bd/${baths}ba • ${sqft.toLocaleString()} SF • Built ${built}`,
+          stage: "Booked"
         };
       });
       
@@ -558,27 +712,25 @@ export default function Demo(){
         <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-medium text-foreground">Deal Criteria</h2>
-            {selectedVertical !== "Wholesaling" && (
-              <div className="flex gap-2">
+            <div className="flex gap-2">
+              <Button 
+                onClick={() => setModalOpen(true)}
+                variant="outline"
+                className="text-sm"
+              >
+                Edit
+              </Button>
+              {selectedVertical !== "Wholesaling" && finalCriteriaText.trim().length > 0 && (
                 <Button 
-                  onClick={() => setModalOpen(true)}
-                  variant="outline"
+                  onClick={onParse}
+                  variant="default"
                   className="text-sm"
+                  disabled={busy || finalCriteriaText.trim().length === 0}
                 >
-                  Edit
+                  {busy ? "Processing..." : "Confirm"}
                 </Button>
-                {finalCriteriaText.trim().length > 0 && (
-                  <Button 
-                    onClick={onParse}
-                    variant="default"
-                    className="text-sm"
-                    disabled={busy || finalCriteriaText.trim().length === 0}
-                  >
-                    {busy ? "Processing..." : "Confirm"}
-                  </Button>
-                )}
-              </div>
-            )}
+              )}
+            </div>
           </div>
           
           {selectedVertical === "Wholesaling" ? (
@@ -586,11 +738,11 @@ export default function Demo(){
               {wholesalingQuery && confirmed ? (
                 <div className="text-sm text-foreground leading-relaxed bg-muted/50 rounded-xl p-4 space-y-1">
                   <div>• <span className="font-medium">Intent:</span> acquisition (off-market)</div>
-                  <div>• <span className="font-medium">Market:</span> {parsed?.market?.city || "Tampa"}, FL</div>
+                  <div>• <span className="font-medium">Market:</span> {parsed?.market?.city || "Sarasota"}, FL</div>
                   <div>• <span className="font-medium">Property Type:</span> single-family</div>
-                  <div>• <span className="font-medium">Price Range:</span> ≤ ${parsed?.budget?.max?.toLocaleString() || "500,000"}</div>
-                  <div>• <span className="font-medium">Motivation:</span> tax delinquent, code violation, probate, foreclosure</div>
-                  <div>• <span className="font-medium">Timing:</span> likely to sell within 30 days</div>
+                  <div>• <span className="font-medium">Price Ceiling:</span> ≤ ${parsed?.budget?.max?.toLocaleString() || "500,000"}</div>
+                  <div>• <span className="font-medium">Signals/Motivations:</span> tax delinquent, code violation, probate, foreclosure, eviction, divorce</div>
+                  <div>• <span className="font-medium">Timing:</span> likely to sell within {parsed?.timing || "30 days"}</div>
                 </div>
               ) : (
                 <div className="text-sm text-muted-foreground italic">
@@ -630,7 +782,7 @@ export default function Demo(){
                 <>
                   <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
                   <div><span className="font-medium text-foreground">Property Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? "-"}</span></div>
-                  <div><span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state? ", "+parsed.market.state:""}` : "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}, ${parsed.market?.state || "FL"}` : "-"}</span></div>
                   <div><span className="font-medium text-foreground">Price Ceiling:</span> <span className="text-muted-foreground">{parsed.budget?.max ? `≤ $${Number(parsed.budget.max).toLocaleString()}` : "-"}</span></div>
                   <div><span className="font-medium text-foreground">Signal:</span> <span className="text-muted-foreground">tax delinquent, code violation, probate</span></div>
                   <div><span className="font-medium text-foreground">Motivation:</span> <span className="text-muted-foreground">High</span></div>
@@ -666,8 +818,9 @@ export default function Demo(){
         <CriteriaEditModal
           open={modalOpen}
           onClose={() => setModalOpen(false)}
-          initialCriteria={text}
+          initialCriteria={selectedVertical === "Wholesaling" ? (wholesalingQuery || finalCriteriaText) : text}
           onDone={handleModalDone}
+          isWholesaling={selectedVertical === "Wholesaling"}
         />
       </div>
     </div>

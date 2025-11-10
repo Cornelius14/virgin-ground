@@ -8,7 +8,15 @@ interface PipelineCardProps {
 }
 
 function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
+  // Check if this is a wholesaling card (has trigger field)
+  const isWholesaling = !!prospect.trigger;
+  
   const getCardTitle = () => {
+    // For wholesaling, title already includes emoji
+    if (isWholesaling && prospect.title) {
+      return prospect.title;
+    }
+    
     let emoji = '💬';
     if (stage === 'qualified') emoji = '🎯';
     if (stage === 'booked') emoji = '📅';
@@ -23,6 +31,11 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   };
   
   const getInteractionNote = () => {
+    // For wholesaling, use subtitle if available
+    if (isWholesaling && prospect.subtitle) {
+      return prospect.subtitle;
+    }
+    
     const notes = [
       "✅ Expressed urgency to transact this quarter",
       "🕒 Asked for financing options and cap rate details", 
@@ -56,18 +69,54 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   return (
     <div className="cosmic-card rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1">
       <div className="space-y-3">
+        {/* Title */}
         <div className="text-sm font-medium text-foreground">
           {getCardTitle()}
         </div>
         
+        {/* Subtitle / Interaction note */}
         <div className="text-xs text-muted-foreground leading-relaxed">
           {getInteractionNote()}
         </div>
         
-        <div className="text-xs text-muted-foreground">
-          {prospect.contact?.name} — {prospect.contact?.email} — {prospect.contact?.phone}
-        </div>
+        {/* Contact info */}
+        {prospect.contact && (
+          <div className="text-xs text-muted-foreground">
+            {prospect.contact.name} — {prospect.contact.email} — {prospect.contact.phone}
+          </div>
+        )}
         
+        {/* Wholesaling trigger pill with context */}
+        {isWholesaling && prospect.trigger && (
+          <div className="space-y-2">
+            <div className="inline-block">
+              <div className="bg-accent/20 text-accent border border-accent/30 px-2 py-1 rounded-md text-xs font-medium">
+                {prospect.trigger}
+              </div>
+              {prospect.triggerContext && (
+                <div className="text-xs text-muted-foreground mt-1">
+                  {prospect.triggerContext}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        
+        {/* Property snapshot (wholesaling only) */}
+        {isWholesaling && prospect.propertySnapshot && (
+          <div className="text-xs text-muted-foreground border-t border-border pt-2">
+            {prospect.propertySnapshot}
+          </div>
+        )}
+        
+        {/* Motivation quote (wholesaling note) */}
+        {prospect.note && (
+          <div className="text-xs text-foreground italic border-l-2 border-accent/30 pl-2">
+            "{prospect.note}"
+          </div>
+        )}
+        
+        {/* Action pills */}
         <div className="flex gap-1 flex-wrap">
           <span className={`px-2 py-1 rounded-md text-xs font-medium ${
             prospect.channels?.email 
@@ -99,7 +148,8 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
           </span>
         </div>
         
-        {canMove && (
+        {/* Primary CTA button */}
+        {canMove ? (
           <Button
             onClick={handleMoveToNext}
             size="sm"
@@ -108,7 +158,16 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
           >
             {buttonText}
           </Button>
-        )}
+        ) : stage === 'booked' && isWholesaling ? (
+          <Button
+            size="sm"
+            className="w-full mt-3 text-xs"
+            variant="outline"
+            disabled
+          >
+            View Details →
+          </Button>
+        ) : null}
       </div>
     </div>
   );
