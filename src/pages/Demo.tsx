@@ -36,6 +36,10 @@ export default function Demo(){
   const [modalOpen, setModalOpen] = useState(false);
   const [finalCriteriaText, setFinalCriteriaText] = useState("");
   
+  // Vertical selection state
+  const [selectedVertical, setSelectedVertical] = useState<string>("Commercial / Brokers");
+  const [wholesalingQuery, setWholesalingQuery] = useState("");
+  
   function handleReset() {
     setParsed(null);
     setConfirmed(false);
@@ -267,6 +271,146 @@ export default function Demo(){
     setFinalCriteriaText(criteriaText);
   }
 
+  function generateVerticalResults(vertical: string, query: string = "") {
+    const firstNames = ["John","Jane","Michael","Sarah","David","Emily","Robert","Lisa","James","Maria"];
+    const lastNames = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez"];
+    
+    if (vertical === "Wholesaling") {
+      const cities = query.toLowerCase().includes("tampa") ? "Tampa" : 
+                     query.toLowerCase().includes("daytona") ? "Daytona Beach" :
+                     query.toLowerCase().includes("orlando") ? "Orlando" : "Tampa";
+      const priceMatch = query.match(/(\d+(?:\.\d+)?)[kKmM]/);
+      const price = priceMatch ? 
+        (priceMatch[1].includes('.') ? parseFloat(priceMatch[1]) : parseInt(priceMatch[1])) * 
+        (priceMatch[0].toLowerCase().includes('m') ? 1000000 : 1000) : 
+        500000;
+      
+      const motivations = ["Tax Delinquent", "Probate", "Code Violation", "Absentee Owner"];
+      const notes = [
+        "Tenant left; open to cash offer",
+        "Said yes to quick sale",
+        "Wants fast cash, ok with 14-day close",
+        "Motivated seller, needs quick exit",
+        "Open to creative financing"
+      ];
+      
+      const prospects = Array.from({length: 6}, (_, i) => ({
+        title: `${firstNames[i % firstNames.length]} ${lastNames[i % lastNames.length].charAt(0)}.`,
+        subtitle: `${1200 + i * 100} ${['W Main St', 'E Bay Ave', 'S Oak Dr', 'N Pine Rd', 'Kennedy Blvd', 'Dale Mabry'][i]}, ${cities}, FL`,
+        market: cities,
+        motivation: motivations[i % motivations.length],
+        value: `Est. value: $${Math.floor((price * 0.7) + Math.random() * (price * 0.6)).toLocaleString()}`,
+        note: notes[i % notes.length],
+        contact: {
+          name: `${firstNames[i % firstNames.length]} ${lastNames[i % lastNames.length]}`,
+          email: `${firstNames[i % firstNames.length].toLowerCase()}@example.com`,
+          phone: `(813) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+        },
+        channels: { email: true, sms: true, call: Math.random() > 0.5, vm: false }
+      }));
+      
+      return { prospects, qualified: [], booked: [] };
+    }
+    
+    if (vertical === "Multifamily") {
+      const prospects = Array.from({length: 4}, (_, i) => ({
+        title: `${firstNames[i]} ${lastNames[i]}`,
+        subtitle: `${12 + i * 6}-unit ${['walk-up', 'garden-style', 'mid-rise', 'low-rise'][i]} — Charlotte, NC`,
+        market: "Charlotte",
+        note: `Loan maturing in ${3 + i * 2} months — owner open to offers`,
+        contact: {
+          name: `${firstNames[i]} ${lastNames[i]}`,
+          email: `${firstNames[i].toLowerCase()}@example.com`,
+          phone: `(704) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+        },
+        channels: { email: true, sms: false, call: true, vm: false }
+      }));
+      return { prospects, qualified: [], booked: [] };
+    }
+    
+    if (vertical === "Lenders / Originators") {
+      const prospects = Array.from({length: 4}, (_, i) => ({
+        title: `${firstNames[i]} ${lastNames[i]}`,
+        subtitle: `Owner/Borrower — ${['Miami', 'Austin', 'Denver', 'Phoenix'][i]}`,
+        market: ['Miami', 'Austin', 'Denver', 'Phoenix'][i],
+        note: `${['Refi in 3-6 months', 'Docs-ready', 'Rate sheet requested', 'Pre-qual completed'][i]}`,
+        contact: {
+          name: `${firstNames[i]} ${lastNames[i]}`,
+          email: `${firstNames[i].toLowerCase()}@example.com`,
+          phone: `(${[305, 512, 303, 602][i]}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+        },
+        channels: { email: true, sms: true, call: true, vm: false }
+      }));
+      return { prospects, qualified: [], booked: [] };
+    }
+    
+    if (vertical === "Developers / Construction") {
+      const prospects = Array.from({length: 4}, (_, i) => ({
+        title: `${firstNames[i]} ${lastNames[i]}`,
+        subtitle: `Developer — ${['Seattle', 'Portland', 'Nashville', 'Raleigh'][i]}`,
+        market: ['Seattle', 'Portland', 'Nashville', 'Raleigh'][i],
+        note: `${['Permits pulled', '150k+ SF planned', 'Open to GC/vendor call', 'Breaking ground Q2'][i]}`,
+        contact: {
+          name: `${firstNames[i]} ${lastNames[i]}`,
+          email: `${firstNames[i].toLowerCase()}@example.com`,
+          phone: `(${[206, 503, 615, 919][i]}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+        },
+        channels: { email: true, sms: false, call: true, vm: false }
+      }));
+      return { prospects, qualified: [], booked: [] };
+    }
+    
+    if (vertical === "Title / Closing") {
+      const prospects = Array.from({length: 4}, (_, i) => ({
+        title: `${firstNames[i]} ${lastNames[i]}`,
+        subtitle: `Property owner — ${['Dallas', 'Houston', 'Atlanta', 'Boston'][i]}`,
+        market: ['Dallas', 'Houston', 'Atlanta', 'Boston'][i],
+        note: `${['Active deed', 'Refi in process', 'Needs title contact', 'Closing in 30 days'][i]}`,
+        contact: {
+          name: `${firstNames[i]} ${lastNames[i]}`,
+          email: `${firstNames[i].toLowerCase()}@example.com`,
+          phone: `(${[214, 713, 404, 617][i]}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+        },
+        channels: { email: true, sms: true, call: false, vm: false }
+      }));
+      return { prospects, qualified: [], booked: [] };
+    }
+    
+    // Commercial / Brokers - keep current behavior
+    return null;
+  }
+
+  function handleWholesalingSearch() {
+    if (!wholesalingQuery.trim()) return;
+    setBusy(true);
+    setErr(null);
+    
+    setTimeout(() => {
+      const results = generateVerticalResults("Wholesaling", wholesalingQuery);
+      if (results) {
+        setRows(results);
+        setConfirmed(true);
+      }
+      setBusy(false);
+    }, 800);
+  }
+
+  function handleVerticalChange(vertical: string) {
+    setSelectedVertical(vertical);
+    setConfirmed(false);
+    setRows({prospects:[],qualified:[],booked:[]});
+    setErr(null);
+    
+    // If switching to non-Commercial/Brokers vertical, generate sample results
+    if (vertical !== "Commercial / Brokers" && vertical !== "Wholesaling") {
+      const results = generateVerticalResults(vertical);
+      if (results) {
+        setRows(results);
+        setConfirmed(true);
+      }
+    }
+  }
+
   return (
     <div className="relative min-h-screen bg-background text-foreground">
       {/* Cosmic grid background */}
@@ -274,7 +418,7 @@ export default function Demo(){
       
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 py-12 md:py-20">
-        <div className="text-center space-y-3 max-w-3xl mx-auto mb-12">
+        <div className="text-center space-y-3 max-w-3xl mx-auto mb-8">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-foreground">
             Deal Finder — Live Demo
           </h1>
@@ -283,16 +427,59 @@ export default function Demo(){
           </p>
         </div>
 
-        <PersonalizeBar onIntelReceived={setFirmIntel} onReset={handleReset} />
+        {/* Vertical Selector */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {["Commercial / Brokers", "Multifamily", "Wholesaling", "Lenders / Originators", "Developers / Construction", "Title / Closing"].map((vertical) => (
+            <button
+              key={vertical}
+              onClick={() => handleVerticalChange(vertical)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                selectedVertical === vertical
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              }`}
+            >
+              {vertical}
+            </button>
+          ))}
+        </div>
 
-        {firmIntel && (
-          <div className="space-y-6 mb-8">
-            <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
+        {/* Wholesaling Search Bar */}
+        {selectedVertical === "Wholesaling" && (
+          <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={wholesalingQuery}
+                onChange={(e) => setWholesalingQuery(e.target.value)}
+                placeholder="Find me off-market homes in Tampa under $1.5M that may sell in the next 30 days…"
+                className="flex-1 px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                onKeyDown={(e) => e.key === 'Enter' && handleWholesalingSearch()}
+              />
+              <Button 
+                onClick={handleWholesalingSearch}
+                disabled={busy || !wholesalingQuery.trim()}
+                className="px-6"
+              >
+                {busy ? "Searching..." : "Run search"}
+              </Button>
+            </div>
           </div>
         )}
 
-        {/* Deal Criteria Display Section */}
-        <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
+        {/* Only show these sections for non-Wholesaling verticals */}
+        {selectedVertical !== "Wholesaling" && (
+          <>
+            <PersonalizeBar onIntelReceived={setFirmIntel} onReset={handleReset} />
+
+            {firmIntel && (
+              <div className="space-y-6 mb-8">
+                <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
+              </div>
+            )}
+
+            {/* Deal Criteria Display Section */}
+            <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-medium text-foreground">Deal Criteria</h2>
             <div className="flex gap-2">
@@ -325,7 +512,9 @@ export default function Demo(){
               Click "Edit/Confirm Criteria" to set your deal parameters
             </div>
           )}
-        </div>
+            </div>
+          </>
+        )}
 
         {/* Error Display */}
         {err && (
@@ -352,9 +541,47 @@ export default function Demo(){
           </div>
         )}
 
-        {/* Pipeline Board - Only show if confirmed */}
+        {/* Pipeline Board - Show for all verticals when confirmed */}
         {confirmed && rows.prospects.length > 0 && (
-          <PipelineBoard rows={rows} onUpdateRows={setRows} />
+          <div className="cosmic-card rounded-2xl p-6 shadow-lg">
+            <h2 className="text-2xl font-medium tracking-tight text-foreground mb-6">
+              {selectedVertical === "Wholesaling" ? "Motivated Sellers" : "Pipeline Results"}
+            </h2>
+            
+            {selectedVertical === "Wholesaling" ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {rows.prospects.map((prospect: any, idx: number) => (
+                  <div key={idx} className="bg-muted/30 rounded-lg p-4 space-y-2 border border-border/50">
+                    <div className="font-medium text-foreground">{prospect.title}</div>
+                    <div className="text-sm text-muted-foreground">{prospect.subtitle}</div>
+                    <div className="flex items-center gap-2 text-xs">
+                      <span className="px-2 py-1 bg-primary/20 text-primary rounded">{prospect.motivation}</span>
+                      <span className="text-muted-foreground">{prospect.value}</span>
+                    </div>
+                    <div className="text-sm text-foreground italic">"{prospect.note}"</div>
+                    <div className="text-xs text-muted-foreground pt-2 border-t border-border/30">
+                      {prospect.contact.phone}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : selectedVertical === "Commercial / Brokers" ? (
+              <PipelineBoard rows={rows} onUpdateRows={setRows} />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {rows.prospects.map((prospect: any, idx: number) => (
+                  <div key={idx} className="bg-muted/30 rounded-lg p-4 space-y-2 border border-border/50">
+                    <div className="font-medium text-foreground">{prospect.title}</div>
+                    <div className="text-sm text-muted-foreground">{prospect.subtitle}</div>
+                    <div className="text-sm text-foreground italic">"{prospect.note}"</div>
+                    <div className="text-xs text-muted-foreground pt-2 border-t border-border/30">
+                      {prospect.contact.email} • {prospect.contact.phone}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         )}
 
         {/* Criteria Edit Modal */}
