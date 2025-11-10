@@ -271,45 +271,58 @@ export default function Demo(){
     setFinalCriteriaText(criteriaText);
   }
 
+  function parseWholesalingQuery(query: string) {
+    // Parse city from query
+    const cityPatterns = [
+      /in\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/i,
+      /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+area/i,
+      /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?),?\s*FL/i
+    ];
+    let city = "Tampa";
+    for (const pattern of cityPatterns) {
+      const match = query.match(pattern);
+      if (match) {
+        city = match[1].trim();
+        break;
+      }
+    }
+    
+    // Parse price from query
+    const pricePatterns = [
+      /below\s+\$?([\d,.]+)\s*([kKmM])?/i,
+      /under\s+\$?([\d,.]+)\s*([kKmM])?/i,
+      /\$?([\d,.]+)\s*([kKmM])?\s+or\s+less/i
+    ];
+    let price = 500000;
+    for (const pattern of pricePatterns) {
+      const match = query.match(pattern);
+      if (match) {
+        const num = parseFloat(match[1].replace(/,/g, ''));
+        const multiplier = match[2]?.toLowerCase() === 'm' ? 1000000 : 
+                         match[2]?.toLowerCase() === 'k' ? 1000 : 1;
+        price = num * multiplier;
+        break;
+      }
+    }
+    
+    return { city, price };
+  }
+
   function generateVerticalResults(vertical: string, query: string = "") {
     const firstNames = ["John","Jane","Michael","Sarah","David","Emily","Robert","Lisa","James","Maria","Ana","Carlos"];
     const lastNames = ["Smith","Johnson","Williams","Brown","Jones","Garcia","Miller","Davis","Rodriguez","Martinez","Lopez","Chen"];
     
     if (vertical === "Wholesaling") {
-      // Parse city from query
-      const cityPatterns = [
-        /in\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/i,
-        /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)\s+area/i,
-        /([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?),?\s*FL/i
-      ];
-      let city = "Tampa";
-      for (const pattern of cityPatterns) {
-        const match = query.match(pattern);
-        if (match) {
-          city = match[1].trim();
-          break;
-        }
-      }
-      
-      // Parse price from query
-      const pricePatterns = [
-        /below\s+\$?([\d,.]+)\s*([kKmM])?/i,
-        /under\s+\$?([\d,.]+)\s*([kKmM])?/i,
-        /\$?([\d,.]+)\s*([kKmM])?\s+or\s+less/i
-      ];
-      let price = 500000;
-      for (const pattern of pricePatterns) {
-        const match = query.match(pattern);
-        if (match) {
-          const num = parseFloat(match[1].replace(/,/g, ''));
-          const multiplier = match[2]?.toLowerCase() === 'm' ? 1000000 : 
-                           match[2]?.toLowerCase() === 'k' ? 1000 : 1;
-          price = num * multiplier;
-          break;
-        }
-      }
+      const { city, price } = parseWholesalingQuery(query);
       
       const motivations = ["Tax delinquent", "Probate", "Code violation", "Absentee owner"];
+      const statusNotes = [
+        "Discussed cash offer",
+        "Owner open to quick close",
+        "Transferred to acquisitions rep",
+        "Follow-up scheduled",
+        "Sent comp analysis"
+      ];
       const notes = [
         "Said he's ready to sell for the right offer",
         "Tenant left; open to cash offer",
@@ -318,31 +331,72 @@ export default function Demo(){
         "Motivated seller, needs quick exit"
       ];
       
-      const streets = ['Seabreeze Blvd', 'Main St', 'Oak Ave', 'Bay Dr', 'Palm Ct', 'Ridge Rd'];
-      const numCards = Math.floor(Math.random() * 3) + 3; // 3-5 cards
+      const streets = ['Seabreeze Blvd', 'Main St', 'Oak Ave', 'Bay Dr', 'Palm Ct', 'Ridge Rd', 'Pine St', 'Maple Ave'];
       
-      const prospects = Array.from({length: numCards}, (_, i) => {
+      // Generate prospects (3-4 cards)
+      const numProspects = Math.floor(Math.random() * 2) + 3;
+      const prospects = Array.from({length: numProspects}, (_, i) => {
         const fn = firstNames[i % firstNames.length];
-        const ln = lastNames[i % lastNames.length];
+        const ln = lastNames[(i + 2) % lastNames.length];
         const estValue = Math.floor((price * 0.85) + (Math.random() * (price * 0.3)));
         
         return {
-          title: `${fn} ${ln}`,
-          subtitle: `${700 + i * 150} ${streets[i % streets.length]} — ${city}, FL`,
+          title: `${700 + i * 150} ${streets[i % streets.length]}`,
+          subtitle: `${city}, FL`,
           market: city,
-          motivation: motivations[i % motivations.length],
-          value: `Est. value: $${estValue.toLocaleString()}`,
+          channels: { email: true, sms: true, call: Math.random() > 0.5, vm: false },
           note: notes[i % notes.length],
           contact: {
             name: `${fn} ${ln}`,
-            email: `${fn.toLowerCase()}${ln.toLowerCase()}@example.com`,
+            email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
             phone: `(${Math.floor(Math.random()*900)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
           },
-          channels: { email: true, sms: true, call: Math.random() > 0.5, vm: false }
         };
       });
       
-      return { prospects, qualified: [], booked: [] };
+      // Generate qualified targets (1-2 cards)
+      const numQualified = Math.floor(Math.random() * 2) + 1;
+      const qualified = Array.from({length: numQualified}, (_, i) => {
+        const fn = firstNames[(i + 4) % firstNames.length];
+        const ln = lastNames[(i + 6) % lastNames.length];
+        const estValue = Math.floor((price * 0.88) + (Math.random() * (price * 0.2)));
+        
+        return {
+          title: `${1200 + i * 200} ${streets[(i + 3) % streets.length]}`,
+          subtitle: `${city}, FL`,
+          market: city,
+          channels: { email: true, sms: true, call: true, vm: Math.random() > 0.5 },
+          note: statusNotes[i % statusNotes.length],
+          contact: {
+            name: `${fn} ${ln}`,
+            email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
+            phone: `(${Math.floor(Math.random()*900)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+          },
+        };
+      });
+      
+      // Generate booked meetings (0-1 cards)
+      const numBooked = Math.random() > 0.5 ? 1 : 0;
+      const booked = Array.from({length: numBooked}, (_, i) => {
+        const fn = firstNames[(i + 8) % firstNames.length];
+        const ln = lastNames[(i + 10) % lastNames.length];
+        const estValue = Math.floor((price * 0.90) + (Math.random() * (price * 0.15)));
+        
+        return {
+          title: `${2400 + i * 300} ${streets[(i + 6) % streets.length]}`,
+          subtitle: `${city}, FL`,
+          market: city,
+          channels: { email: true, sms: true, call: true, vm: true },
+          note: "Site visit scheduled",
+          contact: {
+            name: `${fn} ${ln}`,
+            email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
+            phone: `(${Math.floor(Math.random()*900)+200}) ${Math.floor(Math.random()*900)+100}-${Math.floor(Math.random()*9000)+1000}`
+          },
+        };
+      });
+      
+      return { prospects, qualified, booked };
     }
     
     // For other verticals, return null (they use the existing parseBuyBox flow)
@@ -357,8 +411,21 @@ export default function Demo(){
     setTimeout(() => {
       const results = generateVerticalResults("Wholesaling", wholesalingQuery);
       if (results) {
+        const { city, price } = parseWholesalingQuery(wholesalingQuery);
+        
+        // Create wholesaling-specific parsed data
+        const wholesalingParsed: ParsedBuyBox = {
+          intent: "acquisition (off-market)",
+          market: { city, state: "FL", country: "USA" },
+          asset_type: "single-family",
+          budget: { max: price },
+          timing: "30 days",
+        };
+        
+        setParsed(wholesalingParsed);
         setRows(results);
         setConfirmed(true);
+        setFinalCriteriaText(wholesalingQuery);
       }
       setBusy(false);
     }, 800);
@@ -406,77 +473,77 @@ export default function Demo(){
           ))}
         </div>
 
-        {/* Wholesaling Search Bar */}
-        {selectedVertical === "Wholesaling" && (
-          <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
-            <div className="flex gap-2">
-              <input
-                type="text"
-                value={wholesalingQuery}
-                onChange={(e) => setWholesalingQuery(e.target.value)}
-                placeholder="Find me homes below $1.5M in Tampa area potentially looking to sell in the next 30 days…"
-                className="flex-1 px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                onKeyDown={(e) => e.key === 'Enter' && handleWholesalingSearch()}
-              />
-              <Button 
-                onClick={handleWholesalingSearch}
-                disabled={busy || !wholesalingQuery.trim()}
-                className="px-6"
-              >
-                {busy ? "Searching..." : "Run Search"}
-              </Button>
-            </div>
+        {/* PersonalizeBar - Show for all verticals */}
+        <PersonalizeBar onIntelReceived={setFirmIntel} onReset={handleReset} />
+
+        {firmIntel && (
+          <div className="space-y-6 mb-8">
+            <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
           </div>
         )}
 
-        {/* Only show these sections for non-Wholesaling verticals */}
-        {selectedVertical !== "Wholesaling" && (
-          <>
-            <PersonalizeBar onIntelReceived={setFirmIntel} onReset={handleReset} />
-
-            {firmIntel && (
-              <div className="space-y-6 mb-8">
-                <PersonalizedPanel intel={firmIntel} onQuerySelect={handleQuerySelect} />
-              </div>
-            )}
-
-            {/* Deal Criteria Display Section */}
-            <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
+        {/* Deal Criteria Display Section - Show for all verticals */}
+        <div className="cosmic-card rounded-2xl p-6 mb-6 shadow-lg">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-medium text-foreground">Deal Criteria</h2>
             <div className="flex gap-2">
-              <Button 
-                onClick={() => setModalOpen(true)}
-                variant="outline"
-                className="text-sm"
-              >
-                Edit
-              </Button>
-              {finalCriteriaText.trim().length > 0 && (
+              {selectedVertical !== "Wholesaling" && (
+                <>
+                  <Button 
+                    onClick={() => setModalOpen(true)}
+                    variant="outline"
+                    className="text-sm"
+                  >
+                    Edit
+                  </Button>
+                  {finalCriteriaText.trim().length > 0 && (
+                    <Button 
+                      onClick={onParse}
+                      variant="default"
+                      className="text-sm"
+                      disabled={busy || finalCriteriaText.trim().length === 0}
+                    >
+                      {busy ? "Processing..." : "Confirm"}
+                    </Button>
+                  )}
+                </>
+              )}
+              {selectedVertical === "Wholesaling" && (
                 <Button 
-                  onClick={onParse}
+                  onClick={handleWholesalingSearch}
                   variant="default"
                   className="text-sm"
-                  disabled={busy || finalCriteriaText.trim().length === 0}
+                  disabled={busy || !wholesalingQuery.trim()}
                 >
-                  {busy ? "Processing..." : "Confirm"}
+                  {busy ? "Searching..." : "Run Search"}
                 </Button>
               )}
             </div>
           </div>
           
-          {finalCriteriaText ? (
-            <div className="text-sm text-foreground leading-relaxed whitespace-pre-line bg-muted/50 rounded-xl p-4">
-              {finalCriteriaText.replace(/•/g, '\n•')}
-            </div>
+          {selectedVertical === "Wholesaling" ? (
+            <input
+              type="text"
+              value={wholesalingQuery}
+              onChange={(e) => setWholesalingQuery(e.target.value)}
+              placeholder="Find me homes below $1.5M in Tampa area potentially looking to sell in the next 30 days…"
+              className="w-full px-4 py-3 bg-background border border-input rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+              onKeyDown={(e) => e.key === 'Enter' && handleWholesalingSearch()}
+            />
           ) : (
-            <div className="text-sm text-muted-foreground italic">
-              Click "Edit/Confirm Criteria" to set your deal parameters
-            </div>
+            <>
+              {finalCriteriaText ? (
+                <div className="text-sm text-foreground leading-relaxed whitespace-pre-line bg-muted/50 rounded-xl p-4">
+                  {finalCriteriaText.replace(/•/g, '\n•')}
+                </div>
+              ) : (
+                <div className="text-sm text-muted-foreground italic">
+                  Click "Edit/Confirm Criteria" to set your deal parameters
+                </div>
+              )}
+            </>
           )}
-            </div>
-          </>
-        )}
+        </div>
 
         {/* Error Display */}
         {err && (
@@ -486,47 +553,44 @@ export default function Demo(){
           </div>
         )}
 
-        {/* Parsed Results - Only show grid after confirmation */}
+        {/* Parsed Results - Show after confirmation for all verticals */}
         {parsed && confirmed && (
           <div className="cosmic-card rounded-2xl p-6 mb-8 shadow-lg">
             <h2 className="text-2xl font-medium tracking-tight text-foreground mb-6">Parsed Buy-Box</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-              <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
-              <div><span className="font-medium text-foreground">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? parsed.asset ?? "-"}</span></div>
-              <div><span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state? ", "+parsed.market.state:""}${parsed.market?.country? ", "+parsed.market.country:""}` : "-"}</span></div>
-              <div><span className="font-medium text-foreground">Units:</span> <span className="text-muted-foreground">{parsed.units ? `${parsed.units.min ?? ""}${parsed.units.min?"–":""}${parsed.units.max ?? ""}` : "-"}</span></div>
-              <div><span className="font-medium text-foreground">Size (SF):</span> <span className="text-muted-foreground">{parsed.size_sf ? `${parsed.size_sf.min ?? ""}${parsed.size_sf.min?"–":""}${parsed.size_sf.max ?? ""}` : "-"}</span></div>
-              <div><span className="font-medium text-foreground">Budget:</span> <span className="text-muted-foreground">{parsed.budget?.max ? `≤ $${Number(parsed.budget.max).toLocaleString()}` : (parsed.budget?.min ? `$${Number(parsed.budget.min).toLocaleString()}+` : "-")}</span></div>
-              <div><span className="font-medium text-foreground">Cap Rate:</span> <span className="text-muted-foreground">{parsed.cap_rate?.min ? `≥ ${parsed.cap_rate.min}%` : (parsed.cap_rate?.max ? `≤ ${parsed.cap_rate.max}%` : "-")}</span></div>
-              <div><span className="font-medium text-foreground">Timing/Notes:</span> <span className="text-muted-foreground">{parsed.timing ?? "-"}</span></div>
+              {selectedVertical === "Wholesaling" ? (
+                <>
+                  <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Property Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state? ", "+parsed.market.state:""}` : "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Price Ceiling:</span> <span className="text-muted-foreground">{parsed.budget?.max ? `≤ $${Number(parsed.budget.max).toLocaleString()}` : "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Signal:</span> <span className="text-muted-foreground">Tax Delinquent / Code Violation</span></div>
+                  <div><span className="font-medium text-foreground">Motivation:</span> <span className="text-muted-foreground">High</span></div>
+                  <div><span className="font-medium text-foreground">Timing:</span> <span className="text-muted-foreground">{parsed.timing ?? "-"}</span></div>
+                </>
+              ) : (
+                <>
+                  <div><span className="font-medium text-foreground">Intent:</span> <span className="text-muted-foreground">{parsed.intent ?? "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Asset Type:</span> <span className="text-muted-foreground">{parsed.asset_type ?? parsed.asset ?? "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Market:</span> <span className="text-muted-foreground">{parsed.market?.city ? `${parsed.market.city}${parsed.market?.state? ", "+parsed.market.state:""}${parsed.market?.country? ", "+parsed.market.country:""}` : "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Units:</span> <span className="text-muted-foreground">{parsed.units ? `${parsed.units.min ?? ""}${parsed.units.min?"–":""}${parsed.units.max ?? ""}` : "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Size (SF):</span> <span className="text-muted-foreground">{parsed.size_sf ? `${parsed.size_sf.min ?? ""}${parsed.size_sf.min?"–":""}${parsed.size_sf.max ?? ""}` : "-"}</span></div>
+                  <div><span className="font-medium text-foreground">Budget:</span> <span className="text-muted-foreground">{parsed.budget?.max ? `≤ $${Number(parsed.budget.max).toLocaleString()}` : (parsed.budget?.min ? `$${Number(parsed.budget.min).toLocaleString()}+` : "-")}</span></div>
+                  <div><span className="font-medium text-foreground">Cap Rate:</span> <span className="text-muted-foreground">{parsed.cap_rate?.min ? `≥ ${parsed.cap_rate.min}%` : (parsed.cap_rate?.max ? `≤ ${parsed.cap_rate.max}%` : "-")}</span></div>
+                  <div><span className="font-medium text-foreground">Timing/Notes:</span> <span className="text-muted-foreground">{parsed.timing ?? "-"}</span></div>
+                </>
+              )}
             </div>
           </div>
         )}
 
         {/* Pipeline Board - Show for all verticals when confirmed */}
-        {confirmed && rows.prospects.length > 0 && (
+        {confirmed && (rows.prospects.length > 0 || rows.qualified.length > 0 || rows.booked.length > 0) && (
           <div className="cosmic-card rounded-2xl p-6 shadow-lg">
             <h2 className="text-2xl font-medium tracking-tight text-foreground mb-6">
-              {selectedVertical === "Wholesaling" ? "Search Results" : "Pipeline Results"}
+              Deal Pipeline
             </h2>
-            
-            {selectedVertical === "Wholesaling" ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {rows.prospects.map((prospect: any, idx: number) => (
-                  <div key={idx} className="bg-muted/30 rounded-lg p-4 space-y-2.5 border border-border/50 hover:border-border transition-colors">
-                    <div className="font-medium text-foreground text-base">{prospect.title}</div>
-                    <div className="text-sm text-muted-foreground leading-snug">{prospect.subtitle}</div>
-                    <div className="flex flex-wrap items-center gap-2 text-xs">
-                      <span className="px-2 py-1 bg-primary/20 text-primary rounded">{prospect.motivation}</span>
-                      <span className="text-muted-foreground">{prospect.value}</span>
-                    </div>
-                    <div className="text-sm text-foreground italic leading-relaxed">"{prospect.note}"</div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <PipelineBoard rows={rows} onUpdateRows={setRows} />
-            )}
+            <PipelineBoard rows={rows} onUpdateRows={setRows} />
           </div>
         )}
 
