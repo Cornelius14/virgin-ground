@@ -474,32 +474,84 @@ export default function Demo(){
         ? ['Sarasota', 'Bradenton', 'Venice', 'Englewood']
         : [cityName, cityName, cityName, cityName];
       
-      const motivationQuotes = [
-        "Open to cash; wants to close in 10 days. 'Can move in 72 hours if all-cash.'",
-        "Needs quick exit. 'Will take less for fast closing.'",
-        "Ready to sell fast. 'Just want to be done with it.'",
-        "Looking for cash buyer. 'Flexible if we can close this month.'",
-        "Motivated to move quickly. 'Open to reasonable offers.'",
-        "Wants clean transaction. 'Cash preferred, as-is sale.'",
-        "Ready to negotiate. 'Need to close within 14 days.'",
-        "Will discount for speed. 'Can't deal with repairs.'",
-        "Seeking all-cash offer. 'Want simple, fast close.'",
-        "Open to creative terms. 'Just need out quickly.'",
-        "Flexible on price for speed. 'Cash talks.'",
-        "Ready to move on. 'Make me an offer.'",
-        "Willing to negotiate. 'Fast close is priority.'",
-        "Looking for quick sale. 'Tired of the hassle.'",
-        "Open to below market. 'Need to sell now.'",
-        "Will consider all offers. 'Speed matters most.'",
-        "Cash is king. 'Can close anytime this month.'",
-        "Ready to liquidate. 'As-is, all cash preferred.'",
-        "Needs fast closing. 'Will work with serious buyers.'",
-        "Motivated seller. 'Let's make a deal.'",
-        "Open to wholesale offer. 'Just want it sold.'",
-        "Will accept reasonable offer. 'Need quick exit.'",
-        "Flexible terms available. 'Cash gets priority.'",
-        "Ready for next chapter. 'Selling below appraisal.'"
+      const readinessOptions = [
+        "Ready to sell now (cash ok; close ≤14 days).",
+        "Considering offers; wants to compare 2–3 bids.",
+        "Needs 30–60 days; tenant move-out pending.",
+        "Wants retail pricing; open to creative terms.",
+        "Probate attorney involved; earliest close 45–90 days.",
+        "Underwater on mortgage; exploring options.",
+        "Ghosting after initial interest; try SMS only.",
+        "Already listed with agent; open to backup offer.",
+        "Not interested / DNC request."
       ];
+
+      const notesPool = [
+        "Missed 2 payments; NOD filed 10/28; prefers text.",
+        "$4,110 tax delinquency; notice mailed 10/12.",
+        "Eviction case 2025-EV-00812; wants clean exit.",
+        "Roof leak + code case CV-42519; insurance pending.",
+        "FSBO 17 days; 2 price cuts; will discount for 7-day close.",
+        "Vacant; neighbor confirms; power usage low.",
+        "Job loss last month; bridge funds needed.",
+        "Storm damage (zone A); partial repairs started.",
+        "Executor: Dana Price; expects offers next week.",
+        "Wrong number reported — do not call (DNC)."
+      ];
+      
+      const getChannelOutcomes = (stage: 'prospects' | 'qualified' | 'booked') => {
+        const rand = () => Math.random();
+        let greenChance = 0.3, amberChance = 0.5, redChance = 0.2;
+        
+        if (stage === 'qualified') {
+          greenChance = 0.6; amberChance = 0.25; redChance = 0.15;
+        } else if (stage === 'booked') {
+          greenChance = 0.8; amberChance = 0.15; redChance = 0.05;
+        }
+        
+        const getOutcome = () => {
+          const r = rand();
+          if (r < greenChance) return 'green';
+          if (r < greenChance + amberChance) return 'amber';
+          return 'red';
+        };
+        
+        const emailOutcome = getOutcome();
+        const smsOutcome = getOutcome();
+        const vmOutcome = getOutcome();
+        const callOutcome = getOutcome();
+        
+        const emailStatuses = {
+          green: ['Replied 2h ago', 'Opened + clicked 1h ago', 'Replied: "Call me today"'],
+          amber: ['Sent 3h ago', 'Delivered, not opened', 'Scheduled follow-up Thu'],
+          red: ['Bounced', 'Invalid email', 'Unsubscribed']
+        };
+        
+        const smsStatuses = {
+          green: ['Replied 45m ago', 'Confirmed interest', 'Asked for property details'],
+          amber: ['Delivered 2h ago', 'Scheduled callback Wed 4:15p', 'Read, no reply yet'],
+          red: ['Wrong number', 'No consent / DNC', 'Carrier blocked']
+        };
+        
+        const vmStatuses = {
+          green: ['Left message, called back', 'VM delivered + replied', 'Confirmed receipt'],
+          amber: ['Left message 3h ago', 'Voicemail full', 'Not checked yet'],
+          red: ['Box full', 'Number disconnected', 'No voicemail setup']
+        };
+        
+        const callStatuses = {
+          green: ['Connected 1h ago', 'Call scheduled for Wed', 'Spoke for 12 min'],
+          amber: ['Rang out, no answer', 'Gatekeeper - try back Tue', 'Left callback request'],
+          red: ['Wrong number', 'DNC request', 'Hung up immediately']
+        };
+        
+        return {
+          email: { outcome: emailOutcome, status: emailStatuses[emailOutcome][Math.floor(rand() * emailStatuses[emailOutcome].length)] },
+          sms: { outcome: smsOutcome, status: smsStatuses[smsOutcome][Math.floor(rand() * smsStatuses[smsOutcome].length)] },
+          vm: { outcome: vmOutcome, status: vmStatuses[vmOutcome][Math.floor(rand() * vmStatuses[vmOutcome].length)] },
+          call: { outcome: callOutcome, status: callStatuses[callOutcome][Math.floor(rand() * callStatuses[callOutcome].length)] }
+        };
+      };
       
       // Generate 24 cards: 12 prospects, 8 qualified, 4 booked
       const prospects = Array.from({length: 12}, (_, i) => {
@@ -514,12 +566,24 @@ export default function Demo(){
         const built = Math.floor(Math.random() * 35) + 1980; // 1980-2015
         const cityChoice = metroCities[i % metroCities.length];
         
+        const channels = getChannelOutcomes('prospects');
+        const redCount = Object.values(channels).filter(c => c.outcome === 'red').length;
+        const greenCount = Object.values(channels).filter(c => c.outcome === 'green').length;
+        const disposition = redCount >= 2 ? 'risky' : greenCount >= 3 ? 'good' : 'neutral';
+        
+        const readiness = readinessOptions[i % readinessOptions.length];
+        const note = notesPool[i % notesPool.length];
+        const isDNC = note.includes('DNC') || channels.call.status.includes('DNC');
+        
         return {
           title: `🏠 ${700 + i * 235} ${streets[i % streets.length]} — ${cityChoice}, FL`,
           subtitle: "Requested additional property details and financials",
           market: cityChoice,
-          channels: { email: true, sms: true, call: true, vm: Math.random() > 0.4 },
-          note: motivationQuotes[i % motivationQuotes.length],
+          channels,
+          readiness,
+          note,
+          disposition,
+          isDNC,
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
@@ -544,12 +608,24 @@ export default function Demo(){
         const built = Math.floor(Math.random() * 35) + 1980;
         const cityChoice = metroCities[(i + 12) % metroCities.length];
         
+        const channels = getChannelOutcomes('qualified');
+        const redCount = Object.values(channels).filter(c => c.outcome === 'red').length;
+        const greenCount = Object.values(channels).filter(c => c.outcome === 'green').length;
+        const disposition = redCount >= 2 ? 'risky' : greenCount >= 3 ? 'good' : 'neutral';
+        
+        const readiness = readinessOptions[(i + 3) % readinessOptions.length];
+        const note = notesPool[(i + 3) % notesPool.length];
+        const isDNC = note.includes('DNC') || channels.call.status.includes('DNC');
+        
         return {
           title: `🏠 ${3200 + i * 310} ${streets[(i + 12) % streets.length]} — ${cityChoice}, FL`,
           subtitle: "Meeting scheduled for property tour next week",
           market: cityChoice,
-          channels: { email: true, sms: true, call: true, vm: true },
-          note: motivationQuotes[(i + 12) % motivationQuotes.length],
+          channels,
+          readiness,
+          note,
+          disposition,
+          isDNC,
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,
@@ -575,12 +651,24 @@ export default function Demo(){
         const cityChoice = metroCities[(i + 20) % metroCities.length];
         const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
         
+        const channels = getChannelOutcomes('booked');
+        const redCount = Object.values(channels).filter(c => c.outcome === 'red').length;
+        const greenCount = Object.values(channels).filter(c => c.outcome === 'green').length;
+        const disposition = redCount >= 2 ? 'risky' : greenCount >= 3 ? 'good' : 'neutral';
+        
+        const readiness = readinessOptions[(i + 6) % readinessOptions.length];
+        const note = notesPool[(i + 6) % notesPool.length];
+        const isDNC = note.includes('DNC') || channels.call.status.includes('DNC');
+        
         return {
           title: `🏠 ${5400 + i * 420} ${streets[(i + 20) % streets.length]} — ${cityChoice}, FL`,
           subtitle: `Contract review penciled for ${days[i % days.length]}`,
           market: cityChoice,
-          channels: { email: true, sms: true, call: true, vm: true },
-          note: motivationQuotes[(i + 20) % motivationQuotes.length],
+          channels,
+          readiness,
+          note,
+          disposition,
+          isDNC,
           contact: {
             name: `${fn} ${ln}`,
             email: `${fn.toLowerCase()}.${ln.toLowerCase()}@example.com`,

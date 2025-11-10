@@ -109,55 +109,82 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
           </div>
         )}
         
-        {/* Motivation quote (wholesaling note) */}
-        {prospect.note && (
-          <div className="text-xs text-foreground italic border-l-2 border-accent/30 pl-2">
-            "{prospect.note}"
+        {/* Lead disposition + readiness (wholesaling) */}
+        {isWholesaling && prospect.disposition && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span className={`px-2 py-1 rounded-md text-xs font-medium ${
+                prospect.disposition === 'good' 
+                  ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                  : prospect.disposition === 'risky'
+                  ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                  : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+              }`}>
+                {prospect.disposition === 'good' ? 'Good' : prospect.disposition === 'risky' ? 'Risky' : 'Neutral'}
+              </span>
+            </div>
+            {prospect.readiness && (
+              <div className="text-xs text-muted-foreground">
+                {prospect.readiness}
+              </div>
+            )}
           </div>
         )}
         
-        {/* Action pills */}
+        {/* Motivation note (wholesaling) */}
+        {prospect.note && (
+          <div className="text-xs text-foreground border-l-2 border-accent/30 pl-2">
+            {prospect.note}
+          </div>
+        )}
+        
+        {/* Action pills with tri-state indicators */}
         <div className="flex gap-1 flex-wrap">
-          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
-            prospect.channels?.email 
-              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
-              : "bg-red-500/20 text-red-400 border border-red-500/30"
-          }`}>
-            ✉️ email
-          </span>
-          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
-            prospect.channels?.sms 
-              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
-              : "bg-red-500/20 text-red-400 border border-red-500/30"
-          }`}>
-            📱 sms
-          </span>
-          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
-            prospect.channels?.vm 
-              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
-              : "bg-red-500/20 text-red-400 border border-red-500/30"
-          }`}>
-            🎤 vm
-          </span>
-          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
-            prospect.channels?.call 
-              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
-              : "bg-red-500/20 text-red-400 border border-red-500/30"
-          }`}>
-            📞 call
-          </span>
+          {['email', 'sms', 'vm', 'call'].map((channel) => {
+            const channelData = prospect.channels?.[channel];
+            const outcome = channelData?.outcome || 'amber';
+            const status = channelData?.status || 'No data';
+            const icon = channel === 'email' ? '✉️' : channel === 'sms' ? '📱' : channel === 'vm' ? '🎤' : '📞';
+            const indicator = outcome === 'green' ? '✓' : outcome === 'red' ? '×' : '•';
+            const isDisabled = outcome === 'red' && (status.includes('DNC') || status.includes('Wrong number'));
+            
+            return (
+              <span
+                key={channel}
+                className={`px-2 py-1 rounded-md text-xs font-medium cursor-help ${
+                  outcome === 'green'
+                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                    : outcome === 'red'
+                    ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                    : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                } ${isDisabled ? 'opacity-50' : ''}`}
+                title={status}
+                aria-disabled={isDisabled}
+              >
+                {icon} {channel} {indicator}
+              </span>
+            );
+          })}
         </div>
         
         {/* Primary CTA button */}
         {canMove ? (
-          <Button
-            onClick={handleMoveToNext}
-            size="sm"
-            className="w-full mt-3 text-xs"
-            variant="outline"
-          >
-            {buttonText}
-          </Button>
+          <div className="space-y-1">
+            <Button
+              onClick={handleMoveToNext}
+              size="sm"
+              className="w-full mt-3 text-xs"
+              variant={prospect.isDNC ? "ghost" : "outline"}
+              disabled={prospect.isDNC}
+            >
+              {prospect.isDNC ? 'Respect DNC' : buttonText}
+            </Button>
+            {prospect.disposition === 'neutral' && !prospect.isDNC && (
+              <div className="text-[10px] text-muted-foreground text-center">
+                Follow up via preferred channel
+              </div>
+            )}
+          </div>
         ) : stage === 'booked' && isWholesaling ? (
           <Button
             size="sm"
