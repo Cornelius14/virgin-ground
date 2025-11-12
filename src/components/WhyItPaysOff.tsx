@@ -3,24 +3,24 @@ import React from 'react';
 const WhyItPaysOff = () => {
   const benefits = [
     {
+      icon: "⏱️",
+      title: "20–30 Hours Saved Weekly",
+      description: "Teams reclaim valuable time from manual list-building and outreach efforts."
+    },
+    {
+      icon: "🛠️",
+      title: "1 Tool — Lower Stack Cost",
+      description: "Replace an 8-tool routine with one integrated outbound engine."
+    },
+    {
+      icon: "🚀",
+      title: "First to Market",
+      description: "AI detects new market signals instantly and contacts owners before competitors reach them."
+    },
+    {
       icon: "⚡",
-      title: "Never miss an inquiry",
-      description: "AI answers calls and forms in seconds, 24/7."
-    },
-    {
-      icon: "💬",
-      title: "More real conversations",
-      description: "Works every list and re-engages cold leads automatically, increasing contact and meeting rates."
-    },
-    {
-      icon: "📋",
-      title: "Clean CRM, less grunt work",
-      description: "Every interaction logged with notes, motivation, and next steps."
-    },
-    {
-      icon: "🎯",
-      title: "Teams stay focused",
-      description: "Reps and partners spend time negotiating, not chasing unresponsive leads."
+      title: "Instant Follow-Up",
+      description: "AI responds to calls, texts, and form submissions in seconds, preventing missed opportunities."
     }
   ];
 

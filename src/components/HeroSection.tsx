@@ -71,7 +71,7 @@ const HeroSection = () => {
             className="w-full h-full object-cover object-bottom"
             style={{ objectPosition: 'center bottom' }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/80"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/75 to-background/85"></div>
         </div>
         
         <div className={`relative z-10 max-w-4xl text-center space-y-4 md:space-y-6 py-6 md:py-12 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

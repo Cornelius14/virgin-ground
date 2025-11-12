@@ -4,18 +4,15 @@ const WhoWeHelp = () => {
   const categories = [
     {
       emoji: "🏘️",
-      title: "Wholesalers & single-family investors",
-      description: "Off-market lists, tax-delinquent owners, tired landlords, and inherited properties—AI works every number, you focus on locking contracts."
+      title: "Wholesalers & Single-Family Investors"
     },
     {
       emoji: "🏢",
-      title: "CRE brokers & investors",
-      description: "Multitenant, value-add, and off-market assets—AI sources, pre-screens principals, and books meetings with serious buyers and sellers."
+      title: "CRE Brokers & Investors"
     },
     {
       emoji: "🏦",
-      title: "Lenders, mortgage & capital markets teams",
-      description: "24/7 lead response and re-engagement so no borrower waits; AI qualifies, routes, and hands warm conversations to your loan officers."
+      title: "Lenders & Capital Markets Teams"
     }
   ];
 
@@ -40,12 +37,9 @@ const WhoWeHelp = () => {
               <div className="text-4xl md:text-5xl mb-4">
                 {category.emoji}
               </div>
-              <h3 className="text-lg md:text-xl font-semibold text-foreground mb-3">
+              <h3 className="text-lg md:text-xl font-semibold text-foreground">
                 {category.title}
               </h3>
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed" style={{ lineHeight: '1.5' }}>
-                {category.description}
-              </p>
             </div>
           ))}
         </div>

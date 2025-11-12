@@ -4,18 +4,23 @@ const HowItWorks = () => {
   const steps = [
     {
       number: 1,
-      title: "We expand your target list",
-      description: "Realflow pulls thousands of properties from multiple data sources and flags owners who match your price, timing, and deal constraints."
+      title: "Tell Us What You're Looking For",
+      description: "Describe the exact leads you want using natural language: market, property type, pricing, timeline, constraints."
     },
     {
       number: 2,
-      title: "AI works every lead and answers inbound",
-      description: "The agent calls, texts, emails, drops voicemail, and picks up inbound calls or forms—qualifying each owner in real time."
+      title: "AI Sources Prospects and Captures Inbound Interest",
+      description: "System pulls thousands of matching properties from multiple sources and captures inbound calls, texts, and forms instantly."
     },
     {
       number: 3,
-      title: "You see a live, ranked pipeline",
-      description: "Qualified owners flow into your CRM with notes, motivation level, and next steps—ready for you to negotiate and close."
+      title: "Multi-Channel Outreach",
+      description: "AI calls, texts, emails, drops voicemail, and qualifies each owner across channels based on your criteria."
+    },
+    {
+      number: 4,
+      title: "Qualified Meetings Booked",
+      description: "Only genuinely interested, qualified owners reach your calendar as scheduled meetings—no tire-kickers, only real opportunities."
     }
   ];
 
@@ -28,7 +33,7 @@ const HowItWorks = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {steps.map((step) => (
             <div 
               key={step.number}

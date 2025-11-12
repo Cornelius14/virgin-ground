@@ -4,22 +4,34 @@ import React from 'react';
 const Testimonials = () => {
   const testimonials = [
     {
-      quote: "We went from stalled lists to constant seller conversations. The AI works leads all day while we focus on contracts.",
-      author: "Marcus Chen",
-      position: "Wholesaler, Charlotte NC",
-      avatar: "bg-muted"
+      title: "Same-day qualified calls booked",
+      company: "The Solaire Collection",
+      quote: "Identified luxury homeowners in legal STR markets, confirmed interest and pricing, and helped scale from zero to seventy units in two months."
     },
     {
-      quote: "Realflow surfaces owners we'd never reach manually and books calls directly on our calendars. It feels like an extra associate.",
-      author: "Jennifer Park",
-      position: "Senior Broker, Miami CRE",
-      avatar: "bg-muted"
+      title: "Off-Market Owner Pipeline Transformed",
+      company: "Makras Real Estate",
+      quote: "Realflow shifted us to proactive owner sourcing, reaching 6,500 owners, qualifying 320, booking 27 listing calls, and winning three exclusives."
     },
     {
-      quote: "Our team no longer scrambles to return calls. AI answers instantly, qualifies, and hands us only serious borrowers.",
-      author: "David Rodriguez",
-      position: "Loan Officer, Regional Bank",
-      avatar: "bg-muted"
+      title: "Nashville Warehouse Acquisition",
+      company: "Southeast Industrial",
+      quote: "Found 612 warehouses in Nashville, contacted 487, connected with 121, and secured six at target price, with first live call in under an hour."
+    },
+    {
+      title: "Multifamily Pipeline Acceleration",
+      company: "Hudson Walk-Ups Group",
+      quote: "Reviewed 1,940 small multifamily units, qualified seventy-six sellers, and moved nine deals into diligence in just fourteen days."
+    },
+    {
+      title: "Statewide Lender Outreach",
+      company: "Lending Specialty Team",
+      quote: "Targeted owners with near-term maturities statewide, booked 612 lender calls in ten days, and delivered average quote turnaround near thirty-six hours."
+    },
+    {
+      title: "Qualified Borrower Flow",
+      company: "Meridian Capital Group",
+      quote: "Realflow surfaced qualified borrowers across major metros, accelerating deal flow and improving conversion by connecting with decision-makers earlier."
     }
   ];
   
@@ -35,20 +47,20 @@ const Testimonials = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
               className="p-6 md:p-8 rounded-2xl bg-card border border-border shadow-sm hover:shadow-md transition-all"
             >
               <div className="space-y-4">
+                <div className="mb-4">
+                  <h3 className="font-semibold text-foreground text-base md:text-lg mb-1">{testimonial.title}</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground font-medium">{testimonial.company}</p>
+                </div>
                 <p className="text-sm md:text-base text-foreground leading-relaxed" style={{ lineHeight: '1.5' }}>
                   "{testimonial.quote}"
                 </p>
-                <div className="pt-4 border-t border-border">
-                  <p className="font-semibold text-foreground text-sm md:text-base">{testimonial.author}</p>
-                  <p className="text-xs md:text-sm text-muted-foreground">{testimonial.position}</p>
-                </div>
               </div>
             </div>
           ))}
