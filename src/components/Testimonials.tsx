@@ -42,9 +42,6 @@ const Testimonials = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
             Real Results
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground" style={{ lineHeight: '1.5' }}>
-            Teams across wholesaling, CRE, and lending use Realflow to turn cold lists into qualified deal flow.
-          </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
