@@ -1,33 +1,33 @@
 import React from 'react';
 
 const WhyItPaysOff = () => {
-  const stats = [
+  const benefits = [
     {
-      topLine: "10K",
-      label: "Targeted Owners",
-      description: "Expect hundreds of qualified meetings from every 10k targeted owners."
+      icon: "⚡",
+      title: "Never miss an inquiry",
+      description: "AI answers calls and forms in seconds, 24/7."
     },
     {
-      topLine: "20–30",
-      label: "Hours Saved Weekly",
-      description: "Teams reclaim valuable time from manual list-building and outreach efforts."
+      icon: "💬",
+      title: "More real conversations",
+      description: "Works every list and re-engages cold leads automatically, increasing contact and meeting rates."
     },
     {
-      topLine: "25–75×",
-      label: "Return on Investment",
-      description: "Single-digit closes routinely produce significant returns on costs."
+      icon: "📋",
+      title: "Clean CRM, less grunt work",
+      description: "Every interaction logged with notes, motivation, and next steps."
     },
     {
-      topLine: "1 Tool",
-      label: "Lower Stack Cost",
-      description: "Replace an 8-tool routine with one integrated outbound engine."
+      icon: "🎯",
+      title: "Teams stay focused",
+      description: "Reps and partners spend time negotiating, not chasing unresponsive leads."
     }
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-16 md:py-24">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-12 md:py-20">
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16">
           <h2 
             id="whyPaysOffHeading" 
             className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
@@ -37,19 +37,19 @@ const WhyItPaysOff = () => {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {stats.map((stat, index) => (
+          {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 md:p-8 flex flex-col items-center justify-center text-center min-h-[300px] transition-all duration-300"
+              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 md:p-8 flex flex-col items-center text-center transition-all duration-300"
             >
-              <div className="text-4xl md:text-5xl font-semibold leading-none text-foreground mb-4">
-                {stat.topLine}
+              <div className="text-4xl md:text-5xl mb-4">
+                {benefit.icon}
               </div>
-              <h3 className="text-xl md:text-2xl text-foreground mb-4">
-                {stat.label}
+              <h3 className="text-base md:text-lg font-semibold text-foreground mb-3">
+                {benefit.title}
               </h3>
-              <p className="text-base md:text-lg text-muted-foreground">
-                {stat.description}
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed" style={{ lineHeight: '1.5' }}>
+                {benefit.description}
               </p>
             </div>
           ))}
