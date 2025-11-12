@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import TaskBoard from './TaskBoard';
 import { Loader } from 'lucide-react';
 import DemoLeadModal from './DemoLeadModal';
+import heroSkyline from '@/assets/hero-skyline.jpg';
 const TypewriterAnimation = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -57,13 +58,18 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
   return <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Cosmic particle effect (background dots) */}
-      <div className="absolute inset-0 cosmic-grid opacity-30"></div>
-      
-      {/* Gradient glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full">
-        <div className="w-full h-full opacity-10 bg-primary blur-[120px]"></div>
+      {/* Hero background image with dark overlay */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img 
+          src={heroSkyline} 
+          alt="" 
+          className="w-full h-full object-cover object-center opacity-40"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background"></div>
       </div>
+      
+      {/* Cosmic particle effect (background dots) */}
+      <div className="absolute inset-0 cosmic-grid opacity-20"></div>
       
       <div className={`relative z-10 max-w-4xl text-center space-y-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="flex justify-center">
@@ -73,7 +79,7 @@ const HeroSection = () => {
           </span>
         </div>
         
-        <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">AI revenue engine for real estate </h1>
+        <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">AI that sources, qualifies, and books high-intent real estate opportunities.</h1>
         
         {/* Typewriter Demo Card */}
         <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
@@ -84,15 +90,19 @@ const HeroSection = () => {
             <TypewriterAnimation />
           </div>
 
-          {/* Static "Run query" button purely for look */}
+          {/* Button to scroll to CRM */}
           <div className="mt-3">
-          <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
+          <button 
+            type="button" 
+            onClick={() => document.getElementById('crm')?.scrollIntoView({ behavior: 'smooth' })}
+            className="rounded-xl px-4 py-2 font-medium border shadow-sm hover:bg-accent transition-colors text-foreground"
+          >
             find qualified targets
           </button>
           </div>
         </div>
         
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">One engine for inbound and outbound communications—sourcing, qualifying, and booking high-intent opportunities faster than any team</p>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">Turn a single buy-box query into live off-market deal flow, meetings, and CRM-ready records.</p>
         
         <div className="flex justify-center pt-6">
           <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
@@ -106,7 +116,7 @@ const HeroSection = () => {
       </div>
       
       {/* Task Manager UI integrated in hero section with glassmorphic effect */}
-      <div id="product" className={`w-full max-w-7xl mt-12 z-10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+      <div id="crm" className={`w-full max-w-7xl mt-12 z-10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         <div className="cosmic-glow relative rounded-xl overflow-hidden border border-border backdrop-blur-sm bg-card shadow-lg">
           {/* Dashboard Header */}
           <div className="bg-card backdrop-blur-md w-full">

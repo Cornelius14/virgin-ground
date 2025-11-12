@@ -214,15 +214,6 @@ const Header = () => {
                 How it Works
               </button>
               <button 
-                onClick={handleNavClick('features')}
-                className={cn(
-                  "nav-pill-item",
-                  activePage === 'features' && 'active'
-                )}
-              >
-                Features
-              </button>
-              <button 
                 onClick={handleNavClick('cases')}
                 className={cn(
                   "nav-pill-item",
@@ -293,14 +284,6 @@ const Header = () => {
                 }`}
               >
                 How it Works
-              </button>
-              <button 
-                onClick={handleNavClick('features')}
-                className={`px-3 py-3 min-h-[44px] text-base rounded-lg transition-colors text-left ${
-                  activePage === 'features' ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:text-foreground hover:bg-muted'
-                }`}
-              >
-                Features
               </button>
               <button 
                 onClick={handleNavClick('cases')}
