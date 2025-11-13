@@ -5,23 +5,26 @@ const WhoWeHelp = () => {
     {
       emoji: "🏠",
       title: "Wholesalers & Single-Family Investors",
-      description: "Consistently source motivated sellers from stacked distress signals instead of random list pulls."
+      description: "Consistently source motivated sellers from distress signals instead of relying on random list pulls or mailers."
     },
     {
       emoji: "🏢",
       title: "CRE Brokers & Investors",
-      description: "Find owners of value-add and off-market assets, then book meetings directly with decision-makers."
+      description: "Find owners of valuable off-market and value-add assets, then book meetings directly with true decision-makers."
     },
     {
       emoji: "🏦",
       title: "Lenders & Capital Markets Teams",
-      description: "Respond instantly to borrowers, pre-qualify them, and keep your pipeline full of live deals."
+      description: "Capture and qualify borrowers in real time so loan officers speak only with serious, ready-to-move prospects."
     }
   ];
 
   return (
-    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="py-10 md:py-16">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="relative py-16 md:py-24 overflow-hidden">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <h2 
             id="whoWeHelpHeading" 

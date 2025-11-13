@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import TaskBoard from './TaskBoard';
 import { Loader } from 'lucide-react';
 import DemoLeadModal from './DemoLeadModal';
+import heroSkyline from '@/assets/hero-skyline-new.png';
 const TypewriterAnimation = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,57 +57,60 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
+  return <section className="relative w-full py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background">
       {/* Skyline background */}
-      <div className="absolute inset-0 bg-cover bg-no-repeat opacity-30" style={{
-      backgroundImage: `url('/src/assets/hero-skyline-new.png')`,
+      <div className="absolute inset-0 bg-cover bg-no-repeat" style={{
+      backgroundImage: `url(${heroSkyline})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center bottom'
     }}></div>
       
       {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/45 via-background/70 to-background/80"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background/80"></div>
       
-      <div className={`relative z-10 max-w-4xl text-center space-y-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="flex justify-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
-            <span className="flex h-2 w-2 rounded-full bg-primary"></span>
-            Workflows that take weeks → ~60 minutes
-          </span>
-        </div>
-        
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5 text-center">
-              AI engine for real estate deals
-        </h1>
-        
-        {/* Typewriter Demo Card */}
-        <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
-          <h3 className="text-lg font-semibold text-foreground">Deal Finder</h3>
-
-          {/* Typewriter viewport */}
-          <div className="mt-4 font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed">
-            <TypewriterAnimation />
+      {/* Toma-style hero card wrapper */}
+      <div className={`relative z-10 max-w-4xl mx-4 md:mx-8 rounded-[24px] bg-card/40 backdrop-blur-sm border border-border/50 shadow-xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center space-y-6">
+          <div className="flex justify-center">
+            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
+              <span className="flex h-2 w-2 rounded-full bg-primary"></span>
+              Workflows that take weeks → ~60 minutes
+            </span>
           </div>
+          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">
+                The AI engine for real estate deals
+          </h1>
+          
+          {/* Typewriter Demo Card */}
+          <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
+            <h3 className="text-lg font-semibold text-foreground">Deal Finder</h3>
 
-          {/* Static "Run query" button purely for look */}
-          <div className="mt-3">
-            <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
-              find qualified targets
-            </button>
+            {/* Typewriter viewport */}
+            <div className="mt-4 font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed">
+              <TypewriterAnimation />
+            </div>
+
+            {/* Static "Run query" button purely for look */}
+            <div className="mt-3">
+              <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
+                find qualified targets
+              </button>
+            </div>
           </div>
+          
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6">
+            AI that sources, qualifies, and books high-intent real estate opportunities
+          </p>
+          
+          <div className="flex justify-center pt-6">
+            <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px] w-full sm:w-auto">
+              Get a 30-minute demo
+            </Button>
+          </div>
+          
+          <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
         </div>
-        
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6">
-          Sourcing, qualifying, and booking high-intent real estate opportunities
-        </p>
-        
-        <div className="flex justify-center pt-6">
-          <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
-            Get a 30-minute demo
-          </Button>
-        </div>
-        
-        <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
       </div>
       
       {/* Task Manager UI integrated in hero section with glassmorphic effect */}

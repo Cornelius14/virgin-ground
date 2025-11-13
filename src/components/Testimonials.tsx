@@ -54,14 +54,14 @@ const Testimonials = () => {
   ];
   
   return (
-    <section id="cases" className="w-full py-20 px-6 md:px-12 bg-card relative overflow-hidden">
+    <section id="cases" className="relative w-full py-16 md:py-24 px-6 md:px-12 bg-card overflow-hidden">
       {/* Background grid */}
-      <div className="absolute inset-0 cosmic-grid opacity-20"></div>
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto space-y-16 relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
           <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
-            Real Results
+            Field-proven results across use cases
           </h2>
         </div>
         
