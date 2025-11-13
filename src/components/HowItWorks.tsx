@@ -34,17 +34,20 @@ const HowItWorks = () => {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-[1400px] mx-auto">
           {steps.map((step) => (
             <div 
               key={step.number}
-              className="p-6 md:p-8 rounded-2xl bg-card border border-border shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+              className="p-6 md:p-7 rounded-[20px] bg-card border border-border shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col"
+              style={{
+                background: 'linear-gradient(to bottom, hsl(var(--card)), hsl(var(--card) / 0.95))'
+              }}
             >
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 mb-4">
-                <span className="text-xl font-bold text-primary">{step.number}</span>
+              <div className="flex items-center justify-center w-11 h-11 rounded-full bg-primary mb-5 flex-shrink-0">
+                <span className="text-lg font-bold text-primary-foreground">{step.number}</span>
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+              <h3 className="text-base font-semibold text-foreground mb-3 leading-tight">{step.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px]">{step.description}</p>
             </div>
           ))}
         </div>

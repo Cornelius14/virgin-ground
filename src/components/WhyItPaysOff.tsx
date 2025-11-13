@@ -5,22 +5,26 @@ const WhyItPaysOff = () => {
     {
       topLine: "20–30",
       label: "Hours Saved Weekly",
-      description: "Teams reclaim valuable time from manual list-building and outreach efforts."
+      description: "Teams reclaim valuable time from manual list-building and outreach efforts.",
+      icon: null
     },
     {
       topLine: "1 Tool",
       label: "Lower Stack Cost",
-      description: "Replace an 8-tool routine with one integrated outbound engine."
+      description: "Replace an 8-tool routine with one integrated outbound engine.",
+      icon: null
     },
     {
       topLine: "⚡",
       label: "First to Market",
-      description: "AI detects new sell signals and reaches owners before competitors, giving you the earliest shot at each deal."
+      description: "AI detects new sell signals and reaches owners before competitors, giving you the earliest shot at each deal.",
+      icon: "⚡"
     },
     {
       topLine: "⏱️",
       label: "Instant Follow-Up",
-      description: "AI responds to calls, texts, and forms in seconds so no serious opportunity is lost to slow response."
+      description: "AI responds to calls, texts, and forms within seconds so serious opportunities aren't lost to slow response.",
+      icon: "⏱️"
     }
   ];
 
@@ -43,8 +47,16 @@ const WhyItPaysOff = () => {
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-8 md:p-10 flex flex-col items-center justify-center text-center min-h-[280px] hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+              className="rounded-[22px] border border-border bg-card backdrop-blur-sm p-8 md:p-10 flex flex-col items-center justify-center text-center min-h-[280px] hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+              style={{
+                background: 'linear-gradient(to bottom, hsl(var(--card)), hsl(var(--card) / 0.95))'
+              }}
             >
+              {stat.icon && (
+                <div className="text-3xl mb-3">
+                  {stat.icon}
+                </div>
+              )}
               <div className="text-4xl md:text-5xl font-semibold leading-none text-primary mb-4">
                 {stat.topLine}
               </div>

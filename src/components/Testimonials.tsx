@@ -69,7 +69,10 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="p-6 rounded-xl border border-border bg-background/80 backdrop-blur-sm hover:border-primary/20 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 flex flex-col text-center"
+              className="p-7 rounded-[22px] border border-border bg-background/80 backdrop-blur-sm hover:border-primary/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col text-center"
+              style={{
+                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.9), hsl(var(--background) / 0.85))'
+              }}
             >
               <div className="mb-3">
                 <h3 className="text-lg font-semibold text-foreground">{testimonial.title}</h3>

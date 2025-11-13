@@ -4,15 +4,18 @@ const WhoWeHelp = () => {
   const categories = [
     {
       emoji: "🏠",
-      title: "Wholesalers & Single-Family Investors"
+      title: "Wholesalers & Single-Family Investors",
+      description: "Consistently source motivated sellers from stacked distress signals instead of random list pulls."
     },
     {
       emoji: "🏢",
-      title: "CRE Brokers & Investors"
+      title: "CRE Brokers & Investors",
+      description: "Find owners of value-add and off-market assets, then book meetings directly with decision-makers."
     },
     {
       emoji: "🏦",
-      title: "Lenders & Capital Markets Teams"
+      title: "Lenders & Capital Markets Teams",
+      description: "Respond instantly to borrowers, pre-qualify them, and keep your pipeline full of live deals."
     }
   ];
 
@@ -32,14 +35,20 @@ const WhoWeHelp = () => {
           {categories.map((category, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-8 flex flex-col items-center justify-center h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] min-h-[200px]"
+              className="rounded-[22px] border border-border bg-card backdrop-blur-sm p-8 flex flex-col items-center justify-center h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] min-h-[220px]"
+              style={{
+                background: 'linear-gradient(to bottom, hsl(var(--card)), hsl(var(--card) / 0.95))'
+              }}
             >
-              <div className="text-5xl mb-6">
+              <div className="text-5xl mb-5">
                 {category.emoji}
               </div>
-              <h3 className="text-xl font-semibold text-foreground text-center">
+              <h3 className="text-xl font-semibold text-foreground text-center mb-3">
                 {category.title}
               </h3>
+              <p className="text-sm text-muted-foreground text-center leading-relaxed">
+                {category.description}
+              </p>
             </div>
           ))}
         </div>
