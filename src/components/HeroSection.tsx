@@ -3,8 +3,6 @@ import { Button } from '@/components/ui/button';
 import TaskBoard from './TaskBoard';
 import { Loader } from 'lucide-react';
 import DemoLeadModal from './DemoLeadModal';
-import DemoScheduleModal from './DemoScheduleModal';
-import heroSkyline from '@/assets/hero-skyline-new.png';
 const TypewriterAnimation = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -52,78 +50,63 @@ const TypewriterAnimation = () => {
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  const [demoModalOpen, setDemoModalOpen] = useState(false);
-  const [dealFinderPrompt, setDealFinderPrompt] = useState('');
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Hero section with skyline background */}
-      <div className="relative w-full py-6 md:py-12 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden">
-        {/* Hero background image anchored to bottom with gradient overlay */}
-        <div className="absolute inset-0 overflow-hidden">
-          <img 
-            src={heroSkyline} 
-            alt="" 
-            className="w-full h-full object-cover object-bottom"
-            style={{ objectPosition: 'center bottom' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/75 to-background/85"></div>
-        </div>
-        
-        <div className={`relative z-10 max-w-4xl text-center space-y-4 md:space-y-6 py-6 md:py-12 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-foreground font-medium tracking-tight leading-tight text-balance mx-auto" style={{ fontSize: 'clamp(26px, 5vw, 48px)', lineHeight: '1.15', maxWidth: '90%' }}>
-            The AI engine for real estate deals
-          </h1>
-          
-          <p className="text-muted-foreground max-w-[340px] md:max-w-2xl mx-auto text-balance" style={{ fontSize: 'clamp(15px, 2vw, 18px)', lineHeight: '1.45', marginTop: 'clamp(12px, 3vw, 16px)' }}>
-            AI that sources, qualifies, and books high-intent real estate opportunities.
-          </p>
-          
-          {/* Deal Finder Card */}
-          <div className="mt-4 md:mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6 max-w-3xl mx-auto">
-            <h3 className="text-base md:text-lg font-semibold text-foreground mb-3 md:mb-4">Deal Finder</h3>
-
-            {/* Free-text prompt field */}
-            <textarea
-              value={dealFinderPrompt}
-              onChange={(e) => setDealFinderPrompt(e.target.value)}
-              placeholder="Find single-family homes under $500k, ready to sell in 14 days…"
-              className="w-full min-h-[80px] md:min-h-[100px] p-3 md:p-4 rounded-lg border border-border bg-background text-foreground text-sm md:text-base leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-
-            {/* Button to open demo modal */}
-            <div className="mt-3 md:mt-4">
-              <button 
-                type="button" 
-                onClick={() => setDemoModalOpen(true)}
-                className="w-full md:w-auto rounded-xl px-4 md:px-6 font-medium border shadow-sm hover:bg-accent transition-colors text-foreground min-h-[44px] text-sm md:text-base"
-              >
-                find qualified targets
-              </button>
-            </div>
-          </div>
-          
-          <div className="flex justify-center pt-4 md:pt-6">
-            <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base md:text-lg h-12 md:h-14 px-6 md:px-8 transition-all duration-200 min-h-[44px] w-full md:w-auto">
-              Get a 30-minute demo
-            </Button>
-          </div>
-          
-          <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
-          <DemoScheduleModal 
-            open={demoModalOpen} 
-            onOpenChange={setDemoModalOpen}
-            dealFinderPrompt={dealFinderPrompt}
-          />
-        </div>
+  return <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
+      {/* Cosmic particle effect (background dots) */}
+      <div className="absolute inset-0 cosmic-grid opacity-30"></div>
+      
+      {/* Gradient glow effect */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full">
+        <div className="w-full h-full opacity-10 bg-primary blur-[120px]"></div>
       </div>
       
-      {/* CRM section - static sample pipeline */}
-      <div id="crm" className={`w-full max-w-7xl px-6 md:px-12 mt-8 md:mt-12 pb-12 md:pb-20 z-10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+      <div className={`relative z-10 max-w-4xl text-center space-y-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="flex justify-center">
+            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
+            <span className="flex h-2 w-2 rounded-full bg-primary"></span>
+            Workflows that take weeks → ~60 minutes
+          </span>
+        </div>
+        
+        <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">AI revenue engine for real estate </h1>
+        
+        {/* Typewriter Demo Card */}
+        <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
+          <h3 className="text-lg font-semibold text-foreground">Deal Finder</h3>
+
+          {/* Typewriter viewport */}
+          <div className="mt-4 font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed">
+            <TypewriterAnimation />
+          </div>
+
+          {/* Static "Run query" button purely for look */}
+          <div className="mt-3">
+          <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
+            find qualified targets
+          </button>
+          </div>
+        </div>
+        
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">One engine for inbound and outbound communications—sourcing, qualifying, and booking high-intent opportunities faster than any team</p>
+        
+        <div className="flex justify-center pt-6">
+          <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
+            Get a 30-minute demo
+          </Button>
+        </div>
+        
+        <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
+        
+        
+      </div>
+      
+      {/* Task Manager UI integrated in hero section with glassmorphic effect */}
+      <div id="product" className={`w-full max-w-7xl mt-12 z-10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
         <div className="cosmic-glow relative rounded-xl overflow-hidden border border-border backdrop-blur-sm bg-card shadow-lg">
           {/* Dashboard Header */}
           <div className="bg-card backdrop-blur-md w-full">
