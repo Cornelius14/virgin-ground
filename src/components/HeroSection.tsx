@@ -75,8 +75,8 @@ const HeroSection = () => {
           </span>
         </div>
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">
-              AI engine for real estate deals
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5 text-center">
+              AI engine for real estate deals
         </h1>
         
         {/* Typewriter Demo Card */}
