@@ -78,9 +78,7 @@ const HeroSection = () => {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">
-                AI engine for real estate deals
-          </h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">AI engine for real estate deals</h1>
           
           {/* Typewriter Demo Card */}
           <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
@@ -99,9 +97,7 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6">
-            AI that sources, qualifies, and books high-intent real estate opportunities
-          </p>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6">Sourcing, qualifying, and booking high intent opportunites                           </p>
           
           <div className="flex justify-center pt-6">
             <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px] w-full sm:w-auto">
