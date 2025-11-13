@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import TaskBoard from './TaskBoard';
 import { Loader } from 'lucide-react';
 import DemoLeadModal from './DemoLeadModal';
-import heroSkyline from '@/assets/hero-skyline-new.png';
+import heroSkyline from '@/assets/hero-skyline.png';
 const TypewriterAnimation = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
