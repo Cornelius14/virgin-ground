@@ -57,13 +57,18 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
   return <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Cosmic particle effect (background dots) */}
-      <div className="absolute inset-0 cosmic-grid opacity-30"></div>
+      {/* Skyline background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40" 
+        style={{ 
+          backgroundImage: `url('/src/assets/hero-skyline-new.png')`,
+          backgroundPosition: 'center bottom',
+          filter: 'contrast(0.8)'
+        }}
+      ></div>
       
-      {/* Gradient glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full">
-        <div className="w-full h-full opacity-10 bg-primary blur-[120px]"></div>
-      </div>
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/85"></div>
       
       <div className={`relative z-10 max-w-4xl text-center space-y-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="flex justify-center">

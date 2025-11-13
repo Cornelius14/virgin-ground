@@ -1,76 +1,52 @@
 import React from 'react';
 const HowItWorks = () => {
-  return <section id="how" className="w-full py-20 lg:py-24 px-6 md:px-12 bg-background">
-      <div className="max-w-7xl mx-auto">
+  const steps = [
+    {
+      number: 1,
+      title: "Tell Us What You're Looking For",
+      description: "Describe the exact leads you want using natural language: market, property type, pricing, timeline, constraints."
+    },
+    {
+      number: 2,
+      title: "AI Sources Prospects and Captures Inbound Interest",
+      description: "System pulls thousands of matching properties from multiple sources and captures inbound calls, texts, and forms instantly."
+    },
+    {
+      number: 3,
+      title: "Multi-Channel Outreach",
+      description: "AI calls, texts, emails, drops voicemail, and qualifies each owner across channels based on your criteria."
+    },
+    {
+      number: 4,
+      title: "Qualified Meetings Booked",
+      description: "Only genuinely interested, qualified owners reach your calendar as scheduled meetings—no tire-kickers, only real opportunities."
+    }
+  ];
+
+  return <section id="how" className="relative w-full py-16 md:py-24 px-6 md:px-12 bg-background overflow-hidden">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+      
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
             How it Works — Step by Step
           </h2>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center px-0 mx-[15px] my-0 py-0">
-          <div className="space-y-6 md:space-y-8">
-            <div className="text-center p-8 rounded-xl bg-card border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                <span className="text-2xl font-bold text-primary">1</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {steps.map((step) => (
+            <div 
+              key={step.number}
+              className="p-6 md:p-8 rounded-2xl bg-card border border-border shadow-sm hover:shadow-lg hover:scale-[1.02] transition-all duration-300"
+            >
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 mb-4">
+                <span className="text-xl font-bold text-primary">{step.number}</span>
               </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">Tell Us What You're Looking For</h3>
-              <div className="w-12 h-1 bg-primary/20 rounded-full mx-auto"></div>
+              <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
             </div>
-
-            <div className="text-center p-8 rounded-xl bg-card border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                <span className="text-2xl font-bold text-primary">2</span>
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">AI Sources Prospects and Captures Inbound Interest</h3>
-              <div className="w-12 h-1 bg-primary/20 rounded-full mx-auto"></div>
-            </div>
-
-            <div className="text-center p-8 rounded-xl bg-card border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                <span className="text-2xl font-bold text-primary">3</span>
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">Multi-Channel Outreach + Live Call Answering</h3>
-              <div className="w-12 h-1 bg-primary/20 rounded-full mx-auto"></div>
-            </div>
-
-            <div className="text-center p-8 rounded-xl bg-card border border-border shadow-sm hover:shadow-md transition-shadow">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
-                <span className="text-2xl font-bold text-primary">4</span>
-              </div>
-              <h3 className="text-xl font-semibold text-foreground mb-2">Qualified Meetings Booked</h3>
-              <div className="w-12 h-1 bg-primary/20 rounded-full mx-auto"></div>
-            </div>
-          </div>
-
-          {/* Right column with details */}
-          <div className="space-y-6 md:space-y-8">
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <h3 className="font-medium text-foreground mb-4">Share the exact type of lead you need.</h3>
-              <p className="text-sm text-muted-foreground">
-                Specify your criteria using natural language — location, property type, price range, or any other requirements.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <h3 className="font-medium text-foreground mb-4">Our system instantly sources a large pool of potential leads tailored to your criteria — and also captures inbound interest from owners who call, text, or fill forms.</h3>
-              <p className="text-sm text-muted-foreground">
-                We identify thousands of prospects from multiple data sources and filter them to match your exact specifications.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <h3 className="font-medium text-foreground mb-4">Realflow's AI agent calls, texts, leaves voicemails, and emails every lead — and answers inbound calls as they come in — qualifying against your criteria in real time.</h3>
-              <p className="text-sm text-muted-foreground">Our AI handles all outreach across multiple channels, qualifying prospects against your criteria requirements automatically.</p>
-            </div>
-
-            <div className="p-6 rounded-lg bg-card border border-border">
-              <h3 className="font-medium text-foreground mb-4">Sit back while we schedule meetings only with genuinely interested prospects—no wasted time.</h3>
-              <p className="text-sm text-muted-foreground">
-                Only qualified, interested prospects make it to your calendar. No tire-kickers, just real opportunities.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>;

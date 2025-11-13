@@ -16,7 +16,7 @@
     --popover: 0 0% 9%;
     --popover-foreground: 210 20% 85%;
 
-    --primary: 210 20% 95%; /* Softer slate-100 */
+    --primary: 42 88% 65%; /* Realflow gold accent */
     --primary-foreground: 0 0% 10%; /* Dark background */
 
     --secondary: 0 0% 15%; /* Medium charcoal */
@@ -108,9 +108,16 @@
 
   .cosmic-grid {
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 30px 30px;
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  
+  .notebook-grid {
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
 
   .light-mode .cosmic-grid {
