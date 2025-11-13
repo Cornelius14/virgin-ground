@@ -3,21 +3,12 @@ import { Button } from '@/components/ui/button';
 import TaskBoard from './TaskBoard';
 import { Loader } from 'lucide-react';
 import DemoLeadModal from './DemoLeadModal';
-
 const TypewriterAnimation = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [currentQuery, setCurrentQuery] = useState(0);
-  
-  const queries = [
-    "Find value-add multifamily, 20–40 units, in Charlotte, built 1980–2005, cap ≥ 6.5%, ≤ $180k/door.", 
-    "Find 18–22k SF retail for lease in Miami Beach, $180–$220 PSF, frontage ≥ 60 ft.", 
-    "Find Dallas multifamily owners with loans maturing in 3–6 months, 50–150 units, LTV ≥ 65% for refinance.", 
-    "Find Travis County, TX properties with recent deed filings/escrow opens likely to need title insurance in ≤45 days.", 
-    "I am a concrete supplier, find me property owners who have recently pulled permits with buildings over 100k SF."
-  ];
-  
+  const queries = ["Find value-add multifamily, 20–40 units, in Charlotte, built 1980–2005, cap ≥ 6.5%, ≤ $180k/door.", "Find 18–22k SF retail for lease in Miami Beach, $180–$220 PSF, frontage ≥ 60 ft.", "Find Dallas multifamily owners with loans maturing in 3–6 months, 50–150 units, LTV ≥ 65% for refinance.", "Find Travis County, TX properties with recent deed filings/escrow opens likely to need title insurance in ≤45 days.", "I am a concrete supplier, find me property owners who have recently pulled permits with buildings over 100k SF."];
   useEffect(() => {
     const currentText = queries[currentQuery];
     if (isTyping) {
@@ -49,39 +40,29 @@ const TypewriterAnimation = () => {
       }
     }
   }, [currentIndex, isTyping, currentQuery, queries]);
-  
-  return (
-    <div className="relative">
+  return <div className="relative">
       <div className="whitespace-pre-line">
         {displayText}
         <span className="animate-pulse">|</span>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
-  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  
-  return (
-    <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
+  return <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
       {/* Skyline background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-no-repeat opacity-30" 
-        style={{ 
-          backgroundImage: `url('/src/assets/hero-skyline-new.png')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center bottom'
-        }}
-      ></div>
+      <div className="absolute inset-0 bg-cover bg-no-repeat opacity-30" style={{
+      backgroundImage: `url('/src/assets/hero-skyline-new.png')`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center bottom'
+    }}></div>
       
       {/* Gradient overlay for readability */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/45 via-background/70 to-background/80"></div>
@@ -95,7 +76,7 @@ const HeroSection = () => {
         </div>
         
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">
-          The AI engine for real estate deals
+              AI engine for real estate deals
         </h1>
         
         {/* Typewriter Demo Card */}
@@ -116,7 +97,7 @@ const HeroSection = () => {
         </div>
         
         <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6">
-          AI that sources, qualifies, and books high-intent real estate opportunities.
+          Sourcing, qualifying, and booking high-intent real estate opportunities
         </p>
         
         <div className="flex justify-center pt-6">
@@ -226,8 +207,6 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default HeroSection;
