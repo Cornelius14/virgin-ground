@@ -9,6 +9,7 @@ import Demo from "./pages/Demo";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { AICallButton } from "./components/AICallButton";
 import { useEffect } from "react";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <AICallButton />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
