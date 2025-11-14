@@ -117,14 +117,27 @@ const HowItWorks = () => {
                         <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Prospected</span>
                         <span className="text-xs px-2.5 py-1 rounded-full bg-blue-100" style={{ color: '#1a1a1a' }}>127</span>
                       </div>
-                      <div className="space-y-3">
-                        <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>Commerce Ave Property</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>32 units, 1990 build</div>
-                          <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Requested details, considering sale.</div>
-                        </div>
-                      </div>
+                  <div className="space-y-2.5">
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>3400 Commerce Ave</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>32 units, 1990 build • Owner: Smith Capital</div>
+                      <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Requested rent roll; reviewing options.</div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>1820 Park Road</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>28 units, 1985 build • Owner: Park Holdings</div>
+                      <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Considering sale if price works.</div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>2150 South Blvd</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>24 units, 1988 build • Owner: Blvd Properties</div>
+                      <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Requested details; may list next quarter.</div>
+                    </div>
+                    <div className="text-xs text-center py-1.5" style={{ color: '#6a6a6a' }}>+ 124 more</div>
+                  </div>
                     </div>
 
                     <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 3 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
@@ -132,20 +145,45 @@ const HowItWorks = () => {
                         <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Qualified</span>
                         <span className="text-xs px-2.5 py-1 rounded-full bg-amber-100" style={{ color: '#1a1a1a' }}>18</span>
                       </div>
-                      <div className="space-y-3">
-                        <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>South Blvd Building</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>36 units, 1992 build</div>
-                          <div className="text-xs leading-relaxed mb-2" style={{ color: '#4a4a4a' }}>Open to offers, wants LOI soon.</div>
-                          <div className="flex gap-1.5">
-                            <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-xs">📞</span></div>
-                            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center"><span className="text-xs">💬</span></div>
-                            <div className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-xs">🎤</span></div>
-                            <div className="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-xs">✉️</span></div>
-                          </div>
-                        </div>
+                  <div className="space-y-2.5">
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>4500 South Blvd</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>36 units, 1992 build • Owner: Metro Realty</div>
+                      <div className="text-xs leading-relaxed mb-2" style={{ color: '#4a4a4a' }}>Open to offers; wants LOI this week.</div>
+                      <div className="flex gap-1.5 justify-center">
+                        <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center border border-blue-200"><span className="text-sm">📞</span></div>
+                        <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center border border-green-200"><span className="text-sm">💬</span></div>
+                        <div className="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center border border-orange-200"><span className="text-sm">🔔</span></div>
+                        <div className="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center border border-purple-200"><span className="text-sm">✉️</span></div>
                       </div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>875 Central Ave</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>40 units, 1987 build • Owner: Central Holdings</div>
+                      <div className="text-xs leading-relaxed mb-2" style={{ color: '#4a4a4a' }}>Interested in cash close within 30 days.</div>
+                      <div className="flex gap-1.5 justify-center">
+                        <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center border border-blue-200"><span className="text-sm">📞</span></div>
+                        <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center border border-green-200"><span className="text-sm">💬</span></div>
+                        <div className="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center border border-orange-200"><span className="text-sm">🔔</span></div>
+                        <div className="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center border border-purple-200"><span className="text-sm">✉️</span></div>
+                      </div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>1620 Elizabeth Ave</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>30 units, 1995 build • Owner: Elizabeth LLC</div>
+                      <div className="text-xs leading-relaxed mb-2" style={{ color: '#4a4a4a' }}>Open to tour; reviewing comparable sales.</div>
+                      <div className="flex gap-1.5 justify-center">
+                        <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center border border-blue-200"><span className="text-sm">📞</span></div>
+                        <div className="w-7 h-7 rounded-full bg-green-100 flex items-center justify-center border border-green-200"><span className="text-sm">💬</span></div>
+                        <div className="w-7 h-7 rounded-full bg-orange-100 flex items-center justify-center border border-orange-200"><span className="text-sm">🔔</span></div>
+                        <div className="w-7 h-7 rounded-full bg-purple-100 flex items-center justify-center border border-purple-200"><span className="text-sm">✉️</span></div>
+                      </div>
+                    </div>
+                    <div className="text-xs text-center py-1.5" style={{ color: '#6a6a6a' }}>+ 15 more</div>
+                  </div>
                     </div>
 
                     <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 4 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
@@ -153,13 +191,27 @@ const HowItWorks = () => {
                         <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
                         <span className="text-xs px-2.5 py-1 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>5</span>
                       </div>
-                      <div className="space-y-3">
-                        <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
-                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>Tryon Street Complex</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 Tour booked Thu 2 PM</div>
-                        </div>
-                      </div>
+                  <div className="space-y-2.5">
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>2800 Tryon Street</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>38 units, 1989 build • Owner: Tryon Group</div>
+                      <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 Tour booked Thu 2 PM — decision-maker attending.</div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>950 Morehead Street</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>26 units, 1993 build • Owner: Morehead Ventures</div>
+                      <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 Offer review call booked Tue 11 AM.</div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                      <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>1440 Mint Street</div>
+                      <div className="text-xs mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                      <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>34 units, 1991 build • Owner: Mint Properties</div>
+                      <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 On-site tour booked Fri 11 AM.</div>
+                    </div>
+                    <div className="text-xs text-center py-1.5" style={{ color: '#6a6a6a' }}>+ 2 more</div>
+                  </div>
                     </div>
                   </div>
                 </div>
