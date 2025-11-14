@@ -32,28 +32,28 @@ const Pricing = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-[24px] shadow-lg flex flex-col h-full transition-all duration-300 relative hover:shadow-xl ${plan.popular ? "ring-2 ring-primary/30" : ""}`} style={{ backgroundColor: '#F0ECE4' }}>
-              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-sm rounded-full font-medium border border-primary/40" style={{ color: '#000' }}>
+          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-[24px] shadow-lg flex flex-col h-full bg-eggshell transition-all duration-300 relative hover:shadow-xl ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
+              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm rounded-full font-medium">
                   Most Popular
                 </div>}
               
               <div className="mb-auto">
-                <h3 className="text-2xl font-medium tracking-tighter mb-1" style={{ color: '#111111' }}>{plan.name}</h3>
+                <h3 className="text-2xl font-medium tracking-tighter mb-1 text-foreground">{plan.name}</h3>
                 
                 <div className="mb-4">
-                  <div className="text-3xl font-bold tracking-tighter" style={{ color: '#111111' }}>{plan.price}</div>
+                  <div className="text-3xl font-bold tracking-tighter text-foreground">{plan.price}</div>
                 </div>
                 
-                <p className="mb-6" style={{ color: '#3a3a3a' }}>{plan.description}</p>
+                <p className="text-muted-foreground mb-6">{plan.description}</p>
                 
                 <div className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => <div key={i} className="flex items-center gap-3">
-                      <div className="h-5 w-5 rounded-full bg-primary/30 flex items-center justify-center text-primary border border-primary/20">
+                      <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M5 12L10 17L19 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
-                      <span className="text-sm" style={{ color: '#191919' }}>{feature}</span>
+                      <span className="text-sm text-foreground">{feature}</span>
                     </div>)}
                 </div>
               </div>

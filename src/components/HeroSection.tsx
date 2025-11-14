@@ -59,19 +59,18 @@ const HeroSection = () => {
   }, []);
   return <section className="relative w-full py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background">
       {/* Skyline background */}
-      <div className="absolute inset-0" style={{
+      <div className="absolute inset-0 bg-cover bg-no-repeat" style={{
       backgroundImage: `url(${heroSkyline})`,
       backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'center top'
+      backgroundPosition: 'center bottom'
     }}></div>
       
-      {/* Subtle gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80"></div>
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background/80"></div>
       
-      {/* Hero card wrapper with soft glow */}
-      <div className={`relative z-10 w-full max-w-4xl mx-auto rounded-[24px] backdrop-blur-sm border border-border/50 shadow-2xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ backgroundColor: '#101114', boxShadow: '0 0 60px rgba(0, 0, 0, 0.5), 0 20px 40px rgba(0, 0, 0, 0.4)' }}>
-        <div className="text-center space-y-6 flex flex-col items-center">
+      {/* Toma-style hero card wrapper */}
+      <div className={`relative z-10 max-w-4xl mx-4 md:mx-8 rounded-[24px] bg-card/40 backdrop-blur-sm border border-border/50 shadow-xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center space-y-6">
           <div className="flex justify-center">
             <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
               <span className="flex h-2 w-2 rounded-full bg-primary"></span>
@@ -79,28 +78,28 @@ const HeroSection = () => {
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5 w-full">AI engine for real estate deals</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">AI engine for real estate deals</h1>
           
           {/* Typewriter Demo Card */}
-          <div className="mt-6 w-full rounded-2xl border-2 border-border/80 shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
-            <h3 className="text-lg font-semibold text-foreground text-left">Deal Finder</h3>
+          <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
+            <h3 className="text-lg font-semibold text-foreground">Deal Finder</h3>
 
             {/* Typewriter viewport */}
-            <div className="mt-4 font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed text-left">
+            <div className="mt-4 font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed">
               <TypewriterAnimation />
             </div>
 
             {/* Static "Run query" button purely for look */}
-            <div className="mt-3 text-left">
+            <div className="mt-3">
               <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
                 find qualified targets
               </button>
             </div>
           </div>
           
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6 text-center w-full">Sourcing, qualifying, and booking high intent opportunites                           </p>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6 text-center">Sourcing, qualifying, and booking high intent opportunites                           </p>
           
-          <div className="flex justify-center pt-6 w-full">
+          <div className="flex justify-center pt-6">
             <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px] w-full sm:w-auto">
               Get a 30-minute demo
             </Button>
