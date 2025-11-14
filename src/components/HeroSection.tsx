@@ -62,14 +62,14 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-cover bg-no-repeat" style={{
       backgroundImage: `url(${heroSkyline})`,
       backgroundSize: 'cover',
-      backgroundPosition: 'center bottom'
+      backgroundPosition: 'center top'
     }}></div>
       
-      {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background/80"></div>
+      {/* Strong gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/70 to-black/85"></div>
       
-      {/* Toma-style hero card wrapper */}
-      <div className={`relative z-10 max-w-4xl mx-4 md:mx-8 rounded-[24px] bg-card/40 backdrop-blur-sm border border-border/50 shadow-xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      {/* Hero card wrapper with soft glow */}
+      <div className={`relative z-10 max-w-4xl mx-4 md:mx-8 rounded-[24px] backdrop-blur-sm border border-border/50 shadow-2xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`} style={{ backgroundColor: '#101114', boxShadow: '0 0 60px rgba(0, 0, 0, 0.5), 0 20px 40px rgba(0, 0, 0, 0.4)' }}>
         <div className="text-center space-y-6">
           <div className="flex justify-center">
             <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
@@ -81,7 +81,7 @@ const HeroSection = () => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">AI engine for real estate deals</h1>
           
           {/* Typewriter Demo Card */}
-          <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
+          <div className="mt-6 rounded-2xl border-2 border-border/80 shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
             <h3 className="text-lg font-semibold text-foreground">Deal Finder</h3>
 
             {/* Typewriter viewport */}
