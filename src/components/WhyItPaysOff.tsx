@@ -1,30 +1,26 @@
 import React from 'react';
 
 const WhyItPaysOff = () => {
-  const stats = [
+  const benefits = [
     {
-      topLine: "20–30",
-      label: "Hours Saved Weekly",
-      description: "Teams reclaim valuable time from manual list-building and outreach efforts.",
-      icon: null
+      icon: "⏰",
+      title: "20–30 Hours Saved Weekly",
+      description: "Teams reclaim time from manual list-building and follow-up."
     },
     {
-      topLine: "1 Tool",
-      label: "Lower Stack Cost",
-      description: "Replace an 8-tool routine with one integrated outbound engine.",
-      icon: null
+      icon: "🔧",
+      title: "1 Tool, Lower Stack Cost",
+      description: "Replace your 8-tool outbound routine with one engine."
     },
     {
-      topLine: "",
-      label: "First to Market",
-      description: "AI detects new sell signals and reaches owners before competitors, giving you the earliest shot at each deal.",
-      icon: "⚡"
+      icon: "⚡",
+      title: "First to Market",
+      description: "Detect new sell signals and reach owners before competitors."
     },
     {
-      topLine: "",
-      label: "Instant Follow-Up",
-      description: "AI responds to calls, texts, and forms within seconds so serious opportunities aren't lost to slow response.",
-      icon: "⏱️"
+      icon: "⏱️",
+      title: "Instant Follow-Up",
+      description: "AI responds to calls, texts, forms, and emails in seconds."
     }
   ];
 
@@ -43,28 +39,29 @@ const WhyItPaysOff = () => {
           </h2>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-          {stats.map((stat, index) => (
+        {/* 2x2 grid on desktop, 2 per row on tablet, 1 on mobile */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+          {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-[22px] border border-border bg-card backdrop-blur-sm p-8 md:p-10 flex flex-col items-center justify-center text-center min-h-[280px] hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
+              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
               style={{
-                background: 'linear-gradient(to bottom, hsl(var(--card)), hsl(var(--card) / 0.95))'
+                background: 'linear-gradient(to bottom, #F4F4F5, #E9E9EB)'
               }}
             >
-              {stat.icon && (
-                <div className="text-3xl mb-3">
-                  {stat.icon}
-                </div>
-              )}
-              <div className="text-4xl md:text-5xl font-semibold leading-none text-primary mb-4">
-                {stat.topLine}
+              {/* Icon */}
+              <div className="text-5xl mb-4 text-primary">
+                {benefit.icon}
               </div>
-              <h3 className="text-xl md:text-2xl text-foreground mb-4 font-semibold">
-                {stat.label}
+              
+              {/* Title */}
+              <h3 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: '#1a1a1a' }}>
+                {benefit.title}
               </h3>
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                {stat.description}
+              
+              {/* Description */}
+              <p className="text-sm md:text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
+                {benefit.description}
               </p>
             </div>
           ))}
