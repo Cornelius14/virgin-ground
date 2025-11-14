@@ -28,26 +28,28 @@ const HowItWorks = () => {
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
             How it Works — Step by Step
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-[1400px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-[1000px] mx-auto px-4 md:px-0">
           {steps.map((step) => (
             <div 
               key={step.number}
-              className="p-6 md:p-7 rounded-[20px] bg-card border border-border shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col"
+              className="relative p-8 md:p-10 rounded-[24px] shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 flex flex-col group"
               style={{
-                background: 'linear-gradient(to bottom, hsl(var(--card)), hsl(var(--card) / 0.95))'
+                background: 'linear-gradient(to bottom, #F4F4F5, #E9E9EB)',
               }}
             >
-              <div className="flex items-center justify-center w-11 h-11 rounded-full bg-primary mb-5 flex-shrink-0">
+              <div className="absolute -top-5 left-6 flex items-center justify-center w-12 h-12 rounded-full bg-primary shadow-md group-hover:brightness-110 transition-all duration-300 flex-shrink-0">
                 <span className="text-lg font-bold text-primary-foreground">{step.number}</span>
               </div>
-              <h3 className="text-base font-semibold text-foreground mb-3 leading-tight">{step.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-[280px]">{step.description}</p>
+              <div className="mt-4">
+                <h3 className="text-lg md:text-xl font-semibold mb-3 leading-tight" style={{ color: '#1a1a1a' }}>{step.title}</h3>
+                <p className="text-sm md:text-base leading-relaxed" style={{ color: '#4a4a4a', maxWidth: '65ch' }}>{step.description}</p>
+              </div>
             </div>
           ))}
         </div>
