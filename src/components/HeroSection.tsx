@@ -97,7 +97,7 @@ const HeroSection = () => {
             </div>
           </div>
           
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6">Sourcing, qualifying, and booking high intent opportunites                           </p>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6 text-center">Sourcing, qualifying, and booking high intent opportunites                           </p>
           
           <div className="flex justify-center pt-6">
             <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px] w-full sm:w-auto">
