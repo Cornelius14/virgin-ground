@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Building2, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import logoLight from "@/assets/oblique-logo-light.svg";
 
 export const AICallButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,8 +50,8 @@ export const AICallButton = () => {
         onClick={() => setIsOpen(true)}
         className="fixed z-50 bg-eggshell text-primary-foreground rounded-[28px] shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 active:scale-[0.98] md:bottom-8 md:right-8 bottom-4 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto px-5 py-3 flex items-center gap-3"
       >
-        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
-          <Building2 className="w-4 h-4 text-primary-foreground" />
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 p-1.5">
+          <img src={logoLight} alt="Realflow" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col items-start">
           <span className="font-semibold text-sm leading-tight">Talk to Realflow</span>
