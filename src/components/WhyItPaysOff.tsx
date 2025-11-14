@@ -15,13 +15,13 @@ const WhyItPaysOff = () => {
       icon: null
     },
     {
-      topLine: "⚡",
+      topLine: "",
       label: "First to Market",
       description: "AI detects new sell signals and reaches owners before competitors, giving you the earliest shot at each deal.",
       icon: "⚡"
     },
     {
-      topLine: "⏱️",
+      topLine: "",
       label: "Instant Follow-Up",
       description: "AI responds to calls, texts, and forms within seconds so serious opportunities aren't lost to slow response.",
       icon: "⏱️"
