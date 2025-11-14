@@ -57,7 +57,7 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background">
+  return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background mb-8 md:mb-12">
       {/* Skyline background - full bleed */}
       <div className="absolute inset-0 bg-cover bg-no-repeat bg-center" style={{
       backgroundImage: `url(${heroSkyline})`,
@@ -71,34 +71,39 @@ const HeroSection = () => {
       {/* Hero card wrapper */}
       <div className={`relative z-10 w-full max-w-4xl mx-auto px-4 md:px-0 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="text-center space-y-6 flex flex-col items-center">
-          <div className="flex justify-center">
+          <div className="flex justify-center mb-4 md:mb-6">
             <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
               <span className="flex h-2 w-2 rounded-full bg-primary"></span>
               Workflows that take weeks → ~60 minutes
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">AI engine for real estate deals</h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-6 md:mb-8">AI engine for real estate deals</h1>
           
-          {/* Deal Finder label */}
-          <div className="text-xs font-medium tracking-wide uppercase text-primary mb-2">Deal Finder</div>
-          
-          {/* Typewriter Demo Card */}
-          <div className="w-full rounded-2xl border shadow-lg bg-eggshell p-5 md:p-6">
-            <div className="text-left text-sm md:text-base text-gray-900 leading-relaxed min-h-[80px]">
-              <TypewriterAnimation />
+          {/* Deal Finder Card - Large, Bold, Dark */}
+          <div className="w-full rounded-3xl bg-card border border-border shadow-2xl p-6 md:p-8 lg:p-10 space-y-6">
+            <div className="text-center">
+              <div className="text-sm font-semibold tracking-wide uppercase text-primary mb-4">Deal Finder</div>
             </div>
+            
+            {/* Large Input Area */}
+            <div className="w-full rounded-xl border border-border bg-background/50 p-4 md:p-5">
+              <div className="text-left text-sm md:text-base text-foreground font-mono leading-relaxed min-h-[100px] md:min-h-[120px]">
+                <TypewriterAnimation />
+              </div>
+            </div>
+            
+            {/* Full-width CTA Button */}
+            <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg font-medium py-6" size="lg">
+              find qualified targets
+            </Button>
           </div>
           
-          <Button className="mt-2 w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90" size="lg">
-            <span className="lowercase text-sm font-medium">find qualified targets</span>
-          </Button>
-          
-          <p className="text-base md:text-lg text-gray-100 leading-relaxed max-w-2xl mx-auto px-4">
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto px-4 mt-6 md:mt-8">
             Tell us what you want, and we handle the rest: prospecting, outreach, qualification, and booking meetings with only the motivated, qualified owners.
           </p>
           
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 mt-2 w-full md:w-auto" onClick={() => setModalOpen(true)}>
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 mt-6 md:mt-8 w-full md:w-auto px-8" onClick={() => setModalOpen(true)}>
             Get a 30-minute demo
           </Button>
           

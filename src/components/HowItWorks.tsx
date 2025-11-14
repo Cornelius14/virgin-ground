@@ -27,7 +27,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden">
+    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden mt-8 md:mt-12">
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">

@@ -64,17 +64,17 @@ const WhoWeHelp = () => {
           </h2>
         </div>
         
-        {/* Mobile: hero card first, then persona rows */}
+        {/* Mobile: persona list first, then card */}
         {/* Desktop: persona rail left, hero card right */}
         <div className="flex flex-col lg:grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-12 max-w-[1200px] mx-auto">
           
-          {/* Desktop: Persona Rail on left (order-1), hidden on mobile */}
-          <div className="hidden lg:block space-y-1 order-1">
+          {/* Mobile: Persona List First (order-1), Desktop: Left Rail (order-1) */}
+          <div className="block space-y-2 lg:space-y-1 order-1">
             {personas.map((persona, index) => (
               <button
                 key={index}
                 onClick={() => setActivePersona(index)}
-                className={`w-full text-left p-5 rounded-lg transition-all duration-300 ${
+                className={`w-full text-left p-4 lg:p-5 rounded-lg transition-all duration-300 ${
                   activePersona === index
                     ? 'bg-card/50 border-l-4 border-primary'
                     : 'border-l-4 border-transparent hover:bg-card/20'
@@ -103,8 +103,8 @@ const WhoWeHelp = () => {
             ))}
           </div>
 
-          {/* Dashboard Card - order-1 on mobile (shown first), order-2 on desktop (shown second) */}
-          <div className="order-1 lg:order-2 w-full">
+          {/* Dashboard Card - order-2 on both mobile and desktop */}
+          <div className="order-2 w-full">
             <div 
               className="rounded-[28px] p-1 shadow-2xl w-full"
               style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
@@ -159,40 +159,6 @@ const WhoWeHelp = () => {
             </div>
           </div>
 
-          {/* Mobile: Persona Rail below card (order-2), shown on mobile only */}
-          <div className="lg:hidden order-2 space-y-2">
-            {personas.map((persona, index) => (
-              <button
-                key={index}
-                onClick={() => setActivePersona(index)}
-                className={`w-full text-left p-4 md:p-5 rounded-lg transition-all duration-300 ${
-                  activePersona === index
-                    ? 'bg-card/50 border-l-4 border-primary'
-                    : 'border-l-4 border-transparent bg-card/20'
-                }`}
-              >
-                <div className="flex items-start gap-3">
-                  <span className="text-xl md:text-2xl">{persona.icon}</span>
-                  <div className="flex-1">
-                    <h3 
-                      className={`text-base font-semibold mb-1 transition-colors ${
-                        activePersona === index ? 'text-foreground' : 'text-muted-foreground/60'
-                      }`}
-                    >
-                      {persona.title}
-                    </h3>
-                    <p 
-                      className={`text-sm leading-relaxed transition-colors ${
-                        activePersona === index ? 'text-muted-foreground' : 'text-muted-foreground/50'
-                      }`}
-                    >
-                      {persona.shortDesc}
-                    </p>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
         </div>
       </div>
     </section>
