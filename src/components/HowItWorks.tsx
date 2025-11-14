@@ -85,120 +85,79 @@ const HowItWorks = () => {
 
           <div className="order-first lg:order-last">
             <div 
-              className="rounded-[20px] md:rounded-[28px] p-1 shadow-2xl"
+              className="rounded-[28px] p-1 shadow-2xl"
               style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
             >
               <div 
-                className="rounded-[16px] md:rounded-[24px] p-4 md:p-10 min-h-[600px] md:min-h-[700px] bg-eggshell overflow-auto"
+                className="rounded-[24px] p-8 md:p-10 min-h-[500px] md:min-h-[600px] bg-eggshell"
               >
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4 md:mb-6">
-                  <span className="text-sm md:text-xl font-semibold" style={{ color: '#1a1a1a' }}>Realflow Deal Engine</span>
-                  <span className="text-xs px-3 py-1 rounded-full bg-white/70 whitespace-nowrap" style={{ color: '#4a4a4a' }}>Live Pipeline</span>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-lg md:text-xl font-semibold" style={{ color: '#1a1a1a' }}>Realflow Deal Engine</span>
+                  <span className="text-sm px-4 py-1.5 rounded-full bg-white/70" style={{ color: '#4a4a4a' }}>Live Pipeline</span>
                 </div>
 
-                <div className="space-y-3 md:space-y-6">
+                <div className="space-y-6">
                   <div 
-                    className={`p-3 md:p-5 rounded-xl transition-all duration-300 ${
+                    className={`p-5 rounded-xl transition-all duration-300 ${
                       activeStep === 1 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'
                     }`}
                   >
-                    <div className="flex items-center gap-2 mb-2 md:mb-3">
-                      <div className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-primary flex-shrink-0"></div>
-                      <span className="text-xs md:text-sm font-semibold" style={{ color: '#1a1a1a' }}>Search Query</span>
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>
+                      <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Search Query</span>
                     </div>
-                    <p className="text-xs md:text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
+                    <p className="text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
                       Find value-add multifamily, 20–40 units, in Charlotte, built 1980–2005, cap ≥ 6.5%, ≤ $180k/door.
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-                    <div className={`p-3 md:p-4 rounded-xl transition-all duration-300 ${activeStep === 2 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs md:text-sm font-semibold" style={{ color: '#1a1a1a' }}>Prospected</span>
-                        <span className="text-xs px-2 py-0.5 md:py-1 rounded-full bg-blue-100" style={{ color: '#1a1a1a' }}>127</span>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 2 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Prospected</span>
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-blue-100" style={{ color: '#1a1a1a' }}>127</span>
                       </div>
-                      <div className="space-y-2">
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>3400 Commerce Ave</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#4a4a4a' }}>32 units, 1990</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Requested rent roll.</div>
-                        </div>
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>875 Elizabeth Ave</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#4a4a4a' }}>28 units, 1985</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Curious about offers.</div>
-                        </div>
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>2100 Park Road</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#4a4a4a' }}>24 units, 1998</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Reviewing options.</div>
+                      <div className="space-y-3">
+                        <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>Commerce Ave Property</div>
+                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                          <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>32 units, 1990 build</div>
+                          <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Requested details, considering sale.</div>
                         </div>
                       </div>
                     </div>
 
-                    <div className={`p-3 md:p-4 rounded-xl transition-all duration-300 ${activeStep === 3 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs md:text-sm font-semibold" style={{ color: '#1a1a1a' }}>Qualified</span>
-                        <span className="text-xs px-2 py-0.5 md:py-1 rounded-full bg-amber-100" style={{ color: '#1a1a1a' }}>18</span>
+                    <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 3 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Qualified</span>
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-amber-100" style={{ color: '#1a1a1a' }}>18</span>
                       </div>
-                      <div className="space-y-2">
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>2801 South Blvd</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#4a4a4a' }}>36 units, 1992</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed mb-1" style={{ color: '#4a4a4a' }}>Wants cash offer.</div>
-                          <div className="flex gap-1">
-                            <div className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">📞</span></div>
-                            <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">💬</span></div>
-                            <div className="w-4 h-4 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">🎤</span></div>
-                            <div className="w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">✉️</span></div>
-                          </div>
-                        </div>
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>4500 Central Ave</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#4a4a4a' }}>40 units, 1988</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed mb-1" style={{ color: '#4a4a4a' }}>Open to LOI soon.</div>
-                          <div className="flex gap-1">
-                            <div className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">📞</span></div>
-                            <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">💬</span></div>
-                            <div className="w-4 h-4 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">🎤</span></div>
-                            <div className="w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">✉️</span></div>
-                          </div>
-                        </div>
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>1820 Westover Hills</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#4a4a4a' }}>22 units, 2001</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed mb-1" style={{ color: '#4a4a4a' }}>Wants tour this week.</div>
-                          <div className="flex gap-1">
-                            <div className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">📞</span></div>
-                            <div className="w-4 h-4 rounded-full bg-green-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">💬</span></div>
-                            <div className="w-4 h-4 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">🎤</span></div>
-                            <div className="w-4 h-4 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-[8px] md:text-[10px]">✉️</span></div>
+                      <div className="space-y-3">
+                        <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>South Blvd Building</div>
+                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                          <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>36 units, 1992 build</div>
+                          <div className="text-xs leading-relaxed mb-2" style={{ color: '#4a4a4a' }}>Open to offers, wants LOI soon.</div>
+                          <div className="flex gap-1.5">
+                            <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-xs">📞</span></div>
+                            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center"><span className="text-xs">💬</span></div>
+                            <div className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-xs">🎤</span></div>
+                            <div className="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-xs">✉️</span></div>
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className={`p-3 md:p-4 rounded-xl transition-all duration-300 ${activeStep === 4 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs md:text-sm font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
-                        <span className="text-xs px-2 py-0.5 md:py-1 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>5</span>
+                    <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 4 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>5</span>
                       </div>
-                      <div className="space-y-2">
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>1520 Tryon Street</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 Tour Thu 2 PM</div>
-                        </div>
-                        <div className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
-                          <div className="font-semibold text-xs md:text-sm mb-0.5 md:mb-1" style={{ color: '#1a1a1a' }}>3200 Monroe Road</div>
-                          <div className="text-[10px] md:text-xs mb-0.5 md:mb-1" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-[10px] md:text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 Call Fri 10 AM</div>
+                      <div className="space-y-3">
+                        <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>Tryon Street Complex</div>
+                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
+                          <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 Tour booked Thu 2 PM</div>
                         </div>
                       </div>
                     </div>
