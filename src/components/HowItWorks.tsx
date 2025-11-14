@@ -27,19 +27,20 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how" className="relative w-full py-16 md:py-24 px-6 md:px-12 bg-background overflow-hidden">
+    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden">
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16 px-4">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
             How it Works — Step by Step
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
           
-          <div className="hidden lg:block space-y-1">
+          {/* Desktop: steps on left */}
+          <div className="hidden lg:block space-y-1 order-1">
             {steps.map((step, index) => (
               <div key={step.number}>
                 <button
@@ -83,13 +84,14 @@ const HowItWorks = () => {
             ))}
           </div>
 
-          <div className="order-first lg:order-last">
+          {/* Mobile: show steps first, then card */}
+          <div className="order-2 lg:order-last w-full">
             <div 
-              className="rounded-[28px] p-1 shadow-2xl"
+              className="rounded-[28px] p-1 shadow-2xl w-full"
               style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
             >
               <div 
-                className="rounded-[24px] p-8 md:p-10 min-h-[500px] md:min-h-[600px] bg-eggshell"
+                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] bg-eggshell w-full"
               >
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-lg md:text-xl font-semibold" style={{ color: '#1a1a1a' }}>Realflow Deal Engine</span>
@@ -97,68 +99,101 @@ const HowItWorks = () => {
                 </div>
 
                 <div className="space-y-6">
+                  {/* Search Query Box */}
                   <div 
-                    className={`p-5 rounded-xl transition-all duration-300 ${
+                    className={`p-4 md:p-5 rounded-xl transition-all duration-300 ${
                       activeStep === 1 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'
                     }`}
                   >
                     <div className="flex items-center gap-2 mb-3">
                       <div className="w-2.5 h-2.5 rounded-full bg-primary"></div>
-                      <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Search Query</span>
+                      <span className="text-xs md:text-sm font-semibold text-gray-900">Search Query</span>
                     </div>
-                    <p className="text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
+                    <p className="text-sm md:text-base leading-relaxed text-gray-700">
                       Find value-add multifamily, 20–40 units, in Charlotte, built 1980–2005, cap ≥ 6.5%, ≤ $180k/door.
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4">
-                    <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 2 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
+                  {/* Pipeline columns - horizontal on desktop, vertical on mobile */}
+                  <div className="flex flex-col md:grid md:grid-cols-3 gap-4 md:gap-4">
+                    {/* Prospected Column */}
+                    <div className={`p-4 md:p-5 rounded-xl transition-all duration-300 w-full ${activeStep === 2 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Prospected</span>
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-blue-100" style={{ color: '#1a1a1a' }}>127</span>
+                        <span className="text-sm md:text-base font-semibold text-gray-900">Prospected</span>
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-blue-100 text-gray-900">127</span>
                       </div>
                       <div className="space-y-3">
                         <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>Commerce Ave Property</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>32 units, 1990 build</div>
-                          <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>Requested details, considering sale.</div>
+                          <div className="font-semibold text-sm mb-1 text-gray-900">3400 Commerce Ave</div>
+                          <div className="text-xs mb-1 text-gray-600">Charlotte, NC</div>
+                          <div className="text-xs mb-1.5 text-gray-700">32 units, 1990 build • Owner: Smith Capital</div>
+                          <div className="text-xs leading-relaxed text-gray-700">Requested rent roll, considering sale this month.</div>
                         </div>
+                        <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                          <div className="font-semibold text-sm mb-1 text-gray-900">2156 South Blvd</div>
+                          <div className="text-xs mb-1 text-gray-600">Charlotte, NC</div>
+                          <div className="text-xs mb-1.5 text-gray-700">28 units, 1995 build • Owner: Park Properties</div>
+                          <div className="text-xs leading-relaxed text-gray-700">Curious about offers, reviewing options.</div>
+                        </div>
+                        <div className="text-xs text-gray-500 mt-2">+ 125 more</div>
                       </div>
                     </div>
 
-                    <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 3 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
+                    {/* Qualified Column */}
+                    <div className={`p-4 md:p-5 rounded-xl transition-all duration-300 w-full ${activeStep === 3 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Qualified</span>
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-amber-100" style={{ color: '#1a1a1a' }}>18</span>
+                        <span className="text-sm md:text-base font-semibold text-gray-900">Qualified</span>
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-amber-100 text-gray-900">18</span>
                       </div>
                       <div className="space-y-3">
                         <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>South Blvd Building</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#4a4a4a' }}>36 units, 1992 build</div>
-                          <div className="text-xs leading-relaxed mb-2" style={{ color: '#4a4a4a' }}>Open to offers, wants LOI soon.</div>
+                          <div className="font-semibold text-sm mb-1 text-gray-900">4850 Tryon Street</div>
+                          <div className="text-xs mb-1 text-gray-600">Charlotte, NC</div>
+                          <div className="text-xs mb-1.5 text-gray-700">36 units, 1992 build • Owner: Tryon Holdings</div>
+                          <div className="text-xs leading-relaxed mb-2 text-gray-700">Open to cash offer this week; wants LOI before month-end.</div>
                           <div className="flex gap-1.5">
-                            <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-xs">📞</span></div>
-                            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center"><span className="text-xs">💬</span></div>
-                            <div className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-xs">🎤</span></div>
-                            <div className="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-xs">✉️</span></div>
+                            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-xs">📞</span></div>
+                            <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center"><span className="text-xs">💬</span></div>
+                            <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-xs">🎤</span></div>
+                            <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-xs">✉️</span></div>
                           </div>
                         </div>
+                        <div className="p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                          <div className="font-semibold text-sm mb-1 text-gray-900">1820 East Blvd</div>
+                          <div className="text-xs mb-1 text-gray-600">Charlotte, NC</div>
+                          <div className="text-xs mb-1.5 text-gray-700">24 units, 1988 build • Owner: East Capital</div>
+                          <div className="text-xs leading-relaxed mb-2 text-gray-700">Asked for LOI at ≥ 6.5% cap, ready to close.</div>
+                          <div className="flex gap-1.5">
+                            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-xs">📞</span></div>
+                            <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center"><span className="text-xs">💬</span></div>
+                            <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center"><span className="text-xs">🎤</span></div>
+                            <div className="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center"><span className="text-xs">✉️</span></div>
+                          </div>
+                        </div>
+                        <div className="text-xs text-gray-500 mt-2">+ 16 more</div>
                       </div>
                     </div>
 
-                    <div className={`p-4 rounded-xl transition-all duration-300 ${activeStep === 4 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
+                    {/* Booked Column */}
+                    <div className={`p-4 md:p-5 rounded-xl transition-all duration-300 w-full ${activeStep === 4 ? 'bg-white shadow-lg ring-2 ring-primary/50' : 'bg-white/70 shadow-sm'}`}>
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-sm font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
-                        <span className="text-xs px-2.5 py-1 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>5</span>
+                        <span className="text-sm md:text-base font-semibold text-gray-900">Booked</span>
+                        <span className="text-xs px-2.5 py-1 rounded-full bg-green-100 text-gray-900">5</span>
                       </div>
                       <div className="space-y-3">
                         <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
-                          <div className="font-semibold text-sm mb-1" style={{ color: '#1a1a1a' }}>Tryon Street Complex</div>
-                          <div className="text-xs mb-1.5" style={{ color: '#6a6a6a' }}>Charlotte, NC</div>
-                          <div className="text-xs leading-relaxed" style={{ color: '#4a4a4a' }}>📅 Tour booked Thu 2 PM</div>
+                          <div className="font-semibold text-sm mb-1 text-gray-900">7200 Park Road</div>
+                          <div className="text-xs mb-1 text-gray-600">Charlotte, NC</div>
+                          <div className="text-xs mb-1.5 text-gray-700">40 units, 1985 build • Owner: Park Investors</div>
+                          <div className="text-xs leading-relaxed text-gray-700">📅 Tour booked Thu 2 PM — decision-maker attending.</div>
                         </div>
+                        <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                          <div className="font-semibold text-sm mb-1 text-gray-900">3315 Monroe Road</div>
+                          <div className="text-xs mb-1 text-gray-600">Charlotte, NC</div>
+                          <div className="text-xs mb-1.5 text-gray-700">22 units, 1998 build • Owner: Monroe LLC</div>
+                          <div className="text-xs leading-relaxed text-gray-700">📅 Call booked Fri 11 AM — reviewing offers same day.</div>
+                        </div>
+                        <div className="text-xs text-gray-500 mt-2">+ 3 more</div>
                       </div>
                     </div>
                   </div>
@@ -167,7 +202,8 @@ const HowItWorks = () => {
             </div>
           </div>
 
-          <div className="lg:hidden space-y-1 order-last">
+          {/* Mobile: steps below card */}
+          <div className="lg:hidden space-y-1 order-1 mb-8 px-4">
             {steps.map((step, index) => (
               <div key={step.number}>
                 <button
