@@ -70,10 +70,7 @@ const Testimonials = () => {
           {caseStudies.map((study, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-6 md:p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col"
-              style={{
-                background: 'linear-gradient(to bottom, #F4F4F5, #E9E9EB)'
-              }}
+              className="rounded-[24px] p-6 md:p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-eggshell"
             >
               {/* Category pill */}
               <div className="flex items-center gap-2 mb-4">

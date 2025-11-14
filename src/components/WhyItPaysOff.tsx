@@ -44,10 +44,7 @@ const WhyItPaysOff = () => {
           {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
-              style={{
-                background: 'linear-gradient(to bottom, #F4F4F5, #E9E9EB)'
-              }}
+              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 bg-eggshell"
             >
               {/* Icon */}
               <div className="text-5xl mb-4 text-primary">

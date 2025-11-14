@@ -36,6 +36,17 @@ const WhoWeHelp = () => {
         { name: "Coastal Apartments", address: "890 Harbor Way — Miami, FL", status: "Loan matures in 90 days" },
         { name: "Summit Holdings", address: "234 Tower Ln — Orlando, FL", status: "Seeking refi at 5.5% rate" },
       ]
+    },
+    {
+      icon: "🏦",
+      title: "Mortgage Lenders",
+      shortDesc: "Convert inbound borrowers and reach owners with near-term maturities.",
+      viewTitle: "Mortgage Lender View",
+      queryExample: "Find homeowners with mortgages maturing in 60–90 days — Charlotte metro",
+      leads: [
+        { name: "Johnson Family", address: "450 Oak Ridge — Charlotte, NC", status: "Refi needed, rate 6.2%" },
+        { name: "Patterson Trust", address: "890 Cedar Lane — Charlotte, NC", status: "Loan matures in 75 days" },
+      ]
     }
   ];
 
@@ -102,7 +113,7 @@ const WhoWeHelp = () => {
             >
               <div 
                 className="rounded-[24px] p-6 md:p-8 min-h-[400px]"
-                style={{ background: 'linear-gradient(to bottom, #F4F4F5, #E9E9EB)' }}
+                style={{ background: 'hsl(var(--eggshell))' }}
               >
                 {/* Top label row */}
                 <div className="flex items-center justify-between mb-6">

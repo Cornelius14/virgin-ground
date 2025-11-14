@@ -32,7 +32,7 @@ const Pricing = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => <div key={index} className={`p-6 rounded-xl border flex flex-col h-full ${plan.popular ? "border-primary/50 cosmic-glow bg-card" : "border-border cosmic-gradient bg-card"} transition-all duration-300 relative`}>
+          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-[24px] shadow-lg flex flex-col h-full bg-eggshell transition-all duration-300 relative hover:shadow-xl ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
               {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm rounded-full font-medium">
                   Most Popular
                 </div>}
