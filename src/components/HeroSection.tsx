@@ -57,7 +57,7 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background mb-8 md:mb-12">
+  return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background mb-10 md:mb-14">
       {/* Skyline background - full bleed */}
       <div className="absolute inset-0 bg-cover bg-no-repeat bg-center" style={{
       backgroundImage: `url(${heroSkyline})`,
@@ -65,45 +65,63 @@ const HeroSection = () => {
       backgroundPosition: 'center center'
     }}></div>
       
-      {/* Gradient overlay for readability - darker at bottom */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/60 to-background/85"></div>
+      {/* Subtle dark overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background/80"></div>
       
-      {/* Hero card wrapper */}
-      <div className={`relative z-10 w-full max-w-4xl mx-auto px-4 md:px-0 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="text-center space-y-6 flex flex-col items-center">
-          <div className="flex justify-center mb-4 md:mb-6">
-            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
+      {/* Hero content wrapper */}
+      <div className={`relative z-10 w-full max-w-6xl mx-auto px-4 md:px-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center space-y-8 flex flex-col items-center">
+          
+          {/* Yellow pill */}
+          <div className="flex justify-center">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30">
               <span className="flex h-2 w-2 rounded-full bg-primary"></span>
               Workflows that take weeks → ~60 minutes
             </span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-6 md:mb-8">AI engine for real estate deals</h1>
+          {/* H1 */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1]">
+            AI engine for real estate deals
+          </h1>
           
-          {/* Deal Finder Card - Large, Bold, Dark */}
-          <div className="w-full rounded-3xl bg-card border border-border shadow-2xl p-6 md:p-8 lg:p-10 space-y-6">
-            <div className="text-center">
-              <div className="text-sm font-semibold tracking-wide uppercase text-primary mb-4">Deal Finder</div>
-            </div>
+          {/* Large Dark Deal Finder Card */}
+          <div className="w-full max-w-4xl rounded-3xl bg-card/95 backdrop-blur-sm border border-border shadow-2xl p-8 md:p-10 lg:p-12 space-y-6">
             
-            {/* Large Input Area */}
-            <div className="w-full rounded-xl border border-border bg-background/50 p-4 md:p-5">
-              <div className="text-left text-sm md:text-base text-foreground font-mono leading-relaxed min-h-[100px] md:min-h-[120px]">
+            {/* Deal Finder title */}
+            <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center">
+              Deal Finder
+            </h2>
+            
+            {/* Typed query area - DO NOT MODIFY CONTENT OR ANIMATION */}
+            <div className="w-full rounded-xl bg-background/60 border border-border/50 p-5 md:p-6">
+              <div className="text-left text-sm md:text-base text-foreground leading-relaxed min-h-[100px] md:min-h-[120px]">
                 <TypewriterAnimation />
               </div>
             </div>
             
-            {/* Full-width CTA Button */}
-            <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 text-base md:text-lg font-medium py-6" size="lg">
-              find qualified targets
-            </Button>
+            {/* CTA button inside card */}
+            <div className="flex justify-center">
+              <Button 
+                className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg transition-all"
+                size="lg"
+              >
+                find qualified targets
+              </Button>
+            </div>
           </div>
           
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto px-4 mt-6 md:mt-8">
-            Tell us what you want, and we handle the rest: prospecting, outreach, qualification, and booking meetings with only the motivated, qualified owners.
+          {/* Subheader text */}
+          <p className="text-base md:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
+            Sourcing, qualifying, and booking high intent opportunities
           </p>
           
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 mt-6 md:mt-8 w-full md:w-auto px-8" onClick={() => setModalOpen(true)}>
+          {/* Yellow demo button */}
+          <Button 
+            size="lg" 
+            className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg w-full md:w-auto" 
+            onClick={() => setModalOpen(true)}
+          >
             Get a 30-minute demo
           </Button>
           
