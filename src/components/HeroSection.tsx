@@ -102,10 +102,7 @@ const HeroSection = () => {
             
             {/* CTA button inside card */}
             <div className="flex justify-center">
-              <Button 
-                className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg transition-all"
-                size="lg"
-              >
+              <Button className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg transition-all" size="lg">
                 find qualified targets
               </Button>
             </div>
@@ -113,15 +110,11 @@ const HeroSection = () => {
           
           {/* Subheader text */}
           <p className="text-base md:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
-            Sourcing, qualifying, and booking high intent opportunities
+            Source, qualify, and book high intent opportunities
           </p>
           
           {/* Yellow demo button */}
-          <Button 
-            size="lg" 
-            className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg w-full md:w-auto" 
-            onClick={() => setModalOpen(true)}
-          >
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg w-full md:w-auto" onClick={() => setModalOpen(true)}>
             Get a 30-minute demo
           </Button>
           
