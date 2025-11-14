@@ -93,155 +93,183 @@ const HowItWorks = () => {
 
           {/* Right Column - Demo Card */}
           <div className="order-first lg:order-last">
-            <div 
-              className="rounded-[28px] p-1 shadow-2xl"
-              style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
-            >
               <div 
-                className="rounded-[24px] p-6 md:p-8 min-h-[500px] md:min-h-[600px]"
-                style={{ background: 'linear-gradient(to bottom, #F4F4F5, #E9E9EB)' }}
+                className="rounded-[28px] p-1 shadow-2xl"
+                style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
               >
-                {/* Demo Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                  </div>
-                  <span className="text-sm font-medium" style={{ color: '#4a4a4a' }}>Realflow Deal Engine</span>
-                </div>
-
-                {/* Demo Content Based on Active Step */}
-                <div className="space-y-4">
-                  
-                  {/* Query Bar - Highlighted for Step 1 */}
-                  <div 
-                    className={`p-4 rounded-xl transition-all duration-300 ${
-                      activeStep === 1 
-                        ? 'bg-white shadow-lg ring-2 ring-primary/50' 
-                        : 'bg-white/60 shadow-sm'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 rounded-full bg-primary"></div>
-                      <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Search Query</span>
-                    </div>
-                    <p className="text-sm" style={{ color: '#4a4a4a' }}>
-                      Find multifamily 20-40 units, Charlotte, 1980-2005, cap ≥6.5%
-                    </p>
+                <div 
+                  className="rounded-[24px] p-6 md:p-8 min-h-[500px] md:min-h-[600px]"
+                  style={{ background: 'linear-gradient(to bottom, #F4F4F5, #E9E9EB)' }}
+                >
+                  {/* Demo Header - No traffic lights */}
+                  <div className="flex items-center justify-end mb-6">
+                    <span className="text-sm font-medium" style={{ color: '#4a4a4a' }}>Realflow Deal Engine</span>
                   </div>
 
-                  {/* Pipeline Columns */}
-                  <div className="grid grid-cols-3 gap-3">
+                  {/* Demo Content Based on Active Step */}
+                  <div className="space-y-4">
                     
-                    {/* Prospected Column - Highlighted for Step 2 */}
+                    {/* Query Bar - Highlighted for Step 1 */}
                     <div 
-                      className={`p-3 rounded-xl transition-all duration-300 ${
-                        activeStep === 2 
+                      className={`p-4 rounded-xl transition-all duration-300 ${
+                        activeStep === 1 
                           ? 'bg-white shadow-lg ring-2 ring-primary/50' 
                           : 'bg-white/60 shadow-sm'
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Prospected</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100" style={{ color: '#1a1a1a' }}>487</span>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-2 h-2 rounded-full bg-primary"></div>
+                        <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Search Query</span>
                       </div>
-                      <div className="space-y-2">
-                        {[1, 2, 3].map((i) => (
-                          <div key={i} className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                            <div className="w-full h-1.5 bg-gray-200 rounded mb-1"></div>
-                            <div className="w-3/4 h-1 bg-gray-200 rounded"></div>
-                          </div>
-                        ))}
-                      </div>
+                      <p className="text-sm" style={{ color: '#4a4a4a' }}>
+                        Find multifamily 20-40 units, Charlotte, 1980-2005, cap ≥6.5%
+                      </p>
                     </div>
 
-                    {/* Qualified Column - Highlighted for Step 3 */}
-                    <div 
-                      className={`p-3 rounded-xl transition-all duration-300 ${
-                        activeStep === 3 
-                          ? 'bg-white shadow-lg ring-2 ring-primary/50' 
-                          : 'bg-white/60 shadow-sm'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Qualified</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100" style={{ color: '#1a1a1a' }}>24</span>
+                    {/* Pipeline Columns with Realistic Lead Details */}
+                    <div className="grid grid-cols-3 gap-3">
+                      
+                      {/* Prospected Column - Highlighted for Step 2 */}
+                      <div 
+                        className={`p-3 rounded-xl transition-all duration-300 ${
+                          activeStep === 2 
+                            ? 'bg-white shadow-lg ring-2 ring-primary/50' 
+                            : 'bg-white/60 shadow-sm'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Prospected</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100" style={{ color: '#1a1a1a' }}>487</span>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                            <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>John Williams</div>
+                            <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>1243 W Main St — Tampa, FL</div>
+                            <div className="text-[9px]" style={{ color: '#4a4a4a' }}>Requested pricing details, wants ballpark number.</div>
+                          </div>
+                          <div className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                            <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>Sarah Chen</div>
+                            <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>892 Oak Ave — Charlotte, NC</div>
+                            <div className="text-[9px]" style={{ color: '#4a4a4a' }}>Curious about selling, reviewing options this month.</div>
+                          </div>
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        {[1, 2].map((i) => (
-                          <div key={i} className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                            <div className="w-full h-1.5 bg-gray-200 rounded mb-1"></div>
-                            <div className="flex gap-1 mt-2">
+
+                      {/* Qualified Column - Highlighted for Step 3 */}
+                      <div 
+                        className={`p-3 rounded-xl transition-all duration-300 ${
+                          activeStep === 3 
+                            ? 'bg-white shadow-lg ring-2 ring-primary/50' 
+                            : 'bg-white/60 shadow-sm'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Qualified</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100" style={{ color: '#1a1a1a' }}>24</span>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                            <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>Mike Rodriguez</div>
+                            <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>567 Park Blvd — Charlotte, NC</div>
+                            <div className="text-[9px] mb-2" style={{ color: '#4a4a4a' }}>Wants cash offer this week; open to tour.</div>
+                            <div className="flex gap-1">
                               <div className="w-4 h-4 rounded-full bg-blue-400 flex items-center justify-center">
-                                <span className="text-[8px] text-white">📞</span>
+                                <span className="text-[8px]">📞</span>
                               </div>
                               <div className="w-4 h-4 rounded-full bg-green-400 flex items-center justify-center">
-                                <span className="text-[8px] text-white">💬</span>
+                                <span className="text-[8px]">💬</span>
+                              </div>
+                              <div className="w-4 h-4 rounded-full bg-amber-400 flex items-center justify-center">
+                                <span className="text-[8px]">🎙️</span>
                               </div>
                               <div className="w-4 h-4 rounded-full bg-purple-400 flex items-center justify-center">
-                                <span className="text-[8px] text-white">✉️</span>
+                                <span className="text-[8px]">✉️</span>
                               </div>
                             </div>
                           </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Booked Column - Highlighted for Step 4 */}
-                    <div 
-                      className={`p-3 rounded-xl transition-all duration-300 ${
-                        activeStep === 4 
-                          ? 'bg-white shadow-lg ring-2 ring-primary/50' 
-                          : 'bg-white/60 shadow-sm'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>8</span>
-                      </div>
-                      <div className="space-y-2">
-                        {[1, 2].map((i) => (
-                          <div key={i} className="p-2 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
-                            <div className="flex items-center gap-1 mb-1">
-                              <div className="w-1 h-1 rounded-full bg-green-500"></div>
-                              <div className="w-full h-1 bg-green-200 rounded"></div>
+                          <div className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                            <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>Linda Park</div>
+                            <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>234 Elm Dr — Charlotte, NC</div>
+                            <div className="text-[9px] mb-2" style={{ color: '#4a4a4a' }}>Asked for LOI at ≥ 6.5% cap before month end.</div>
+                            <div className="flex gap-1">
+                              <div className="w-4 h-4 rounded-full bg-blue-400 flex items-center justify-center">
+                                <span className="text-[8px]">📞</span>
+                              </div>
+                              <div className="w-4 h-4 rounded-full bg-green-400 flex items-center justify-center">
+                                <span className="text-[8px]">💬</span>
+                              </div>
+                              <div className="w-4 h-4 rounded-full bg-amber-400 flex items-center justify-center">
+                                <span className="text-[8px]">🎙️</span>
+                              </div>
+                              <div className="w-4 h-4 rounded-full bg-purple-400 flex items-center justify-center">
+                                <span className="text-[8px]">✉️</span>
+                              </div>
                             </div>
-                            <div className="text-[8px]" style={{ color: '#4a4a4a' }}>📅 Meeting</div>
                           </div>
-                        ))}
+                        </div>
                       </div>
-                    </div>
-                  </div>
 
-                  {/* Multi-Channel Icons - Extra highlight for Step 3 */}
-                  {activeStep === 3 && (
-                    <div className="p-4 rounded-xl bg-white shadow-lg ring-2 ring-primary/50">
-                      <div className="flex items-center gap-3 justify-center">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center shadow-md">
-                            <span className="text-sm">📞</span>
-                          </div>
-                          <span className="text-xs font-medium" style={{ color: '#1a1a1a' }}>Calls</span>
+                      {/* Booked Column - Highlighted for Step 4 */}
+                      <div 
+                        className={`p-3 rounded-xl transition-all duration-300 ${
+                          activeStep === 4 
+                            ? 'bg-white shadow-lg ring-2 ring-primary/50' 
+                            : 'bg-white/60 shadow-sm'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>8</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center shadow-md">
-                            <span className="text-sm">💬</span>
+                        <div className="space-y-2">
+                          <div className="p-2 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                            <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>David Turner</div>
+                            <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>789 Market St — Charlotte, NC</div>
+                            <div className="text-[9px]" style={{ color: '#4a4a4a' }}>Call booked Tue 3pm — decision-maker attending.</div>
                           </div>
-                          <span className="text-xs font-medium" style={{ color: '#1a1a1a' }}>SMS</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center shadow-md">
-                            <span className="text-sm">✉️</span>
+                          <div className="p-2 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                            <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>Amy Foster</div>
+                            <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>456 Valley Rd — Charlotte, NC</div>
+                            <div className="text-[9px]" style={{ color: '#4a4a4a' }}>On-site tour booked Fri 11am — review offers same day.</div>
                           </div>
-                          <span className="text-xs font-medium" style={{ color: '#1a1a1a' }}>Email</span>
                         </div>
                       </div>
                     </div>
-                  )}
+
+                    {/* Multi-Channel Icons - Extra highlight for Step 3 */}
+                    {activeStep === 3 && (
+                      <div className="p-4 rounded-xl bg-white shadow-lg ring-2 ring-primary/50">
+                        <div className="flex items-center gap-3 justify-center">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center shadow-md">
+                              <span className="text-sm">📞</span>
+                            </div>
+                            <span className="text-xs font-medium" style={{ color: '#1a1a1a' }}>Calls</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center shadow-md">
+                              <span className="text-sm">💬</span>
+                            </div>
+                            <span className="text-xs font-medium" style={{ color: '#1a1a1a' }}>SMS</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center shadow-md">
+                              <span className="text-sm">🎙️</span>
+                            </div>
+                            <span className="text-xs font-medium" style={{ color: '#1a1a1a' }}>Voicemail</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center shadow-md">
+                              <span className="text-sm">✉️</span>
+                            </div>
+                            <span className="text-xs font-medium" style={{ color: '#1a1a1a' }}>Email</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
           </div>
 
           {/* Mobile Step List - Below demo card on mobile */}
