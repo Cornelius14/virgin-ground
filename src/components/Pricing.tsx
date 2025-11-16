@@ -22,20 +22,26 @@ const Pricing = () => {
     buttonVariant: "outline",
     popular: true
   }];
-  return <section id="pricing" className="w-full py-20 px-6 md:px-12 bg-background">
-      <div className="max-w-7xl mx-auto space-y-16">
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+  return <section id="pricing" className="relative w-full overflow-hidden">
+      <div className="max-w-[1160px] mx-auto px-6 relative z-10">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 md:mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             Teams & Enterprise pricing
           </h2>
-          <p className="text-muted-foreground text-lg">Custom pricing discussed on a call to scope your volumes, domains, and compliance needs</p>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed">
+            Built to scale from small teams to full organizations
+          </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.08)] flex flex-col h-full bg-card transition-all duration-300 relative hover:shadow-[0_24px_48px_rgba(15,23,42,0.12)] border border-border ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
-              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-primary text-primary-foreground text-sm rounded-full font-medium shadow-md">
-                  Most Popular
-                </div>}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {plans.map((plan, index) => {
+            if (plan.popular) {
+              return <div key={index} className="relative premium-card p-10 border-2 border-primary/20 hover:scale-[1.01] transition-all duration-200">
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="px-4 py-1.5 text-xs font-semibold rounded-full bg-primary/90 text-primary-foreground shadow-md">
+                    Most popular
+                  </span>
+                </div>
               
               <div className="mb-auto">
                 <h3 className="text-2xl font-bold tracking-tight mb-1 text-foreground">{plan.name}</h3>
@@ -63,7 +69,9 @@ const Pricing = () => {
                   {plan.buttonText}
                 </Button>
               </div>
-            </div>)}
+            </div>;
+            } else {
+              return <div key={index} className="premium-card p-10 hover:scale-[1.01] transition-all duration-200">
         </div>
         
         

@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,37 +7,38 @@
 
 @layer base {
   :root {
-    --background: 33 10% 96%; /* Light warm gray base */
-    --foreground: 222 47% 11%; /* Near-black text #111827 */
+    --background: 0 0% 100%; /* Pure white */
+    --background-subtle: 220 20% 97%; /* #F5F7FB very light gray */
+    --foreground: 222 80% 7%; /* Navy #0B1220 */
 
     --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 222 47% 11%;
-    
-    --eggshell: 0 0% 100%; /* Pure white for cards */
+    --card-foreground: 222 80% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 222 80% 7%;
 
-    --primary: 42 88% 65%; /* Realflow gold accent */
-    --primary-foreground: 222 47% 11%; /* Dark text on gold */
+    --primary: 42 88% 65%; /* Realflow yellow accent */
+    --primary-foreground: 222 80% 7%; /* Navy text on yellow */
 
-    --secondary: 220 13% 91%; /* Light gray secondary */
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 215 16% 47%; /* Gray #6B7280 */
+    --secondary-foreground: 222 80% 7%;
 
-    --muted: 220 13% 91%; /* Light gray muted */
-    --muted-foreground: 215 16% 47%; /* Muted text #6b7280 */
+    --muted: 220 14% 96%; /* Light gray #F9FAFB */
+    --muted-foreground: 215 16% 47%; /* Gray #6B7280 */
 
-    --accent: 42 88% 65%; /* Gold accent */
-    --accent-foreground: 222 47% 11%;
+    --accent: 42 88% 65%; /* Yellow accent */
+    --accent-foreground: 222 80% 7%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%; /* Subtle border #e5e7eb */
-    --input: 220 13% 91%;
-    --ring: 42 88% 65%; /* Gold ring */
+    --border: 218 20% 90%; /* #E5E7EB */
+    --input: 218 20% 90%;
+    --ring: 42 88% 65%;
 
-    --radius: 0.75rem; /* 12px */
+    --caption: 218 11% 65%; /* #9CA3AF */
+
+    --radius: 1.5rem; /* 24px */
   }
 
   * {
@@ -45,8 +46,13 @@
   }
 
   body {
-    @apply bg-background font-inter text-foreground antialiased;
-    letter-spacing: -0.025em;
+    @apply bg-gradient-to-b from-background to-[hsl(var(--background-subtle))] font-inter text-foreground antialiased;
+    letter-spacing: -0.01em;
+  }
+  
+  h1, h2, h3 {
+    @apply font-playfair;
+    letter-spacing: -0.02em;
   }
   
   ::selection {
@@ -92,7 +98,11 @@
   }
   
   .cosmic-glass {
-    @apply backdrop-blur-sm bg-card border border-border shadow-[0_18px_40px_rgba(15,23,42,0.08)];
+    @apply backdrop-blur-sm bg-card border border-border shadow-[0_20px_50px_rgba(15,23,42,0.08)];
+  }
+  
+  .premium-card {
+    @apply bg-card rounded-[24px] shadow-[0_20px_50px_rgba(15,23,42,0.08)] border border-border;
   }
   
   .cosmic-card {
