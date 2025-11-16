@@ -175,9 +175,9 @@ const Header = () => {
 
 
   return (
-    <div className="relative z-50 pt-8 px-4">
-      <header className="w-full max-w-7xl mx-auto py-3 px-6 md:px-8 flex items-center justify-between">
-        <div className="p-3">
+    <div className="relative z-50 pt-6 px-4">
+      <header className="w-full max-w-7xl mx-auto py-4 px-6 md:px-8 flex items-center justify-between rounded-2xl backdrop-blur-md bg-background/30 border border-white/10">
+        <div className="py-1">
           <a href="/" className="inline-flex items-center gap-2.5 -m-1.5 p-1.5 rounded-md hover:bg-white/5 light-mode:hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 light-mode:focus-visible:ring-black/20">
             <Logo />
           </a>
@@ -193,8 +193,8 @@ const Header = () => {
         
         {/* Desktop navigation */}
         <nav className="hidden md:flex items-center absolute left-1/2 transform -translate-x-1/2" style={{ marginLeft: '-1cm' }}>
-          <div className="nav-pill px-1 py-1 shadow-lg">
-            <div className="flex items-center">
+          <div className="nav-pill px-1.5 py-1.5 shadow-xl bg-card/80">
+            <div className="flex items-center gap-1">
               <button 
                 onClick={handleNavClick('product')}
                 className={cn(
@@ -406,7 +406,7 @@ const Header = () => {
           </div>
           <div className="rounded-2xl">
             <Button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90" 
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-5 text-base font-medium rounded-xl shadow-lg hover:shadow-primary/20 transition-all" 
               onClick={() => setModalOpen(true)}
             >
               Get a 30-minute demo

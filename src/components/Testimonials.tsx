@@ -54,23 +54,22 @@ const Testimonials = () => {
   ];
   
   return (
-    <section id="cases" className="relative w-full py-16 md:py-24 px-6 md:px-12 overflow-hidden">
-      {/* Background grid */}
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+    <section id="cases" className="relative w-full py-20 md:py-32 px-6 md:px-12 overflow-hidden section-dark">
+      <div className="absolute inset-0 opacity-20 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+        <div className="text-center space-y-6 max-w-3xl mx-auto mb-16 md:mb-20">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-tight">
             Field-proven results across use cases
           </h2>
         </div>
         
         {/* 2x3 grid on desktop, 2 per row on tablet, 1 on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
           {caseStudies.map((study, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-6 md:p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-eggshell"
+              className="rounded-[28px] p-8 md:p-10 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-eggshell border border-black/5"
             >
               {/* Category pill */}
               <div className="flex items-center gap-2 mb-4">

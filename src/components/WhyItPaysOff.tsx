@@ -25,26 +25,25 @@ const WhyItPaysOff = () => {
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-16 md:py-24 overflow-hidden">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-20 md:py-32 overflow-hidden section-light">
       
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+        <div className="text-center space-y-6 max-w-3xl mx-auto mb-16 md:mb-20">
           <h2 
             id="whyPaysOffHeading" 
-            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
+            className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight"
+            style={{ color: '#0a0a0a' }}
           >
             Why it pays off
           </h2>
         </div>
         
         {/* 2x2 grid on desktop, 2 per row on tablet, 1 on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 max-w-5xl mx-auto">
           {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 bg-eggshell"
+              className="rounded-[28px] p-10 md:p-12 flex flex-col items-center justify-center text-center shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 bg-white/80 border border-black/5"
             >
               {/* Icon */}
               <div className="text-5xl mb-4 text-primary">

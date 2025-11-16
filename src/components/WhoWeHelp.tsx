@@ -53,44 +53,43 @@ const WhoWeHelp = () => {
   const active = personas[activePersona];
 
   return (
-    <section id="who-we-help" className="relative py-16 md:py-24 overflow-hidden px-4 md:px-6 lg:px-12">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+    <section id="who-we-help" className="relative py-20 md:py-32 overflow-hidden px-4 md:px-6 lg:px-12 section-light">
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12 px-4">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20 px-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight" style={{ color: '#0a0a0a' }}>
             Who We Help
           </h2>
         </div>
         
         {/* Mobile: persona list first, then card */}
         {/* Desktop: persona rail left, hero card right */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-12 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-[400px_1fr] gap-10 lg:gap-16 max-w-[1200px] mx-auto">
           
           {/* Mobile: Persona List First (order-1), Desktop: Left Rail (order-1) */}
-          <div className="block space-y-2 lg:space-y-1 order-1">
+          <div className="block space-y-2 order-1">
             {personas.map((persona, index) => (
               <button
                 key={index}
                 onClick={() => setActivePersona(index)}
-                className={`w-full text-left p-4 lg:p-5 rounded-lg transition-all duration-300 ${
+                className={`w-full text-left p-6 rounded-2xl transition-all duration-300 ${
                   activePersona === index
-                    ? 'bg-card/50 border-l-4 border-primary'
-                    : 'border-l-4 border-transparent hover:bg-card/20'
+                    ? 'bg-white/80 border-l-4 border-primary shadow-lg'
+                    : 'border-l-4 border-transparent hover:bg-white/40'
                 }`}
+                style={{ color: activePersona === index ? '#0a0a0a' : '#4a4a4a' }}
               >
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">{persona.icon}</span>
+                <div className="flex items-start gap-4">
+                  <span className="text-3xl">{persona.icon}</span>
                   <div className="flex-1">
                     <h3 
-                      className={`text-base font-semibold mb-1 transition-colors ${
-                        activePersona === index ? 'text-foreground' : 'text-muted-foreground/60'
+                      className={`text-lg font-medium mb-2 transition-colors ${
+                        activePersona === index ? '' : 'opacity-70'
                       }`}
                     >
                       {persona.title}
                     </h3>
-                    <p 
+                    <p
                       className={`text-sm leading-relaxed transition-colors ${
                         activePersona === index ? 'text-muted-foreground' : 'text-muted-foreground/50'
                       }`}

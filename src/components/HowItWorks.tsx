@@ -27,49 +27,49 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden mt-8 md:mt-12">
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+    <section id="how" className="relative w-full py-20 md:py-32 px-4 md:px-6 lg:px-12 section-dark overflow-hidden">
+      <div className="absolute inset-0 opacity-30 bg-gradient-to-b from-transparent via-primary/5 to-transparent"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16 px-4">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
+        <div className="text-center space-y-6 max-w-3xl mx-auto mb-16 md:mb-20 px-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-tight">
             How it Works — Step by Step
           </h2>
         </div>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-16 max-w-[1200px] mx-auto">
           
           {/* Desktop: steps on left */}
-          <div className="hidden lg:block space-y-1 order-1">
+          <div className="hidden lg:block space-y-2 order-1">
             {steps.map((step, index) => (
               <div key={step.number}>
                 <button
                   onClick={() => setActiveStep(index + 1)}
-                  className={`w-full text-left p-6 rounded-lg transition-all duration-300 ${
+                  className={`w-full text-left p-7 rounded-2xl transition-all duration-300 ${
                     activeStep === index + 1
-                      ? 'bg-card/50 border-l-4 border-primary'
+                      ? 'bg-card/40 border-l-4 border-primary backdrop-blur-sm'
                       : 'border-l-4 border-transparent hover:bg-card/20'
                   }`}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-5">
                     <span 
-                      className={`text-2xl font-bold transition-colors ${
-                        activeStep === index + 1 ? 'text-primary' : 'text-muted-foreground/40'
+                      className={`text-3xl font-semibold transition-colors ${
+                        activeStep === index + 1 ? 'text-primary' : 'text-muted-foreground/30'
                       }`}
                     >
                       {step.number}
                     </span>
                     <div className="flex-1">
                       <h3 
-                        className={`text-lg font-semibold mb-2 transition-colors ${
-                          activeStep === index + 1 ? 'text-foreground' : 'text-muted-foreground/60'
+                        className={`text-xl font-medium mb-3 transition-colors leading-snug ${
+                          activeStep === index + 1 ? 'text-foreground' : 'text-muted-foreground/50'
                         }`}
                       >
                         {step.title}
                       </h3>
                       <p 
-                        className={`text-sm leading-relaxed transition-colors ${
-                          activeStep === index + 1 ? 'text-muted-foreground' : 'text-muted-foreground/50'
+                        className={`text-base leading-relaxed transition-colors ${
+                          activeStep === index + 1 ? 'text-muted-foreground' : 'text-muted-foreground/40'
                         }`}
                       >
                         {step.description}
@@ -78,7 +78,7 @@ const HowItWorks = () => {
                   </div>
                 </button>
                 {index < steps.length - 1 && (
-                  <div className="h-px bg-border/30 my-1 ml-6"></div>
+                  <div className="h-px bg-border/20 my-2 ml-8"></div>
                 )}
               </div>
             ))}
@@ -87,11 +87,10 @@ const HowItWorks = () => {
           {/* Mobile: show steps first, then card */}
           <div className="order-2 lg:order-last w-full">
             <div 
-              className="rounded-[28px] p-1 shadow-2xl w-full"
-              style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
+              className="rounded-[32px] p-1.5 shadow-2xl w-full bg-gradient-to-br from-border/40 to-border/20"
             >
               <div 
-                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] bg-eggshell w-full"
+                className="rounded-[28px] p-8 md:p-10 lg:p-12 min-h-[600px] lg:min-h-[700px] bg-eggshell w-full"
               >
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-lg md:text-xl font-semibold" style={{ color: '#1a1a1a' }}>Realflow Deal Engine</span>

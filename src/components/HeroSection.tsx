@@ -57,64 +57,67 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background mb-10 md:mb-14">
-      {/* Skyline background - full bleed */}
+  return <section className="relative w-full min-h-[95vh] py-16 md:py-24 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background">
+      {/* Cinematic background image */}
       <div className="absolute inset-0 bg-cover bg-no-repeat bg-center" style={{
       backgroundImage: `url(${heroSkyline})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center center'
     }}></div>
       
-      {/* Subtle dark overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background/80"></div>
+      {/* Cinematic gradient overlay */}
+      <div className="absolute inset-0 hero-gradient"></div>
+      
+      {/* Subtle vignette */}
+      <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-background/40"></div>
       
       {/* Hero content wrapper */}
-      <div className={`relative z-10 w-full max-w-6xl mx-auto px-4 md:px-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="text-center space-y-8 flex flex-col items-center">
+      <div className={`relative z-10 w-full max-w-7xl mx-auto px-4 md:px-6 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center space-y-10 flex flex-col items-center">
           
-          {/* Yellow pill */}
+          {/* Status pill */}
           <div className="flex justify-center">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-full bg-primary/20 text-primary border border-primary/30">
-              <span className="flex h-2 w-2 rounded-full bg-primary"></span>
+            <span className="inline-flex items-center gap-2.5 px-4 py-2 text-sm font-medium rounded-full bg-primary/15 text-primary border border-primary/20 backdrop-blur-sm">
+              <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
               Workflows that take weeks → ~60 minutes
             </span>
           </div>
           
-          {/* H1 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1]">
+          {/* Cinematic H1 */}
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-foreground leading-[1.05] max-w-5xl">
             AI engine for real estate deals
           </h1>
           
-          {/* Large Dark Deal Finder Card */}
-          <div className="w-full max-w-4xl rounded-3xl bg-card/95 backdrop-blur-sm border border-border shadow-2xl p-8 md:p-10 lg:p-12 space-y-6">
+          {/* Glassmorphism Deal Finder Card */}
+          <div className="w-full max-w-4xl rounded-3xl glass-panel p-10 md:p-12 lg:p-14 space-y-8 shadow-2xl">
             
             {/* Deal Finder title */}
-            <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center">
+            <h2 className="text-2xl md:text-3xl font-medium text-foreground/90 text-center">
               Deal Finder
             </h2>
             
             {/* Typed query area - DO NOT MODIFY CONTENT OR ANIMATION */}
-            <div className="w-full rounded-xl bg-background/60 border border-border/50 p-5 md:p-6">
-              <div className="text-left text-sm md:text-base text-foreground leading-relaxed min-h-[100px] md:min-h-[120px]">
+            <div className="w-full rounded-2xl bg-background/40 border border-white/10 p-6 md:p-8 backdrop-blur-sm">
+              <div className="text-left text-base md:text-lg text-foreground/90 leading-relaxed min-h-[100px] md:min-h-[120px]">
                 <TypewriterAnimation />
               </div>
             </div>
             
             {/* CTA button inside card */}
             <div className="flex justify-center">
-              <Button className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg transition-all" size="lg">
+              <Button className="bg-card/60 hover:bg-card/80 text-foreground border border-white/10 px-14 py-7 text-base md:text-lg font-medium rounded-2xl shadow-xl transition-all backdrop-blur-sm" size="lg">
                 find qualified targets
               </Button>
             </div>
           </div>
           
           {/* Subheader text */}
-          <p className="text-base md:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-3xl mx-auto font-light">
             Source, qualify, and book high intent opportunities
           </p>
           
-          {/* Yellow demo button */}
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg w-full md:w-auto" onClick={() => setModalOpen(true)}>
+          {/* Primary CTA */}
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-12 py-7 text-base md:text-lg font-medium rounded-2xl shadow-2xl hover:shadow-primary/20 transition-all w-full md:w-auto" onClick={() => setModalOpen(true)}>
             Get a 30-minute demo
           </Button>
           
