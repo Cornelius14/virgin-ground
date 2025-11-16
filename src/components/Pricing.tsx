@@ -22,17 +22,17 @@ const Pricing = () => {
     buttonVariant: "outline",
     popular: true
   }];
-  return <section id="pricing" className="w-full py-20 px-6 md:px-12 bg-background">
-      <div className="max-w-7xl mx-auto space-y-16">
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+  return <section id="pricing" className="w-full py-20 md:py-32 px-6 md:px-12 section-light">
+      <div className="max-w-7xl mx-auto space-y-16 md:space-y-20">
+        <div className="text-center space-y-6 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight" style={{ color: '#0a0a0a' }}>
             Teams & Enterprise pricing
           </h2>
-          <p className="text-muted-foreground text-lg">Custom pricing discussed on a call to scope your volumes, domains, and compliance needs</p>
+          <p className="text-lg md:text-xl" style={{ color: '#4a4a4a' }}>Custom pricing discussed on a call to scope your volumes, domains, and compliance needs</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-[24px] shadow-lg flex flex-col h-full bg-eggshell transition-all duration-300 relative hover:shadow-xl ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+          {plans.map((plan, index) => <div key={index} className={`p-10 md:p-12 rounded-[28px] shadow-xl flex flex-col h-full bg-white/80 transition-all duration-300 relative hover:shadow-2xl border border-black/5 ${plan.popular ? "ring-2 ring-primary/40" : ""}`}>
               {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm rounded-full font-medium">
                   Most Popular
                 </div>}
