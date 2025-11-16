@@ -53,31 +53,31 @@ const WhoWeHelp = () => {
   const active = personas[activePersona];
 
   return (
-    <section id="who-we-help" className="relative py-16 md:py-24 overflow-hidden px-4 md:px-6 lg:px-12">
+    <section id="who-we-help" className="relative py-20 md:py-32 overflow-hidden px-4 md:px-6 lg:px-12">
       {/* Subtle grid background */}
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+      <div className="absolute inset-0 notebook-grid opacity-50"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-12 px-4">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+        <div className="text-center max-w-3xl mx-auto mb-16 px-4">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
             Who We Help
           </h2>
         </div>
         
         {/* Mobile: persona list first, then card */}
         {/* Desktop: persona rail left, hero card right */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-12 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-16 max-w-[1200px] mx-auto">
           
           {/* Mobile: Persona List First (order-1), Desktop: Left Rail (order-1) */}
-          <div className="block space-y-2 lg:space-y-1 order-1">
+          <div className="block space-y-2 lg:space-y-2 order-1">
             {personas.map((persona, index) => (
               <button
                 key={index}
                 onClick={() => setActivePersona(index)}
-                className={`w-full text-left p-4 lg:p-5 rounded-lg transition-all duration-300 ${
+                className={`w-full text-left p-5 lg:p-6 rounded-xl transition-all duration-300 ${
                   activePersona === index
-                    ? 'bg-card/50 border-l-4 border-primary'
-                    : 'border-l-4 border-transparent hover:bg-card/20'
+                    ? 'bg-card shadow-md border-l-4 border-primary'
+                    : 'border-l-4 border-transparent hover:bg-muted/30'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -106,11 +106,10 @@ const WhoWeHelp = () => {
           {/* Dashboard Card - order-2 on both mobile and desktop */}
           <div className="order-2 w-full">
             <div 
-              className="rounded-[28px] p-1 shadow-2xl w-full"
-              style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
+              className="rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.08)] w-full bg-card border border-border overflow-hidden"
             >
               <div 
-                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[400px] md:min-h-[500px] w-full bg-eggshell"
+                className="p-6 md:p-8 lg:p-10 min-h-[400px] md:min-h-[500px] w-full"
               >
                 {/* Top label row */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2">

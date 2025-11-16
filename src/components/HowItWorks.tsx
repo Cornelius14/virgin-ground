@@ -27,28 +27,28 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden mt-8 md:mt-12">
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+    <section id="how" className="relative w-full py-20 md:py-32 px-4 md:px-6 lg:px-12 overflow-hidden">
+      <div className="absolute inset-0 notebook-grid opacity-50"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16 px-4">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 md:mb-20 px-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
             How it Works — Step by Step
           </h2>
         </div>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-[1200px] mx-auto">
           
           {/* Desktop: steps on left */}
-          <div className="hidden lg:block space-y-1 order-1">
+          <div className="hidden lg:block space-y-2 order-1">
             {steps.map((step, index) => (
               <div key={step.number}>
                 <button
                   onClick={() => setActiveStep(index + 1)}
-                  className={`w-full text-left p-6 rounded-lg transition-all duration-300 ${
+                  className={`w-full text-left p-6 rounded-xl transition-all duration-300 ${
                     activeStep === index + 1
-                      ? 'bg-card/50 border-l-4 border-primary'
-                      : 'border-l-4 border-transparent hover:bg-card/20'
+                      ? 'bg-card shadow-md border-l-4 border-primary'
+                      : 'border-l-4 border-transparent hover:bg-muted/30'
                   }`}
                 >
                   <div className="flex items-start gap-4">
@@ -78,7 +78,7 @@ const HowItWorks = () => {
                   </div>
                 </button>
                 {index < steps.length - 1 && (
-                  <div className="h-px bg-border/30 my-1 ml-6"></div>
+                  <div className="h-px bg-border my-2 ml-6"></div>
                 )}
               </div>
             ))}
@@ -87,11 +87,10 @@ const HowItWorks = () => {
           {/* Mobile: show steps first, then card */}
           <div className="order-2 lg:order-last w-full">
             <div 
-              className="rounded-[28px] p-1 shadow-2xl w-full"
-              style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
+              className="rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.08)] w-full bg-card border border-border overflow-hidden"
             >
               <div 
-                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] bg-eggshell w-full"
+                className="p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] w-full"
               >
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-lg md:text-xl font-semibold" style={{ color: '#1a1a1a' }}>Realflow Deal Engine</span>

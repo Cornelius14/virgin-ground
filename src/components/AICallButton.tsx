@@ -48,25 +48,25 @@ export const AICallButton = () => {
       <button
         id="rf-talk-to-ai-button"
         onClick={() => setIsOpen(true)}
-        className="fixed z-50 bg-eggshell text-primary-foreground rounded-[28px] shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 active:scale-[0.98] md:bottom-8 md:right-8 bottom-4 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto px-5 py-3 flex items-center gap-3"
+        className="fixed z-50 bg-card text-foreground rounded-full shadow-[0_8px_24px_rgba(15,23,42,0.15)] hover:shadow-[0_12px_32px_rgba(15,23,42,0.2)] transition-all hover:-translate-y-1 active:scale-[0.98] md:bottom-8 md:right-8 bottom-4 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto px-5 py-3 flex items-center gap-3 border border-border"
       >
-        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 p-1">
+        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center flex-shrink-0 p-1.5 shadow-sm">
           <img src={realflowLogo} alt="Realflow" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col items-start">
-          <span className="font-semibold text-sm leading-tight">Talk to Realflow</span>
-          <span className="text-xs text-primary-foreground/70 hidden md:block leading-tight">Speak with a live AI rep in seconds</span>
+          <span className="font-semibold text-sm leading-tight text-foreground">Talk to Realflow</span>
+          <span className="text-xs text-muted-foreground hidden md:block leading-tight">Speak with a live AI rep in seconds</span>
         </div>
       </button>
 
       {/* Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-[560px] bg-eggshell border border-border/10 rounded-[32px] p-8 max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[560px] bg-card border border-border rounded-2xl p-8 max-h-[90vh] overflow-y-auto shadow-[0_24px_48px_rgba(15,23,42,0.12)]">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-primary-foreground">
+            <DialogTitle className="text-2xl font-bold text-foreground">
               Talk to Realflow
             </DialogTitle>
-            <p className="text-primary-foreground/70 mt-2 text-sm leading-relaxed">
+            <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
               Connect to a Realflow voice agent in seconds.
               <br />
               Choose your use case and we'll call you back or start a live call.
@@ -75,7 +75,7 @@ export const AICallButton = () => {
 
           {showSuccess ? (
             <div className="py-8 text-center">
-              <p className="text-lg text-primary-foreground">
+              <p className="text-lg text-foreground">
                 Got it — we're connecting you with our AI {agentType === "wholesaler" ? "wholesaler" : "loan officer"} now.
               </p>
             </div>
@@ -91,109 +91,100 @@ export const AICallButton = () => {
                 >
                   <ToggleGroupItem
                     value="wholesaler"
-                    className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=off]:bg-muted/30 data-[state=off]:text-muted-foreground rounded-2xl px-4 py-3 font-medium transition-all flex flex-col items-center gap-1"
+                    className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground border border-border rounded-xl py-4 px-4 text-sm font-medium hover:bg-muted/50 transition-colors"
                   >
-                    <span className="text-sm font-semibold">Wholesaler / Investor</span>
-                    <span className="text-xs opacity-80 hidden sm:block">Find motivated sellers</span>
+                    Wholesaler / Seller Leads
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="mortgage"
-                    className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=off]:bg-muted/30 data-[state=off]:text-muted-foreground rounded-2xl px-4 py-3 font-medium transition-all flex flex-col items-center gap-1"
+                    className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground border border-border rounded-xl py-4 px-4 text-sm font-medium hover:bg-muted/50 transition-colors"
                   >
-                    <span className="text-sm font-semibold">Mortgage & Lending</span>
-                    <span className="text-xs opacity-80 hidden sm:block">Qualify borrowers</span>
+                    Mortgage LO
                   </ToggleGroupItem>
                 </ToggleGroup>
-                <p className="text-sm text-primary-foreground/70 text-center sm:hidden">
+                <p className="text-xs text-muted-foreground leading-relaxed">
                   {agentDescriptions[agentType]}
                 </p>
               </div>
 
-              {/* Hidden field for agent type */}
-              <input type="hidden" name="agentType" value={agentType} />
+              {/* Name */}
+              <div className="space-y-2">
+                <Label htmlFor="name" className="text-sm font-medium text-foreground">
+                  Name
+                </Label>
+                <Input
+                  id="name"
+                  placeholder="Your full name"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-muted/30 border border-border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
+              </div>
 
-              {/* Form Fields */}
-              <div className="space-y-4">
-                <div>
-                  <Label htmlFor="name" className="text-primary-foreground font-medium text-xs uppercase tracking-wide mb-2 block">
-                    Name
-                  </Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="bg-muted/20 border-muted/40 focus:border-primary text-primary-foreground rounded-xl h-11"
-                    placeholder="Your full name"
-                  />
-                </div>
+              {/* Email */}
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-sm font-medium text-foreground">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@company.com"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-muted/30 border border-border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
+              </div>
 
-                <div>
-                  <Label htmlFor="email" className="text-primary-foreground font-medium text-xs uppercase tracking-wide mb-2 block">
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="bg-muted/20 border-muted/40 focus:border-primary text-primary-foreground rounded-xl h-11"
-                    placeholder="your@email.com"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="phone" className="text-primary-foreground font-medium text-xs uppercase tracking-wide mb-2 block">
-                    Phone number
-                  </Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="bg-muted/20 border-muted/40 focus:border-primary text-primary-foreground rounded-xl h-11"
-                    placeholder="(555) 123-4567"
-                  />
-                </div>
+              {/* Phone */}
+              <div className="space-y-2">
+                <Label htmlFor="phone" className="text-sm font-medium text-foreground">
+                  Phone
+                </Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="+1 (555) 123-4567"
+                  required
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className="w-full bg-muted/30 border border-border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                />
               </div>
 
               {/* Consent Checkbox */}
-              <div className="space-y-2">
-                <div className="flex items-start gap-3">
-                  <Checkbox
-                    id="consent"
-                    required
-                    checked={formData.agreed}
-                    onCheckedChange={(checked) =>
-                      setFormData({ ...formData, agreed: checked as boolean })
-                    }
-                    className="mt-1 border-primary data-[state=checked]:bg-primary"
-                  />
-                  <Label
-                    htmlFor="consent"
-                    className="text-sm text-primary-foreground font-medium cursor-pointer leading-tight"
-                  >
-                    I agree to get a call from Realflow
-                  </Label>
-                </div>
-                <p className="text-xs text-primary-foreground/60 leading-relaxed pl-9">
-                  By submitting your phone number, you consent to receive automated calls
-                  (including AI-generated calls) and texts from Realflow at the number provided.
-                  Message and data rates may apply. You can opt out at any time.
-                </p>
+              <div className="flex items-start gap-3 pt-2">
+                <Checkbox
+                  id="agree"
+                  checked={formData.agreed}
+                  onCheckedChange={(checked) =>
+                    setFormData({ ...formData, agreed: checked as boolean })
+                  }
+                  className="mt-0.5"
+                />
+                <Label htmlFor="agree" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
+                  I agree to receive a call or text from Realflow. By submitting this form, you consent to being contacted by
+                  Realflow's AI voice agent for the purpose of scheduling a demo or discussing your use case. Standard message
+                  and data rates may apply. You can opt out at any time.
+                </Label>
               </div>
 
               {/* Submit Button */}
               <Button
                 type="submit"
+                className="w-full"
+                size="lg"
                 disabled={isSubmitting || !formData.agreed}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold py-6 rounded-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-base"
               >
-                {isSubmitting ? "Calling…" : "Start call with Realflow"}
+                {isSubmitting ? "Connecting..." : "Connect Now"}
               </Button>
+
+              <p className="text-xs text-muted-foreground text-center leading-relaxed">
+                Your information is secure and will only be used to facilitate the AI-powered call experience. We respect your
+                privacy and comply with all applicable regulations.
+              </p>
             </form>
           )}
         </DialogContent>
