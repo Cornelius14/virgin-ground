@@ -7,64 +7,37 @@
 
 @layer base {
   :root {
-    --background: 0 0% 6%; /* Darker background */
-    --foreground: 210 20% 85%; /* Softer slate-200 */
+    --background: 33 10% 96%; /* Light warm gray base */
+    --foreground: 222 47% 11%; /* Near-black text #111827 */
 
-    --card: 0 0% 9%; /* Slightly lighter */
-    --card-foreground: 210 20% 85%;
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 222 47% 11%;
     
-    --eggshell: 33 10% 96%; /* Warm off-white for light surfaces */
+    --eggshell: 0 0% 100%; /* Pure white for cards */
 
-    --popover: 0 0% 9%;
-    --popover-foreground: 210 20% 85%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
 
     --primary: 42 88% 65%; /* Realflow gold accent */
-    --primary-foreground: 0 0% 10%; /* Dark background */
+    --primary-foreground: 222 47% 11%; /* Dark text on gold */
 
-    --secondary: 0 0% 15%; /* Medium charcoal */
-    --secondary-foreground: 210 20% 85%;
+    --secondary: 220 13% 91%; /* Light gray secondary */
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 0 0% 18%; /* Subtle muted */
-    --muted-foreground: 210 10% 60%; /* Softer slate-400 */
+    --muted: 220 13% 91%; /* Light gray muted */
+    --muted-foreground: 215 16% 47%; /* Muted text #6b7280 */
 
-    --accent: 210 20% 95%; /* Light accent */
-    --accent-foreground: 0 0% 10%;
+    --accent: 42 88% 65%; /* Gold accent */
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0 0% 18%; /* Subtle border */
-    --input: 0 0% 18%;
-    --ring: 210 20% 95%; /* Light ring */
+    --border: 220 13% 91%; /* Subtle border #e5e7eb */
+    --input: 220 13% 91%;
+    --ring: 42 88% 65%; /* Gold ring */
 
-    --radius: 0.5rem;
-  }
-
-  .light-mode {
-    --background: 0 0% 98%; /* White background */
-    --foreground: 0 0% 15%; /* Dark gray text */
-
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 0 0% 15%; /* Dark gray text on cards */
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
-
-    --primary: 0 0% 15%; /* Dark gray primary */
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 0 0% 96%; /* Light grey secondary */
-    --secondary-foreground: 0 0% 15%; /* Dark gray text */
-
-    --muted: 0 0% 96%; /* Light grey muted */
-    --muted-foreground: 0 0% 35%; /* Darker muted text */
-
-    --accent: 0 0% 15%; /* Dark gray accent */
-    --accent-foreground: 0 0% 98%;
-
-    --border: 0 0% 89%; /* Light grey border */
-    --input: 0 0% 96%;
-    --ring: 0 0% 15%; /* Dark gray ring */
+    --radius: 0.75rem; /* 12px */
   }
 
   * {
@@ -81,11 +54,7 @@
   }
 
   .cosmic-gradient {
-    background: linear-gradient(135deg, rgba(64, 64, 64, 0.2) 0%, rgba(32, 32, 32, 0.4) 100%);
-  }
-
-  .light-mode .cosmic-gradient {
-    background: linear-gradient(135deg, rgba(230, 230, 230, 0.8) 0%, rgba(200, 200, 200, 0.6) 100%);
+    background: linear-gradient(135deg, rgba(245, 245, 247, 0.5) 0%, rgba(255, 255, 255, 0.8) 100%);
   }
 
   .cosmic-glow {
@@ -99,33 +68,23 @@
     left: -20px;
     right: -20px;
     bottom: -20px;
-    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    background: radial-gradient(circle at center, rgba(244, 193, 93, 0.08) 0%, transparent 70%);
     z-index: -1;
     border-radius: inherit;
   }
 
-  .light-mode .cosmic-glow::before {
-    background: radial-gradient(circle at center, rgba(64, 64, 64, 0.08) 0%, transparent 70%);
-  }
-
   .cosmic-grid {
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      linear-gradient(rgba(200, 200, 200, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 200, 200, 0.3) 1px, transparent 1px);
     background-size: 40px 40px;
   }
   
   .notebook-grid {
     background-image: 
-      linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      linear-gradient(rgba(229, 231, 235, 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(229, 231, 235, 0.5) 1px, transparent 1px);
     background-size: 32px 32px;
-  }
-
-  .light-mode .cosmic-grid {
-    background-image: 
-      linear-gradient(rgba(64, 64, 64, 0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(64, 64, 64, 0.08) 1px, transparent 1px);
   }
 
   .text-balance {
@@ -133,11 +92,7 @@
   }
   
   .cosmic-glass {
-    @apply backdrop-blur-sm bg-card border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)];
-  }
-
-  .light-mode .cosmic-glass {
-    @apply backdrop-blur-sm bg-card border border-black/10 shadow-[0_0_15px_rgba(0,0,0,0.05)];
+    @apply backdrop-blur-sm bg-card border border-border shadow-[0_18px_40px_rgba(15,23,42,0.08)];
   }
   
   .cosmic-card {
@@ -161,20 +116,12 @@
   }
   
   .icon-glow {
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+    filter: drop-shadow(0 0 6px rgba(244, 193, 93, 0.3));
     transition: filter 0.3s ease;
-  }
-
-  .light-mode .icon-glow {
-    filter: drop-shadow(0 0 6px rgba(64, 64, 64, 0.2));
   }
   
   .collapsible-trigger:hover .icon-glow {
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-  }
-
-  .light-mode .collapsible-trigger:hover .icon-glow {
-    filter: drop-shadow(0 0 10px rgba(64, 64, 64, 0.3));
+    filter: drop-shadow(0 0 10px rgba(244, 193, 93, 0.5));
   }
 
   .task-card {
@@ -209,17 +156,11 @@
     @apply bg-accent/20 transition-all duration-300;
   }
 
-  /* Theme text tokens for better contrast */
+  /* Theme text tokens for light theme */
   :root {
-    --txt-strong: #E5E7EB;   /* slate-200 for dark mode */
-    --txt-default: #CBD5E1;  /* slate-300 for dark mode */
-    --txt-muted: #94A3B8;    /* slate-400 for dark mode */
-  }
-  
-  .light-mode {
-    --txt-strong: #0F172A;   /* slate-900 for light mode */
-    --txt-default: #1F2937;  /* slate-800 for light mode */
-    --txt-muted: #475569;    /* slate-600 for light mode */
+    --txt-strong: #111827;   /* near-black for strong text */
+    --txt-default: #374151;  /* gray-700 for default text */
+    --txt-muted: #6b7280;    /* gray-500 for muted text */
   }
   
   /* Text utility classes */
@@ -227,17 +168,4 @@
   .text-default { color: var(--txt-default); }
   .text-muted { color: var(--txt-muted); }
 
-  /* How it Works section specific styling */
-  :root[data-theme="dark"] #how .how-title { 
-    color: #E5E7EB !important; 
-  }
-  :root[data-theme="light"] #how .how-title { 
-    color: #0F172A !important; 
-  }
-
-  /* Neutralize parent color inheritance */
-  :root[data-theme="light"] #how .left-rail, 
-  :root[data-theme="dark"] #how .left-rail { 
-    color: inherit !important; 
-  }
 }

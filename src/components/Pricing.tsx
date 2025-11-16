@@ -32,34 +32,34 @@ const Pricing = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-[24px] shadow-lg flex flex-col h-full bg-eggshell transition-all duration-300 relative hover:shadow-xl ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
-              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm rounded-full font-medium">
+          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.08)] flex flex-col h-full bg-card transition-all duration-300 relative hover:shadow-[0_24px_48px_rgba(15,23,42,0.12)] border border-border ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
+              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 bg-primary text-primary-foreground text-sm rounded-full font-medium shadow-md">
                   Most Popular
                 </div>}
               
               <div className="mb-auto">
-                <h3 className="text-2xl font-medium tracking-tighter mb-1 text-gray-900">{plan.name}</h3>
+                <h3 className="text-2xl font-bold tracking-tight mb-1 text-foreground">{plan.name}</h3>
                 
                 <div className="mb-4">
-                  <div className="text-3xl font-bold tracking-tighter text-gray-900">{plan.price}</div>
+                  <div className="text-3xl font-bold tracking-tight text-foreground">{plan.price}</div>
                 </div>
                 
-                <p className="text-gray-700 mb-6">{plan.description}</p>
+                <p className="text-muted-foreground mb-6">{plan.description}</p>
                 
                 <div className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => <div key={i} className="flex items-center gap-3">
-                      <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
+                      <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M5 12L10 17L19 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
-                      <span className="text-sm text-gray-900">{feature}</span>
+                      <span className="text-sm text-foreground">{feature}</span>
                     </div>)}
                 </div>
               </div>
               
               <div className="mt-6">
-                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => setModalOpen(true)}>
+                <Button className="w-full" onClick={() => setModalOpen(true)}>
                   {plan.buttonText}
                 </Button>
               </div>

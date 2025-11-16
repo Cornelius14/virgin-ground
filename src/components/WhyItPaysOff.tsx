@@ -25,15 +25,15 @@ const WhyItPaysOff = () => {
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-16 md:py-24 overflow-hidden">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-20 md:py-32 overflow-hidden">
       {/* Subtle grid background */}
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+      <div className="absolute inset-0 notebook-grid opacity-50"></div>
       
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
           <h2 
             id="whyPaysOffHeading" 
-            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
+            className="text-3xl md:text-4xl font-bold tracking-tight text-foreground"
           >
             Why it pays off
           </h2>
@@ -44,7 +44,7 @@ const WhyItPaysOff = () => {
           {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 bg-eggshell"
+              className="rounded-2xl p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-[0_18px_40px_rgba(15,23,42,0.08)] hover:shadow-[0_24px_48px_rgba(15,23,42,0.12)] hover:scale-[1.02] transition-all duration-300 bg-card border border-border"
             >
               {/* Icon */}
               <div className="text-5xl mb-4 text-primary">
@@ -52,12 +52,12 @@ const WhyItPaysOff = () => {
               </div>
               
               {/* Title */}
-              <h3 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: '#1a1a1a' }}>
+              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-foreground">
                 {benefit.title}
               </h3>
               
               {/* Description */}
-              <p className="text-sm md:text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
+              <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
                 {benefit.description}
               </p>
             </div>
