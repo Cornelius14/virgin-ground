@@ -74,7 +74,6 @@
   body {
     @apply bg-background font-inter text-foreground antialiased;
     letter-spacing: -0.025em;
-    font-size: 16px; /* Base font size for rem units */
   }
   
   ::selection {
@@ -87,11 +86,6 @@
 
   .light-mode .cosmic-gradient {
     background: linear-gradient(135deg, rgba(230, 230, 230, 0.8) 0%, rgba(200, 200, 200, 0.6) 100%);
-  }
-  
-  /* Radial gradient utility for blue overlays */
-  .bg-gradient-radial {
-    background: radial-gradient(circle at center, var(--tw-gradient-stops));
   }
 
   .cosmic-glow {

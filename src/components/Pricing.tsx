@@ -32,8 +32,8 @@ const Pricing = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.1)] flex flex-col h-full bg-eggshell transition-all duration-300 relative hover:shadow-xl hover:scale-[1.02] ${plan.popular ? "ring-2 ring-[#FBBF24]/50" : ""}`}>
-              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-5 py-1.5 bg-[#FBBF24] text-black text-sm rounded-full font-semibold shadow-md">
+          {plans.map((plan, index) => <div key={index} className={`p-8 md:p-10 rounded-[24px] shadow-lg flex flex-col h-full bg-eggshell transition-all duration-300 relative hover:shadow-xl ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
+              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm rounded-full font-medium">
                   Most Popular
                 </div>}
               
@@ -59,7 +59,7 @@ const Pricing = () => {
               </div>
               
               <div className="mt-6">
-                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 transition-all" onClick={() => setModalOpen(true)}>
+                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => setModalOpen(true)}>
                   {plan.buttonText}
                 </Button>
               </div>
