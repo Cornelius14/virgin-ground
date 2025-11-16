@@ -63,6 +63,10 @@ const Testimonials = () => {
           <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
             Field-proven results across use cases
           </h2>
+          {/* Introspection prompt */}
+          <p className="text-sm md:text-base text-muted-foreground italic">
+            Imagine these results for your team?
+          </p>
         </div>
         
         {/* 2x3 grid on desktop, 2 per row on tablet, 1 on mobile */}
@@ -70,7 +74,7 @@ const Testimonials = () => {
           {caseStudies.map((study, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-6 md:p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-eggshell"
+              className="rounded-2xl p-6 md:p-8 shadow-[0_4px_6px_rgba(0,0,0,0.1)] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex flex-col bg-eggshell h-auto"
             >
               {/* Category pill */}
               <div className="flex items-center gap-2 mb-4">
@@ -80,9 +84,9 @@ const Testimonials = () => {
                 </span>
               </div>
               
-              {/* Primary metric */}
+              {/* Primary metric with success green accent */}
               <div className="mb-4">
-                <p className="text-lg md:text-xl font-semibold leading-tight" style={{ color: '#1a1a1a' }}>
+                <p className="text-lg md:text-[1.5rem] font-bold leading-tight text-[#28A745]">
                   {study.metric}
                 </p>
               </div>

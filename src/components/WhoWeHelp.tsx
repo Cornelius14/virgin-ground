@@ -62,6 +62,10 @@ const WhoWeHelp = () => {
           <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
             Who We Help
           </h2>
+          {/* Introspection header */}
+          <p className="text-sm md:text-base text-muted-foreground mt-3 italic">
+            Which role fits your needs?
+          </p>
         </div>
         
         {/* Mobile: persona list first, then card */}
@@ -76,8 +80,8 @@ const WhoWeHelp = () => {
                 onClick={() => setActivePersona(index)}
                 className={`w-full text-left p-4 lg:p-5 rounded-lg transition-all duration-300 ${
                   activePersona === index
-                    ? 'bg-card/50 border-l-4 border-primary'
-                    : 'border-l-4 border-transparent hover:bg-card/20'
+                    ? 'bg-card/50 border-l-[3px] border-[#007BFF]'
+                    : 'border-l-[3px] border-transparent hover:bg-card/20'
                 }`}
               >
                 <div className="flex items-start gap-3">

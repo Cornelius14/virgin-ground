@@ -58,15 +58,17 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
   return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background mb-10 md:mb-14">
-      {/* Skyline background - full bleed */}
-      <div className="absolute inset-0 bg-cover bg-no-repeat bg-center" style={{
-      backgroundImage: `url(${heroSkyline})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center center'
-    }}></div>
+      {/* Abstract wavy lines background inspired by toma.com */}
+      <div className="absolute inset-0 bg-[#F0F0F0]">
+        <svg className="absolute inset-0 w-full h-full opacity-30" preserveAspectRatio="none" viewBox="0 0 1200 800">
+          <path d="M0,400 Q300,300 600,400 T1200,400 L1200,800 L0,800 Z" fill="none" stroke="#6B7280" strokeWidth="2" className="animate-pulse" style={{animationDuration: '8s'}} />
+          <path d="M0,350 Q300,250 600,350 T1200,350" fill="none" stroke="#6B7280" strokeWidth="2" opacity="0.6" />
+          <path d="M0,450 Q300,550 600,450 T1200,450" fill="none" stroke="#6B7280" strokeWidth="2" opacity="0.4" />
+        </svg>
+      </div>
       
-      {/* Subtle dark overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background/80"></div>
+      {/* Semi-transparent overlay for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/70 to-background/85"></div>
       
       {/* Hero content wrapper */}
       <div className={`relative z-10 w-full max-w-6xl mx-auto px-4 md:px-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -81,9 +83,19 @@ const HeroSection = () => {
           </div>
           
           {/* H1 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1]">
-            AI engine for real estate deals
+          <h1 className="text-4xl md:text-6xl lg:text-[5rem] font-bold tracking-tight text-black leading-[1.1]">
+            The AI Engine for Real Estate Deals
           </h1>
+          
+          {/* Subtext */}
+          <p className="text-lg md:text-2xl text-[#6B7280] max-w-3xl">
+            Source, qualify, and book high-intent opportunities automatically
+          </p>
+          
+          {/* Introspective question inspired by movoai.co */}
+          <p className="text-base md:text-xl text-[#6B7280] italic font-light max-w-2xl">
+            How many deals are you missing right now?
+          </p>
           
           {/* Large Dark Deal Finder Card */}
           <div className="w-full max-w-4xl rounded-3xl bg-card/95 backdrop-blur-sm border border-border shadow-2xl p-8 md:p-10 lg:p-12 space-y-6">
@@ -102,19 +114,27 @@ const HeroSection = () => {
             
             {/* CTA button inside card */}
             <div className="flex justify-center">
-              <Button className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg transition-all" size="lg">
+              <Button className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-2xl shadow-lg transition-all hover:scale-105" size="lg">
                 find qualified targets
               </Button>
             </div>
           </div>
           
-          {/* Subheader text */}
-          <p className="text-base md:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
-            Source, qualify, and book high intent opportunities
-          </p>
+          {/* Trusted by section inspired by movoai.co */}
+          <div className="w-full max-w-4xl space-y-3">
+            <p className="text-sm md:text-base text-[#6B7280] text-center">
+              Trusted by Leading Real Estate Teams
+            </p>
+            <div className="flex items-center justify-center gap-6 md:gap-8 flex-wrap grayscale opacity-60">
+              <div className="text-base md:text-lg font-semibold text-muted-foreground">Hudson Group</div>
+              <div className="text-base md:text-lg font-semibold text-muted-foreground">Makras Real Estate</div>
+              <div className="text-base md:text-lg font-semibold text-muted-foreground">The Solaire Collection</div>
+              <div className="text-base md:text-lg font-semibold text-muted-foreground">Southeast Industrial</div>
+            </div>
+          </div>
           
           {/* Yellow demo button */}
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg w-full md:w-auto" onClick={() => setModalOpen(true)}>
+          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg w-full md:w-auto hover:scale-105 transition-all" onClick={() => setModalOpen(true)}>
             Get a 30-minute demo
           </Button>
           

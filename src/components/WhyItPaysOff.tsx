@@ -29,6 +29,9 @@ const WhyItPaysOff = () => {
       {/* Subtle grid background */}
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
+      {/* Cinematic blue gradient overlay inspired by happyrobot.ai */}
+      <div className="absolute inset-0 bg-gradient-radial from-[#007BFF]/15 via-[#00BFFF]/10 to-transparent pointer-events-none"></div>
+      
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
           <h2 
@@ -44,21 +47,29 @@ const WhyItPaysOff = () => {
           {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 bg-eggshell"
+              className="rounded-2xl p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-[0_4px_6px_rgba(0,0,0,0.1)] hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 bg-eggshell"
             >
-              {/* Icon */}
-              <div className="text-5xl mb-4 text-primary">
+              {/* Icon with glow effect */}
+              <div className="text-5xl mb-4 text-primary filter drop-shadow-lg">
                 {benefit.icon}
               </div>
               
               {/* Title */}
-              <h3 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: '#1a1a1a' }}>
+              <h3 className="text-xl md:text-[1.75rem] font-bold mb-4" style={{ color: '#1a1a1a' }}>
                 {benefit.title}
               </h3>
               
               {/* Description */}
-              <p className="text-sm md:text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
+              <p className="text-sm md:text-base leading-relaxed mb-3" style={{ color: '#4a4a4a' }}>
                 {benefit.description}
+              </p>
+              
+              {/* Introspective sub-question inspired by movoai.co */}
+              <p className="text-xs md:text-sm italic text-[#6B7280] mt-2">
+                {index === 0 && "How much time could you reclaim?"}
+                {index === 1 && "What if you could simplify your stack?"}
+                {index === 2 && "Ready to beat the competition?"}
+                {index === 3 && "Imagine instant engagement with every lead?"}
               </p>
             </div>
           ))}
