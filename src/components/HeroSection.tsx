@@ -57,16 +57,16 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background mb-10 md:mb-14">
-      {/* Skyline background - full bleed */}
-      <div className="absolute inset-0 bg-cover bg-no-repeat bg-center" style={{
+  return <section className="relative w-full min-h-[90vh] py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden mb-10 md:mb-14" style={{ background: '#000000' }}>
+      {/* X-ray urban buildings background */}
+      <div className="absolute inset-0 bg-cover bg-no-repeat bg-center opacity-30" style={{
       backgroundImage: `url(${heroSkyline})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center center'
     }}></div>
       
-      {/* Subtle dark overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background/80"></div>
+      {/* Subtle wavy lines overlay */}
+      <div className="absolute inset-0 wavy-lines-overlay"></div>
       
       {/* Hero content wrapper */}
       <div className={`relative z-10 w-full max-w-6xl mx-auto px-4 md:px-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -81,8 +81,8 @@ const HeroSection = () => {
           </div>
           
           {/* H1 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1]">
-            AI engine for real estate deals
+          <h1 className="text-[3rem] md:text-[4.5rem] font-bold tracking-tight leading-[1.1]" style={{ color: '#FFFFFF' }}>
+            The AI Engine for Real Estate Deals
           </h1>
           
           {/* Large Dark Deal Finder Card */}
@@ -102,16 +102,34 @@ const HeroSection = () => {
             
             {/* CTA button inside card */}
             <div className="flex justify-center">
-              <Button className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg transition-all" size="lg">
+              <Button className="bg-background hover:bg-background/80 text-foreground border border-border/50 px-12 py-6 text-base md:text-lg font-medium rounded-xl transition-all hover:shadow-[0_2px_4px_rgba(0,0,0,0.2)]" size="lg" style={{ borderRadius: '12px' }}>
                 find qualified targets
               </Button>
             </div>
           </div>
           
           {/* Subheader text */}
-          <p className="text-base md:text-lg text-muted-foreground/90 leading-relaxed max-w-2xl mx-auto">
-            Source, qualify, and book high intent opportunities
+          <p className="text-[1.25rem] leading-relaxed max-w-2xl mx-auto" style={{ color: '#9CA3AF' }}>
+            Source, qualify, and book high-intent opportunities automatically
           </p>
+          
+          {/* Introspective question */}
+          <p className="text-[1rem] italic max-w-2xl mx-auto" style={{ color: '#9CA3AF' }}>
+            How many deals are you missing right now?
+          </p>
+          
+          {/* Trusted by logos */}
+          <div className="w-full max-w-4xl mx-auto pt-8">
+            <p className="text-[0.875rem] text-center mb-4" style={{ color: '#9CA3AF' }}>
+              Trusted by Leading Real Estate Teams
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 opacity-60">
+              <span className="text-sm font-medium" style={{ color: '#9CA3AF' }}>Hudson Walk-Ups Group</span>
+              <span className="text-sm font-medium" style={{ color: '#9CA3AF' }}>Makras Real Estate</span>
+              <span className="text-sm font-medium" style={{ color: '#9CA3AF' }}>The Solaire Collection</span>
+              <span className="text-sm font-medium" style={{ color: '#9CA3AF' }}>Meridian Capital Group</span>
+            </div>
+          </div>
           
           {/* Yellow demo button */}
           <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 text-base md:text-lg font-medium rounded-xl shadow-lg w-full md:w-auto" onClick={() => setModalOpen(true)}>

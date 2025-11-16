@@ -27,12 +27,12 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden mt-8 md:mt-12">
+    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 overflow-hidden mt-8 md:mt-12" style={{ background: '#000000' }}>
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16 px-4">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter" style={{ color: '#FFFFFF' }}>
             How it Works — Step by Step
           </h2>
         </div>
@@ -47,9 +47,14 @@ const HowItWorks = () => {
                   onClick={() => setActiveStep(index + 1)}
                   className={`w-full text-left p-6 rounded-lg transition-all duration-300 ${
                     activeStep === index + 1
-                      ? 'bg-card/50 border-l-4 border-primary'
+                      ? 'border-l-4 border-primary'
                       : 'border-l-4 border-transparent hover:bg-card/20'
                   }`}
+                  style={{
+                    backgroundColor: activeStep === index + 1 
+                      ? 'rgba(0, 123, 255, 0.05)' 
+                      : 'transparent'
+                  }}
                 >
                   <div className="flex items-start gap-4">
                     <span 
@@ -61,16 +66,18 @@ const HowItWorks = () => {
                     </span>
                     <div className="flex-1">
                       <h3 
-                        className={`text-lg font-semibold mb-2 transition-colors ${
-                          activeStep === index + 1 ? 'text-foreground' : 'text-muted-foreground/60'
-                        }`}
+                        className="text-[1.25rem] font-bold mb-2 transition-colors"
+                        style={{ 
+                          color: activeStep === index + 1 ? '#FFFFFF' : 'rgba(255,255,255,0.6)'
+                        }}
                       >
                         {step.title}
                       </h3>
                       <p 
-                        className={`text-sm leading-relaxed transition-colors ${
-                          activeStep === index + 1 ? 'text-muted-foreground' : 'text-muted-foreground/50'
-                        }`}
+                        className="text-[0.875rem] leading-relaxed transition-colors"
+                        style={{ 
+                          color: activeStep === index + 1 ? '#9CA3AF' : 'rgba(156,163,175,0.5)'
+                        }}
                       >
                         {step.description}
                       </p>

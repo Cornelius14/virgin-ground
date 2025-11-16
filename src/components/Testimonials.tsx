@@ -54,23 +54,27 @@ const Testimonials = () => {
   ];
   
   return (
-    <section id="cases" className="relative w-full py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+    <section id="cases" className="relative w-full py-16 md:py-24 px-6 md:px-12 overflow-hidden" style={{ background: '#000000' }}>
       {/* Background grid */}
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
+          <p className="text-[1rem] italic mb-2" style={{ color: '#9CA3AF' }}>
+            Imagine these results for your team?
+          </p>
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter" style={{ color: '#FFFFFF' }}>
             Field-proven results across use cases
           </h2>
         </div>
         
-        {/* 2x3 grid on desktop, 2 per row on tablet, 1 on mobile */}
+        {/* 3x2 grid on desktop, 2 per row on tablet, 1 on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {caseStudies.map((study, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-6 md:p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-eggshell"
+              className="rounded-[12px] p-6 md:p-8 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-[#F5F5F5]"
+              style={{ boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}
             >
               {/* Category pill */}
               <div className="flex items-center gap-2 mb-4">
@@ -80,9 +84,9 @@ const Testimonials = () => {
                 </span>
               </div>
               
-              {/* Primary metric */}
+              {/* Primary metric with green accent */}
               <div className="mb-4">
-                <p className="text-lg md:text-xl font-semibold leading-tight" style={{ color: '#1a1a1a' }}>
+                <p className="text-lg md:text-xl font-semibold leading-tight" style={{ color: '#10B981', opacity: 0.8 }}>
                   {study.metric}
                 </p>
               </div>

@@ -25,7 +25,7 @@ const WhyItPaysOff = () => {
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-16 md:py-24 overflow-hidden">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-16 md:py-24 overflow-hidden" style={{ background: '#000000' }}>
       {/* Subtle grid background */}
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
@@ -33,7 +33,8 @@ const WhyItPaysOff = () => {
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
           <h2 
             id="whyPaysOffHeading" 
-            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
+            className="text-3xl md:text-4xl font-medium tracking-tighter"
+            style={{ color: '#FFFFFF' }}
           >
             Why it pays off
           </h2>
@@ -44,21 +45,35 @@ const WhyItPaysOff = () => {
           {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 bg-eggshell"
+              className="rounded-[24px] p-[1.5rem] md:p-[1.5rem] flex flex-col items-center justify-center text-center hover:shadow-xl transition-all duration-300 bg-[#F5F5F5]"
+              style={{ 
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-1px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
             >
-              {/* Icon */}
-              <div className="text-5xl mb-4 text-primary">
+              {/* Icon with gold tint */}
+              <div className="text-5xl mb-4" style={{ color: '#FBBF24' }}>
                 {benefit.icon}
               </div>
               
               {/* Title */}
-              <h3 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: '#1a1a1a' }}>
+              <h3 className="text-[1.5rem] font-bold mb-4" style={{ color: '#111827' }}>
                 {benefit.title}
               </h3>
               
               {/* Description */}
-              <p className="text-sm md:text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
+              <p className="text-[0.875rem] leading-relaxed mb-3" style={{ color: '#6B7280' }}>
                 {benefit.description}
+              </p>
+              
+              {/* Introspective question */}
+              <p className="text-[0.875rem] italic" style={{ color: '#6B7280' }}>
+                {index === 0 && "How much time could you reclaim?"}
+                {index === 1 && "How much are you spending on tools?"}
+                {index === 2 && "How many deals slip away?"}
+                {index === 3 && "How fast do you respond?"}
               </p>
             </div>
           ))}
