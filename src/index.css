@@ -7,41 +7,41 @@
 
 @layer base {
   :root {
-    --background: 222 15% 4%; /* Deep charcoal, almost black */
-    --foreground: 210 25% 92%; /* Soft light text */
+    --background: 222 18% 3%; /* Rich charcoal, almost black */
+    --foreground: 210 20% 96%; /* Clean light text */
 
-    --card: 222 12% 8%; /* Subtle card elevation */
-    --card-foreground: 210 25% 92%;
+    --card: 222 15% 7%; /* Subtle card elevation */
+    --card-foreground: 210 20% 96%;
     
-    --eggshell: 40 15% 97%; /* Warm ivory for light sections */
+    --eggshell: 40 25% 98%; /* Soft warm off-white for light sections */
 
-    --popover: 222 12% 8%;
-    --popover-foreground: 210 25% 92%;
+    --popover: 222 15% 7%;
+    --popover-foreground: 210 20% 96%;
 
-    --primary: 45 85% 62%; /* Softer warm gold accent */
-    --primary-foreground: 222 15% 8%; /* Dark on gold */
+    --primary: 42 78% 58%; /* Muted warm gold accent */
+    --primary-foreground: 222 18% 3%; /* Dark on gold */
 
-    --secondary: 222 12% 12%; /* Subtle secondary surfaces */
-    --secondary-foreground: 210 25% 92%;
+    --secondary: 222 15% 10%; /* Subtle secondary surfaces */
+    --secondary-foreground: 210 20% 96%;
 
-    --muted: 222 10% 18%; /* Muted surfaces */
-    --muted-foreground: 210 15% 65%; /* Softer muted text */
+    --muted: 222 12% 20%; /* Muted surfaces */
+    --muted-foreground: 210 10% 60%; /* Softer muted text */
 
-    --accent: 210 20% 90%; /* Light accent surfaces */
-    --accent-foreground: 222 15% 8%;
+    --accent: 210 15% 88%; /* Light accent surfaces */
+    --accent-foreground: 222 18% 3%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 222 10% 15%; /* Very subtle borders */
-    --input: 222 10% 15%;
-    --ring: 45 85% 62%; /* Gold ring for focus */
+    --border: 222 10% 12%; /* Very subtle borders */
+    --input: 222 10% 12%;
+    --ring: 42 78% 58%; /* Gold ring for focus */
 
     --radius: 0.75rem;
     
     /* Glassmorphism tokens */
-    --glass-bg: 222 12% 10%;
-    --glass-border: 210 20% 20%;
+    --glass-bg: 222 15% 8%;
+    --glass-border: 210 15% 18%;
   }
 
   .light-mode {
@@ -88,12 +88,17 @@
   }
 
   .hero-gradient {
-    background: linear-gradient(180deg, rgba(8, 9, 13, 0.4) 0%, rgba(8, 9, 13, 0.75) 50%, rgba(8, 9, 13, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(5, 6, 8, 0.3) 0%, rgba(5, 6, 8, 0.7) 40%, rgba(5, 6, 8, 0.85) 70%, rgba(5, 6, 8, 0.95) 100%);
   }
   
   .section-light {
     background: hsl(var(--eggshell));
-    color: hsl(222 20% 12%);
+    color: hsl(222 18% 8%);
+  }
+  
+  .section-dark {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
   }
   
   
@@ -146,11 +151,11 @@
   }
   
   .glass-panel {
-    @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)];
+    @apply backdrop-blur-2xl bg-white/[0.03] border border-white/[0.08] shadow-[0_8px_40px_rgba(0,0,0,0.3)];
   }
 
   .light-mode .glass-panel {
-    @apply backdrop-blur-xl bg-white/60 border border-black/5 shadow-[0_8px_32px_rgba(0,0,0,0.08)];
+    @apply backdrop-blur-2xl bg-white/70 border border-black/[0.04] shadow-[0_8px_40px_rgba(0,0,0,0.06)];
   }
   
   .cosmic-card {

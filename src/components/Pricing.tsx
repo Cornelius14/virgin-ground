@@ -22,29 +22,29 @@ const Pricing = () => {
     buttonVariant: "outline",
     popular: true
   }];
-  return <section id="pricing" className="w-full py-20 md:py-32 px-6 md:px-12 section-light">
+  return <section id="pricing" className="w-full py-24 md:py-36 px-6 md:px-12 section-light">
       <div className="max-w-7xl mx-auto space-y-16 md:space-y-20">
-        <div className="text-center space-y-6 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight" style={{ color: '#0a0a0a' }}>
+        <div className="text-center space-y-5 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.02em] leading-tight" style={{ color: '#0a0a0a' }}>
             Teams & Enterprise pricing
           </h2>
-          <p className="text-lg md:text-xl" style={{ color: '#4a4a4a' }}>Custom pricing discussed on a call to scope your volumes, domains, and compliance needs</p>
+          <p className="text-base md:text-lg" style={{ color: '#555' }}>Custom pricing discussed on a call to scope your volumes, domains, and compliance needs</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-          {plans.map((plan, index) => <div key={index} className={`p-10 md:p-12 rounded-[28px] shadow-xl flex flex-col h-full bg-white/80 transition-all duration-300 relative hover:shadow-2xl border border-black/5 ${plan.popular ? "ring-2 ring-primary/40" : ""}`}>
-              {plan.popular && <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-sm rounded-full font-medium">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {plans.map((plan, index) => <div key={index} className={`p-10 md:p-11 rounded-[24px] shadow-lg flex flex-col h-full bg-white/90 transition-all duration-300 relative hover:shadow-xl border border-black/[0.04] ${plan.popular ? "ring-2 ring-primary/30" : ""}`}>
+              {plan.popular && <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-primary text-primary-foreground text-xs rounded-full font-medium">
                   Most Popular
                 </div>}
               
               <div className="mb-auto">
-                <h3 className="text-2xl font-medium tracking-tighter mb-1 text-gray-900">{plan.name}</h3>
+                <h3 className="text-xl font-medium tracking-tight mb-1 text-gray-900">{plan.name}</h3>
                 
                 <div className="mb-4">
-                  <div className="text-3xl font-bold tracking-tighter text-gray-900">{plan.price}</div>
+                  <div className="text-2xl font-bold tracking-tight text-gray-900">{plan.price}</div>
                 </div>
                 
-                <p className="text-gray-700 mb-6">{plan.description}</p>
+                <p className="text-sm text-gray-700 mb-6">{plan.description}</p>
                 
                 <div className="space-y-3 mb-8">
                   {plan.features.map((feature, i) => <div key={i} className="flex items-center gap-3">

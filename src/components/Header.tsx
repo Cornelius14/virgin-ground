@@ -176,7 +176,7 @@ const Header = () => {
 
   return (
     <div className="relative z-50 pt-6 px-4">
-      <header className="w-full max-w-7xl mx-auto py-4 px-6 md:px-8 flex items-center justify-between rounded-2xl backdrop-blur-md bg-background/30 border border-white/10">
+      <header className="w-full max-w-7xl mx-auto py-4 px-6 md:px-8 flex items-center justify-between rounded-2xl backdrop-blur-xl bg-background/70 border border-white/[0.08]">
         <div className="py-1">
           <a href="/" className="inline-flex items-center gap-2.5 -m-1.5 p-1.5 rounded-md hover:bg-white/5 light-mode:hover:bg-black/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 light-mode:focus-visible:ring-black/20">
             <Logo />
@@ -404,9 +404,9 @@ const Header = () => {
             />
             <Sun size={18} className={`${!isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
           </div>
-          <div className="rounded-2xl">
+          <div className="rounded-xl">
             <Button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-5 text-base font-medium rounded-xl shadow-lg hover:shadow-primary/20 transition-all" 
+              className="bg-primary text-primary-foreground hover:bg-primary/95 px-5 py-2 text-sm font-medium rounded-lg shadow-sm hover:shadow-primary/10 transition-all" 
               onClick={() => setModalOpen(true)}
             >
               Get a 30-minute demo
