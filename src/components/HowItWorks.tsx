@@ -30,11 +30,18 @@ const HowItWorks = () => {
     <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden mt-8 md:mt-12">
       <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
+      {/* Blue gradient background inspired by happyrobot.ai */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#007BFF]/20 via-[#00BFFF]/15 to-transparent pointer-events-none"></div>
+      
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16 px-4">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
             How it Works — Step by Step
           </h2>
+          {/* Reflective question */}
+          <p className="text-sm md:text-base text-muted-foreground italic mt-3">
+            Ready to automate your outreach?
+          </p>
         </div>
 
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
@@ -45,9 +52,9 @@ const HowItWorks = () => {
               <div key={step.number}>
                 <button
                   onClick={() => setActiveStep(index + 1)}
-                  className={`w-full text-left p-6 rounded-lg transition-all duration-300 ${
+                  className={`w-full text-left p-6 rounded-xl transition-all duration-300 ${
                     activeStep === index + 1
-                      ? 'bg-card/50 border-l-4 border-primary'
+                      ? 'bg-gradient-to-r from-[#007BFF]/20 to-[#00BFFF]/15 border-l-4 border-[#007BFF] shadow-md'
                       : 'border-l-4 border-transparent hover:bg-card/20'
                   }`}
                 >
@@ -91,7 +98,7 @@ const HowItWorks = () => {
               style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
             >
               <div 
-                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] bg-eggshell w-full"
+                className="rounded-3xl p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] bg-eggshell w-full shadow-lg"
               >
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-lg md:text-xl font-semibold" style={{ color: '#1a1a1a' }}>Realflow Deal Engine</span>
