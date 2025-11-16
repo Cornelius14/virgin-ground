@@ -5,9 +5,9 @@ const WhoWeHelp = () => {
 
   const personas = [
     {
-      id: 0,
-      name: "Wholesalers & Investors",
       icon: "🏠",
+      title: "Wholesalers & Investors",
+      shortDesc: "Find motivated sellers before they hit the market.",
       viewTitle: "Wholesaler View",
       queryExample: "Find single-family homes under $500k, ready to sell in 14 days — Tampa Bay area",
       leads: [
@@ -16,9 +16,9 @@ const WhoWeHelp = () => {
       ]
     },
     {
-      id: 1,
-      name: "CRE Owners & Brokers",
       icon: "🏢",
+      title: "CRE Owners & Brokers",
+      shortDesc: "Surface off-market owners that match your mandate.",
       viewTitle: "CRE View",
       queryExample: "Find office buildings 50k–100k SF, Tampa, built 1990–2010, cap ≥7%",
       leads: [
@@ -27,9 +27,9 @@ const WhoWeHelp = () => {
       ]
     },
     {
-      id: 2,
-      name: "Lenders & Capital Providers",
       icon: "🏦",
+      title: "Lenders & Capital Providers",
+      shortDesc: "Identify borrowers with real near-term financing needs.",
       viewTitle: "Lender View",
       queryExample: "Find multifamily owners with loans maturing in next 180 days — Southeast markets",
       leads: [
@@ -38,9 +38,9 @@ const WhoWeHelp = () => {
       ]
     },
     {
-      id: 3,
-      name: "Mortgage Lenders",
       icon: "🏦",
+      title: "Mortgage Lenders",
+      shortDesc: "Convert inbound borrowers and reach owners with near-term maturities.",
       viewTitle: "Mortgage Lender View",
       queryExample: "Find homeowners with mortgages maturing in 60–90 days — Charlotte metro",
       leads: [
@@ -53,72 +53,112 @@ const WhoWeHelp = () => {
   const active = personas[activePersona];
 
   return (
-    <section id="who" className="relative w-full overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background to-background-subtle"></div>
+    <section id="who-we-help" className="relative py-16 md:py-24 overflow-hidden px-4 md:px-6 lg:px-12">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
-      <div className="max-w-[1160px] mx-auto px-6 relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 md:mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-12 px-4">
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
             Who We Help
           </h2>
         </div>
-
-        <div className="flex flex-col lg:grid lg:grid-cols-[300px_1fr] gap-8 lg:gap-12">
-          <div className="flex flex-col gap-1">
-            {personas.map((persona) => (
+        
+        {/* Mobile: persona list first, then card */}
+        {/* Desktop: persona rail left, hero card right */}
+        <div className="flex flex-col lg:grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-12 max-w-[1200px] mx-auto">
+          
+          {/* Mobile: Persona List First (order-1), Desktop: Left Rail (order-1) */}
+          <div className="block space-y-2 lg:space-y-1 order-1">
+            {personas.map((persona, index) => (
               <button
-                key={persona.id}
-                onClick={() => setActivePersona(persona.id)}
-                className={`p-5 rounded-xl text-left transition-all duration-200 ${
-                  activePersona === persona.id
-                    ? 'bg-card shadow-sm border-l-4 border-primary'
-                    : 'bg-transparent border-l-4 border-transparent hover:bg-card/30'
+                key={index}
+                onClick={() => setActivePersona(index)}
+                className={`w-full text-left p-4 lg:p-5 rounded-lg transition-all duration-300 ${
+                  activePersona === index
+                    ? 'bg-card/50 border-l-4 border-primary'
+                    : 'border-l-4 border-transparent hover:bg-card/20'
                 }`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-start gap-3">
                   <span className="text-2xl">{persona.icon}</span>
-                  <span className={`font-semibold text-sm ${
-                    activePersona === persona.id ? 'text-foreground' : 'text-muted-foreground'
-                  }`}>
-                    {persona.name}
-                  </span>
+                  <div className="flex-1">
+                    <h3 
+                      className={`text-base font-semibold mb-1 transition-colors ${
+                        activePersona === index ? 'text-foreground' : 'text-muted-foreground/60'
+                      }`}
+                    >
+                      {persona.title}
+                    </h3>
+                    <p 
+                      className={`text-sm leading-relaxed transition-colors ${
+                        activePersona === index ? 'text-muted-foreground' : 'text-muted-foreground/50'
+                      }`}
+                    >
+                      {persona.shortDesc}
+                    </p>
+                  </div>
                 </div>
               </button>
             ))}
           </div>
 
-          <div className="premium-card p-8 md:p-10">
-            <div className="flex items-center justify-between mb-6">
-              <span className="text-lg font-semibold text-foreground">{active.viewTitle}</span>
-              <span className="text-sm px-4 py-1.5 rounded-full bg-muted/50 text-muted-foreground">Realflow Deal Engine</span>
-            </div>
-            <div className="p-4 rounded-xl bg-muted/30 mb-6 border border-border">
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 rounded-full bg-primary"></div>
-                <span className="text-xs font-semibold text-foreground">Search Query</span>
-              </div>
-              <p className="text-sm text-muted-foreground">{active.queryExample}</p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {['Prospected', 'Qualified', 'Booked'].map((stage, idx) => (
-                <div key={stage} className="p-4 rounded-xl bg-muted/20 border border-border">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-semibold text-foreground">{stage}</span>
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-foreground">
-                      {idx === 0 ? '127' : idx === 1 ? '18' : '5'}
-                    </span>
+          {/* Dashboard Card - order-2 on both mobile and desktop */}
+          <div className="order-2 w-full">
+            <div 
+              className="rounded-[28px] p-1 shadow-2xl w-full"
+              style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
+            >
+              <div 
+                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[400px] md:min-h-[500px] w-full bg-eggshell"
+              >
+                {/* Top label row */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2">
+                  <span className="text-base md:text-lg lg:text-xl font-semibold text-gray-900">
+                    {active.viewTitle}
+                  </span>
+                  <span className="text-xs md:text-sm px-3 md:px-4 py-1.5 rounded-full bg-white/70 text-gray-700">
+                    Realflow Deal Engine
+                  </span>
+                </div>
+
+                {/* Search Query */}
+                <div className="p-3 md:p-4 rounded-xl bg-white shadow-sm mb-4 md:mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2 h-2 rounded-full bg-primary"></div>
+                    <span className="text-xs font-semibold text-gray-900">Search Query</span>
                   </div>
-                  {active.leads.slice(0, 1).map((lead, i) => (
-                    <div key={i} className="p-3 rounded-lg bg-card shadow-sm border border-border">
-                      <div className="font-semibold text-sm text-foreground">{lead.name}</div>
-                      <div className="text-xs text-caption">{lead.location}</div>
-                      <div className="text-xs text-muted-foreground mt-1">{lead.status}</div>
+                  <p className="text-xs md:text-sm leading-relaxed text-gray-700">
+                    {active.queryExample}
+                  </p>
+                </div>
+
+                {/* Mini Pipeline - vertical stack on mobile, grid on sm and up */}
+                <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3">
+                  {['Prospected', 'Qualified', 'Booked'].map((stage, idx) => (
+                    <div key={stage} className="p-3 md:p-4 rounded-xl bg-white/70 shadow-sm w-full">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs md:text-sm font-semibold text-gray-900">{stage}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-gray-900">
+                          {idx === 0 ? '127' : idx === 1 ? '18' : '5'}
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        {active.leads.slice(0, 1).map((lead, i) => (
+                          <div key={i} className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                            <div className="font-semibold text-xs md:text-sm mb-0.5 text-gray-900">{lead.name}</div>
+                            <div className="text-[10px] md:text-xs text-gray-600">{lead.location}</div>
+                            <div className="text-[10px] md:text-xs leading-relaxed mt-1 text-gray-700">{lead.status}</div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </section>

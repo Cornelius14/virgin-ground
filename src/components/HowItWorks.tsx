@@ -27,74 +27,71 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how" className="relative w-full overflow-hidden bg-muted">
-      <div className="absolute inset-0 opacity-[0.015]">
-        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="fine-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-              <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="1"/>
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#fine-grid)" />
-        </svg>
-      </div>
+    <section id="how" className="relative w-full py-16 md:py-24 px-4 md:px-6 lg:px-12 bg-background overflow-hidden mt-8 md:mt-12">
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
-      <div className="max-w-[1160px] mx-auto px-6 relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 md:mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12 md:mb-16 px-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-foreground">
             How it Works — Step by Step
           </h2>
         </div>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-[40%_60%] gap-12 lg:gap-16">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
           
           {/* Desktop: steps on left */}
-          <div className="hidden lg:block space-y-0 order-1">
-            <div className="relative pl-6 border-l-2 border-primary/30">
-              {steps.map((step, index) => (
+          <div className="hidden lg:block space-y-1 order-1">
+            {steps.map((step, index) => (
+              <div key={step.number}>
                 <button
-                  key={step.number}
                   onClick={() => setActiveStep(index + 1)}
-                  className={`w-full text-left py-6 pr-4 transition-all duration-300 relative ${
-                    activeStep === index + 1 ? '' : 'opacity-60 hover:opacity-80'
+                  className={`w-full text-left p-6 rounded-lg transition-all duration-300 ${
+                    activeStep === index + 1
+                      ? 'bg-card/50 border-l-4 border-primary'
+                      : 'border-l-4 border-transparent hover:bg-card/20'
                   }`}
                 >
-                  <div className="absolute -left-[26px] top-6 w-3 h-3 rounded-full bg-primary"></div>
-                  <div className="space-y-2">
+                  <div className="flex items-start gap-4">
                     <span 
-                      className={`text-sm font-semibold transition-colors ${
-                        activeStep === index + 1 ? 'text-primary' : 'text-muted-foreground'
+                      className={`text-2xl font-bold transition-colors ${
+                        activeStep === index + 1 ? 'text-primary' : 'text-muted-foreground/40'
                       }`}
                     >
                       {step.number}
                     </span>
-                    <h3 
-                      className={`text-lg font-semibold transition-colors ${
-                        activeStep === index + 1 ? 'text-foreground' : 'text-muted-foreground'
-                      }`}
-                    >
-                      {step.title}
-                    </h3>
-                    <p 
-                      className={`text-sm leading-relaxed transition-colors ${
-                        activeStep === index + 1 ? 'text-muted-foreground' : 'text-caption'
-                      }`}
-                    >
-                      {step.description}
-                    </p>
+                    <div className="flex-1">
+                      <h3 
+                        className={`text-lg font-semibold mb-2 transition-colors ${
+                          activeStep === index + 1 ? 'text-foreground' : 'text-muted-foreground/60'
+                        }`}
+                      >
+                        {step.title}
+                      </h3>
+                      <p 
+                        className={`text-sm leading-relaxed transition-colors ${
+                          activeStep === index + 1 ? 'text-muted-foreground' : 'text-muted-foreground/50'
+                        }`}
+                      >
+                        {step.description}
+                      </p>
+                    </div>
                   </div>
                 </button>
-              ))}
-            </div>
+                {index < steps.length - 1 && (
+                  <div className="h-px bg-border/30 my-1 ml-6"></div>
+                )}
+              </div>
+            ))}
           </div>
 
           {/* Mobile: show steps first, then card */}
           <div className="order-2 lg:order-last w-full">
             <div 
-              className="premium-card w-full overflow-hidden"
+              className="rounded-[28px] p-1 shadow-2xl w-full"
+              style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
             >
               <div 
-                className="p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] w-full"
+                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] bg-eggshell w-full"
               >
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-lg md:text-xl font-semibold" style={{ color: '#1a1a1a' }}>Realflow Deal Engine</span>

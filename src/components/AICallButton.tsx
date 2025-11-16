@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { X } from "lucide-react";
+import { Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import realflowLogo from "@/assets/realflow-logo.png";
 
 export const AICallButton = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +20,8 @@ export const AICallButton = () => {
   });
 
   const agentDescriptions = {
-    wholesaler: "Find motivated sellers & off-market deals.",
-    mortgage: "Qualify borrowers & near-term maturities.",
+    wholesaler: "We'll have our AI wholesaler call homeowners like your best acquisitions rep.",
+    mortgage: "We'll have our AI loan officer call borrowers like a top LO.",
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -48,34 +47,30 @@ export const AICallButton = () => {
       <button
         id="rf-talk-to-ai-button"
         onClick={() => setIsOpen(true)}
-        className="fixed z-50 bg-card text-foreground rounded-full shadow-[0_8px_24px_rgba(15,23,42,0.15)] hover:shadow-[0_12px_32px_rgba(15,23,42,0.2)] transition-all hover:-translate-y-1 active:scale-[0.98] md:bottom-8 md:right-8 bottom-4 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto px-5 py-3 flex items-center gap-3 border border-border"
+        className="fixed z-50 flex items-center gap-2 px-5 h-12 rounded-full shadow-lg transition-all hover:shadow-xl active:scale-95 bg-cosmic-accent text-cosmic-dark hover:bg-cosmic-accent/90 md:bottom-8 md:right-8 bottom-4 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto"
       >
-        <div className="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center flex-shrink-0 p-1.5 shadow-sm">
-          <img src={realflowLogo} alt="Realflow" className="w-full h-full object-contain" />
+        <div className="w-6 h-6 rounded-full bg-cosmic-dark/10 flex items-center justify-center">
+          <Phone className="w-4 h-4" />
         </div>
-        <div className="flex flex-col items-start">
-          <span className="font-semibold text-sm leading-tight text-foreground">Talk to Realflow</span>
-          <span className="text-xs text-muted-foreground hidden md:block leading-tight">Speak with a live AI rep in seconds</span>
-        </div>
+        <span className="font-medium hidden md:inline">Talk to an AI agent</span>
+        <span className="font-medium md:hidden">Talk to AI</span>
       </button>
 
       {/* Modal */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-[560px] bg-card border border-border rounded-2xl p-8 max-h-[90vh] overflow-y-auto shadow-[0_24px_48px_rgba(15,23,42,0.12)]">
+        <DialogContent className="sm:max-w-[560px] bg-cosmic-cream border border-border/20 rounded-3xl p-8 max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-foreground">
-              Talk to Realflow
+            <DialogTitle className="text-2xl font-bold text-cosmic-dark">
+              Talk to an AI agent
             </DialogTitle>
-            <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
-              Connect to a Realflow voice agent in seconds.
-              <br />
-              Choose your use case and we'll call you back or start a live call.
+            <p className="text-cosmic-dark/70 mt-2">
+              Share your details and we'll trigger a live AI call in seconds.
             </p>
           </DialogHeader>
 
           {showSuccess ? (
             <div className="py-8 text-center">
-              <p className="text-lg text-foreground">
+              <p className="text-lg text-cosmic-dark">
                 Got it — we're connecting you with our AI {agentType === "wholesaler" ? "wholesaler" : "loan officer"} now.
               </p>
             </div>
@@ -87,104 +82,108 @@ export const AICallButton = () => {
                   type="single"
                   value={agentType}
                   onValueChange={(value) => value && setAgentType(value as "wholesaler" | "mortgage")}
-                  className="grid grid-cols-2 gap-3 w-full"
+                  className="grid grid-cols-2 gap-2 w-full"
                 >
                   <ToggleGroupItem
                     value="wholesaler"
-                    className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground border border-border rounded-xl py-4 px-4 text-sm font-medium hover:bg-muted/50 transition-colors"
+                    className="data-[state=on]:bg-cosmic-accent data-[state=on]:text-cosmic-dark data-[state=off]:bg-cosmic-dark/5 data-[state=off]:text-cosmic-dark/70 rounded-full px-6 py-3 font-medium transition-colors"
                   >
-                    Wholesaler / Seller Leads
+                    Wholesaler caller
                   </ToggleGroupItem>
                   <ToggleGroupItem
                     value="mortgage"
-                    className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground border border-border rounded-xl py-4 px-4 text-sm font-medium hover:bg-muted/50 transition-colors"
+                    className="data-[state=on]:bg-cosmic-accent data-[state=on]:text-cosmic-dark data-[state=off]:bg-cosmic-dark/5 data-[state=off]:text-cosmic-dark/70 rounded-full px-6 py-3 font-medium transition-colors"
                   >
-                    Mortgage LO
+                    Mortgage loan officer
                   </ToggleGroupItem>
                 </ToggleGroup>
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-sm text-cosmic-dark/70 text-center">
                   {agentDescriptions[agentType]}
                 </p>
               </div>
 
-              {/* Name */}
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-medium text-foreground">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  placeholder="Your full name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full bg-muted/30 border border-border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                />
-              </div>
+              {/* Hidden field for agent type */}
+              <input type="hidden" name="agentType" value={agentType} />
 
-              {/* Email */}
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm font-medium text-foreground">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@company.com"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-muted/30 border border-border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                />
-              </div>
+              {/* Form Fields */}
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="name" className="text-cosmic-dark font-medium">
+                    Name
+                  </Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="mt-1 bg-cosmic-cream border-cosmic-dark/20 focus:border-cosmic-accent text-cosmic-dark"
+                  />
+                </div>
 
-              {/* Phone */}
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-sm font-medium text-foreground">
-                  Phone
-                </Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  placeholder="+1 (555) 123-4567"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full bg-muted/30 border border-border rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
-                />
+                <div>
+                  <Label htmlFor="email" className="text-cosmic-dark font-medium">
+                    Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="mt-1 bg-cosmic-cream border-cosmic-dark/20 focus:border-cosmic-accent text-cosmic-dark"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="phone" className="text-cosmic-dark font-medium">
+                    Phone number
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="mt-1 bg-cosmic-cream border-cosmic-dark/20 focus:border-cosmic-accent text-cosmic-dark"
+                  />
+                </div>
               </div>
 
               {/* Consent Checkbox */}
-              <div className="flex items-start gap-3 pt-2">
-                <Checkbox
-                  id="agree"
-                  checked={formData.agreed}
-                  onCheckedChange={(checked) =>
-                    setFormData({ ...formData, agreed: checked as boolean })
-                  }
-                  className="mt-0.5"
-                />
-                <Label htmlFor="agree" className="text-xs text-muted-foreground leading-relaxed cursor-pointer">
-                  I agree to receive a call or text from Realflow. By submitting this form, you consent to being contacted by
-                  Realflow's AI voice agent for the purpose of scheduling a demo or discussing your use case. Standard message
-                  and data rates may apply. You can opt out at any time.
-                </Label>
+              <div className="space-y-2">
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    id="consent"
+                    required
+                    checked={formData.agreed}
+                    onCheckedChange={(checked) =>
+                      setFormData({ ...formData, agreed: checked as boolean })
+                    }
+                    className="mt-1"
+                  />
+                  <Label
+                    htmlFor="consent"
+                    className="text-sm text-cosmic-dark font-medium cursor-pointer"
+                  >
+                    I agree to get a call from Realflow's AI agent.
+                  </Label>
+                </div>
+                <p className="text-xs text-cosmic-dark/60 leading-relaxed pl-8">
+                  By submitting your phone number, you consent to receive automated calls
+                  (including AI-generated calls) and texts from Realflow at the number provided.
+                  Message and data rates may apply. You can opt out at any time.
+                </p>
               </div>
 
               {/* Submit Button */}
               <Button
                 type="submit"
-                className="w-full"
-                size="lg"
                 disabled={isSubmitting || !formData.agreed}
+                className="w-full bg-cosmic-accent text-cosmic-dark hover:bg-cosmic-accent/90 font-semibold py-6 rounded-lg transition-colors"
               >
-                {isSubmitting ? "Connecting..." : "Connect Now"}
+                {isSubmitting ? "Calling…" : "Call me now"}
               </Button>
-
-              <p className="text-xs text-muted-foreground text-center leading-relaxed">
-                Your information is secure and will only be used to facilitate the AI-powered call experience. We respect your
-                privacy and comply with all applicable regulations.
-              </p>
             </form>
           )}
         </DialogContent>
