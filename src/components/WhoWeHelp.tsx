@@ -5,6 +5,8 @@ const WhoWeHelp = () => {
 
   const personas = [
     {
+      id: 0,
+      name: "Wholesalers & Investors",
       icon: "🏠",
       title: "Wholesalers & Investors",
       shortDesc: "Find motivated sellers before they hit the market.",
@@ -16,6 +18,8 @@ const WhoWeHelp = () => {
       ]
     },
     {
+      id: 1,
+      name: "CRE Owners & Brokers",
       icon: "🏢",
       title: "CRE Owners & Brokers",
       shortDesc: "Surface off-market owners that match your mandate.",
@@ -27,6 +31,8 @@ const WhoWeHelp = () => {
       ]
     },
     {
+      id: 2,
+      name: "Lenders & Capital Providers",
       icon: "🏦",
       title: "Lenders & Capital Providers",
       shortDesc: "Identify borrowers with real near-term financing needs.",
@@ -38,6 +44,8 @@ const WhoWeHelp = () => {
       ]
     },
     {
+      id: 3,
+      name: "Mortgage Lenders",
       icon: "🏦",
       title: "Mortgage Lenders",
       shortDesc: "Convert inbound borrowers and reach owners with near-term maturities.",
@@ -53,43 +61,41 @@ const WhoWeHelp = () => {
   const active = personas[activePersona];
 
   return (
-    <section id="who-we-help" className="relative py-20 md:py-32 overflow-hidden px-4 md:px-6 lg:px-12">
-      {/* Subtle grid background */}
-      <div className="absolute inset-0 notebook-grid opacity-50"></div>
+    <section id="who" className="relative w-full overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-background to-background-subtle"></div>
       
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-16 px-4">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+      <div className="max-w-[1160px] mx-auto px-6 relative z-10">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 md:mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             Who We Help
           </h2>
         </div>
         
-        {/* Mobile: persona list first, then card */}
-        {/* Desktop: persona rail left, hero card right */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[380px_1fr] gap-8 lg:gap-16 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-[300px_1fr] gap-8 lg:gap-12">
           
-          {/* Mobile: Persona List First (order-1), Desktop: Left Rail (order-1) */}
-          <div className="block space-y-2 lg:space-y-2 order-1">
-            {personas.map((persona, index) => (
+          {/* Left side - persona selector */}
+          <div className="flex flex-col gap-1">
+            {personas.map((persona) => (
               <button
-                key={index}
-                onClick={() => setActivePersona(index)}
-                className={`w-full text-left p-5 lg:p-6 rounded-xl transition-all duration-300 ${
-                  activePersona === index
-                    ? 'bg-card shadow-md border-l-4 border-primary'
-                    : 'border-l-4 border-transparent hover:bg-muted/30'
+                key={persona.id}
+                onClick={() => setActivePersona(persona.id)}
+                className={`p-5 rounded-xl text-left transition-all duration-200 ${
+                  activePersona === persona.id
+                    ? 'bg-card shadow-sm border-l-4 border-primary'
+                    : 'bg-transparent border-l-4 border-transparent hover:bg-card/30'
                 }`}
               >
-                <div className="flex items-start gap-3">
+                <div className="flex items-center gap-3">
                   <span className="text-2xl">{persona.icon}</span>
-                  <div className="flex-1">
-                    <h3 
-                      className={`text-base font-semibold mb-1 transition-colors ${
-                        activePersona === index ? 'text-foreground' : 'text-muted-foreground/60'
-                      }`}
-                    >
-                      {persona.title}
-                    </h3>
+                  <span className={`font-semibold text-sm ${
+                    activePersona === persona.id ? 'text-foreground' : 'text-muted-foreground'
+                  }`}>
+                    {persona.name}
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
                     <p 
                       className={`text-sm leading-relaxed transition-colors ${
                         activePersona === index ? 'text-muted-foreground' : 'text-muted-foreground/50'

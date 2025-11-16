@@ -57,67 +57,69 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full min-h-[90vh] py-20 md:py-32 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden">
-      {/* Light gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-muted/30"></div>
-      
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 notebook-grid opacity-50"></div>
+  return <section className="relative w-full min-h-[85vh] py-24 md:py-32 flex items-center overflow-hidden">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-background"></div>
+      <div className="absolute inset-0 opacity-[0.02]">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+      </div>
       
       {/* Hero content wrapper */}
-      <div className={`relative z-10 w-full max-w-5xl mx-auto px-4 md:px-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="text-center space-y-8 flex flex-col items-center">
+      <div className={`relative z-10 w-full max-w-[1160px] mx-auto px-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
-          {/* Yellow pill */}
-          <div className="flex justify-center">
-            <span className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
+          {/* Left: Text content */}
+          <div className="space-y-6 lg:space-y-8">
+            {/* Yellow pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-full bg-primary/10 text-primary border border-primary/20">
               <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
               Workflows that take weeks → ~60 minutes
-            </span>
+            </div>
+            
+            {/* H1 */}
+            <h1 className="text-5xl md:text-6xl lg:text-[64px] font-bold tracking-tight text-foreground leading-[1.1]">
+              AI engine for real estate deals
+            </h1>
+            
+            {/* Subheader */}
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl">
+              Source, qualify, and book high intent opportunities
+            </p>
           </div>
           
-          {/* H1 */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground leading-[1.1]">
-            AI engine for real estate deals
-          </h1>
-          
-          {/* Deal Finder card */}
-          <div className="w-full max-w-2xl mx-auto space-y-6 bg-card rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.08)] p-8 md:p-10 border border-border">
+          {/* Right: Deal Finder card */}
+          <div className="space-y-6 premium-card p-8 md:p-10">
             
             {/* Deal Finder title */}
-            <h2 className="text-xl md:text-2xl font-semibold text-foreground text-center">
+            <h2 className="text-xl md:text-2xl font-semibold text-foreground">
               Deal Finder
             </h2>
             
             {/* Typed query area - DO NOT MODIFY CONTENT OR ANIMATION */}
             <div className="w-full rounded-xl bg-muted/30 border border-border p-5 md:p-6">
-              <div className="text-left text-sm md:text-base text-foreground leading-relaxed min-h-[100px] md:min-h-[120px]">
+              <div className="text-left text-sm md:text-base text-foreground leading-relaxed min-h-[120px] md:min-h-[140px]">
                 <TypewriterAnimation />
               </div>
             </div>
             
             {/* CTA button inside card */}
             <div className="flex justify-center">
-              <Button className="w-full md:w-auto" size="lg">
+              <Button className="w-full" size="lg">
                 find qualified targets
               </Button>
             </div>
           </div>
-          
-          {/* Subheader text */}
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            Source, qualify, and book high intent opportunities
-          </p>
-          
-          {/* Yellow demo button */}
-          <Button size="lg" className="w-full md:w-auto" onClick={() => setModalOpen(true)}>
-            Get a 30-minute demo
-          </Button>
-          
-          <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
         </div>
       </div>
       
+      <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
     </section>;
 };
 export default HeroSection;

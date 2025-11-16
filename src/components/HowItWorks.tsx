@@ -27,67 +27,71 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section id="how" className="relative w-full py-20 md:py-32 px-4 md:px-6 lg:px-12 overflow-hidden">
-      <div className="absolute inset-0 notebook-grid opacity-50"></div>
+    <section id="how" className="relative w-full overflow-hidden bg-muted">
+      <div className="absolute inset-0 opacity-[0.015]">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="fine-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+              <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="1"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#fine-grid)" />
+        </svg>
+      </div>
       
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 md:mb-20 px-4">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground">
+      <div className="max-w-[1160px] mx-auto px-6 relative z-10">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16 md:mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
             How it Works — Step by Step
           </h2>
         </div>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-[1200px] mx-auto">
+        <div className="flex flex-col lg:grid lg:grid-cols-[40%_60%] gap-12 lg:gap-16">
           
           {/* Desktop: steps on left */}
-          <div className="hidden lg:block space-y-2 order-1">
-            {steps.map((step, index) => (
-              <div key={step.number}>
+          <div className="hidden lg:block space-y-0 order-1">
+            <div className="relative pl-6 border-l-2 border-primary/30">
+              {steps.map((step, index) => (
                 <button
+                  key={step.number}
                   onClick={() => setActiveStep(index + 1)}
-                  className={`w-full text-left p-6 rounded-xl transition-all duration-300 ${
-                    activeStep === index + 1
-                      ? 'bg-card shadow-md border-l-4 border-primary'
-                      : 'border-l-4 border-transparent hover:bg-muted/30'
+                  className={`w-full text-left py-6 pr-4 transition-all duration-300 relative ${
+                    activeStep === index + 1 ? '' : 'opacity-60 hover:opacity-80'
                   }`}
                 >
-                  <div className="flex items-start gap-4">
+                  <div className="absolute -left-[26px] top-6 w-3 h-3 rounded-full bg-primary"></div>
+                  <div className="space-y-2">
                     <span 
-                      className={`text-2xl font-bold transition-colors ${
-                        activeStep === index + 1 ? 'text-primary' : 'text-muted-foreground/40'
+                      className={`text-sm font-semibold transition-colors ${
+                        activeStep === index + 1 ? 'text-primary' : 'text-muted-foreground'
                       }`}
                     >
                       {step.number}
                     </span>
-                    <div className="flex-1">
-                      <h3 
-                        className={`text-lg font-semibold mb-2 transition-colors ${
-                          activeStep === index + 1 ? 'text-foreground' : 'text-muted-foreground/60'
-                        }`}
-                      >
-                        {step.title}
-                      </h3>
-                      <p 
-                        className={`text-sm leading-relaxed transition-colors ${
-                          activeStep === index + 1 ? 'text-muted-foreground' : 'text-muted-foreground/50'
-                        }`}
-                      >
-                        {step.description}
-                      </p>
-                    </div>
+                    <h3 
+                      className={`text-lg font-semibold transition-colors ${
+                        activeStep === index + 1 ? 'text-foreground' : 'text-muted-foreground'
+                      }`}
+                    >
+                      {step.title}
+                    </h3>
+                    <p 
+                      className={`text-sm leading-relaxed transition-colors ${
+                        activeStep === index + 1 ? 'text-muted-foreground' : 'text-caption'
+                      }`}
+                    >
+                      {step.description}
+                    </p>
                   </div>
                 </button>
-                {index < steps.length - 1 && (
-                  <div className="h-px bg-border my-2 ml-6"></div>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Mobile: show steps first, then card */}
           <div className="order-2 lg:order-last w-full">
             <div 
-              className="rounded-2xl shadow-[0_18px_40px_rgba(15,23,42,0.08)] w-full bg-card border border-border overflow-hidden"
+              className="premium-card w-full overflow-hidden"
             >
               <div 
                 className="p-6 md:p-8 lg:p-10 min-h-[600px] lg:min-h-[700px] w-full"
