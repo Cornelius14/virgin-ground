@@ -8,15 +8,7 @@ interface PipelineCardProps {
 }
 
 function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
-  // Check if this is a wholesaling card (has trigger field)
-  const isWholesaling = !!prospect.trigger;
-  
   const getCardTitle = () => {
-    // For wholesaling, title already includes emoji
-    if (isWholesaling && prospect.title) {
-      return prospect.title;
-    }
-    
     let emoji = '💬';
     if (stage === 'qualified') emoji = '🎯';
     if (stage === 'booked') emoji = '📅';
@@ -31,11 +23,6 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   };
   
   const getInteractionNote = () => {
-    // For wholesaling, use subtitle if available
-    if (isWholesaling && prospect.subtitle) {
-      return prospect.subtitle;
-    }
-    
     const notes = [
       "✅ Expressed urgency to transact this quarter",
       "🕒 Asked for financing options and cap rate details", 
@@ -69,132 +56,59 @@ function PipelineCard({ prospect, stage, onMove }: PipelineCardProps) {
   return (
     <div className="cosmic-card rounded-xl p-4 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1">
       <div className="space-y-3">
-        {/* Title */}
         <div className="text-sm font-medium text-foreground">
           {getCardTitle()}
         </div>
         
-        {/* Subtitle / Interaction note */}
         <div className="text-xs text-muted-foreground leading-relaxed">
           {getInteractionNote()}
         </div>
         
-        {/* Contact info */}
-        {prospect.contact && (
-          <div className="text-xs text-muted-foreground">
-            {prospect.contact.name} — {prospect.contact.email} — {prospect.contact.phone}
-          </div>
-        )}
-        
-        {/* Wholesaling trigger pill with context */}
-        {isWholesaling && prospect.trigger && (
-          <div className="space-y-2">
-            <div className="inline-block">
-              <div className="bg-accent/20 text-accent border border-accent/30 px-2 py-1 rounded-md text-xs font-medium">
-                {prospect.trigger}
-              </div>
-              {prospect.triggerContext && (
-                <div className="text-xs text-muted-foreground mt-1">
-                  {prospect.triggerContext}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-        
-        {/* Property snapshot (wholesaling only) */}
-        {isWholesaling && prospect.propertySnapshot && (
-          <div className="text-xs text-muted-foreground border-t border-border pt-2">
-            {prospect.propertySnapshot}
-          </div>
-        )}
-        
-        {/* Lead disposition + readiness (wholesaling) */}
-        {isWholesaling && prospect.disposition && (
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className={`px-2 py-1 rounded-md text-xs font-medium ${
-                prospect.disposition === 'good' 
-                  ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                  : prospect.disposition === 'risky'
-                  ? 'bg-red-500/20 text-red-400 border border-red-500/30'
-                  : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-              }`}>
-                {prospect.disposition === 'good' ? 'Good' : prospect.disposition === 'risky' ? 'Risky' : 'Neutral'}
-              </span>
-            </div>
-            {prospect.readiness && (
-              <div className="text-xs text-muted-foreground">
-                {prospect.readiness}
-              </div>
-            )}
-          </div>
-        )}
-        
-        {/* Motivation note (wholesaling) */}
-        {prospect.note && (
-          <div className="text-xs text-foreground border-l-2 border-accent/30 pl-2">
-            {prospect.note}
-          </div>
-        )}
-        
-        {/* Action pills with tri-state indicators */}
-        <div className="flex gap-1 flex-wrap">
-          {['email', 'sms', 'vm', 'call'].map((channel) => {
-            const channelData = prospect.channels?.[channel];
-            const outcome = channelData?.outcome || 'amber';
-            const status = channelData?.status || 'No data';
-            const icon = channel === 'email' ? '✉️' : channel === 'sms' ? '📱' : channel === 'vm' ? '🎤' : '📞';
-            const indicator = outcome === 'green' ? '✓' : outcome === 'red' ? '×' : '•';
-            const isDisabled = outcome === 'red' && (status.includes('DNC') || status.includes('Wrong number'));
-            
-            return (
-              <span
-                key={channel}
-                className={`px-2 py-1 rounded-md text-xs font-medium cursor-help ${
-                  outcome === 'green'
-                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                    : outcome === 'red'
-                    ? 'bg-red-500/20 text-red-400 border border-red-500/30'
-                    : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                } ${isDisabled ? 'opacity-50' : ''}`}
-                title={status}
-                aria-disabled={isDisabled}
-              >
-                {icon} {channel} {indicator}
-              </span>
-            );
-          })}
+        <div className="text-xs text-muted-foreground">
+          {prospect.contact?.name} — {prospect.contact?.email} — {prospect.contact?.phone}
         </div>
         
-        {/* Primary CTA button */}
-        {canMove ? (
-          <div className="space-y-1">
-            <Button
-              onClick={handleMoveToNext}
-              size="sm"
-              className="w-full mt-3 text-xs"
-              variant={prospect.isDNC ? "ghost" : "outline"}
-              disabled={prospect.isDNC}
-            >
-              {prospect.isDNC ? 'Respect DNC' : buttonText}
-            </Button>
-            {prospect.disposition === 'neutral' && !prospect.isDNC && (
-              <div className="text-[10px] text-muted-foreground text-center">
-                Follow up via preferred channel
-              </div>
-            )}
-          </div>
-        ) : stage === 'booked' && isWholesaling ? (
+        <div className="flex gap-1 flex-wrap">
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
+            prospect.channels?.email 
+              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
+              : "bg-red-500/20 text-red-400 border border-red-500/30"
+          }`}>
+            ✉️ email
+          </span>
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
+            prospect.channels?.sms 
+              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
+              : "bg-red-500/20 text-red-400 border border-red-500/30"
+          }`}>
+            📱 sms
+          </span>
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
+            prospect.channels?.vm 
+              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
+              : "bg-red-500/20 text-red-400 border border-red-500/30"
+          }`}>
+            🎤 vm
+          </span>
+          <span className={`px-2 py-1 rounded-md text-xs font-medium ${
+            prospect.channels?.call 
+              ? "bg-green-500/20 text-green-400 border border-green-500/30" 
+              : "bg-red-500/20 text-red-400 border border-red-500/30"
+          }`}>
+            📞 call
+          </span>
+        </div>
+        
+        {canMove && (
           <Button
+            onClick={handleMoveToNext}
             size="sm"
             className="w-full mt-3 text-xs"
             variant="outline"
-            disabled
           >
-            View Details →
+            {buttonText}
           </Button>
-        ) : null}
+        )}
       </div>
     </div>
   );

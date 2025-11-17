@@ -3,19 +3,29 @@ import React from 'react';
 const WhoWeHelp = () => {
   const categories = [
     {
-      emoji: "🏠",
-      title: "Wholesalers & Single-Family Investors",
-      description: "Consistently source motivated sellers from stacked distress signals instead of random list pulls."
-    },
-    {
       emoji: "🏢",
-      title: "CRE Brokers & Investors",
-      description: "Find owners of value-add and off-market assets, then book meetings directly with decision-makers."
+      title: "Brokers & Investment Sales",
+      description: "Dispositions, off-market sourcing, and owner outreach."
     },
     {
       emoji: "🏦",
-      title: "Lenders & Capital Markets Teams",
-      description: "Respond instantly to borrowers, pre-qualify them, and keep your pipeline full of live deals."
+      title: "Lenders & Originators",
+      description: "Refinance, acquisition, and construction loan sourcing."
+    },
+    {
+      emoji: "🏗️",
+      title: "Developers & Construction",
+      description: "Owners with new permits and large-scale projects."
+    },
+    {
+      emoji: "🏘️",
+      title: "Investors & Owner-Operators",
+      description: "Mandate-matched sourcing by market, asset, and yield."
+    },
+    {
+      emoji: "📑",
+      title: "Title, Insurance & Closing",
+      description: "Active deeds, refis, and in-progress transactions."
     }
   ];
 
@@ -31,22 +41,19 @@ const WhoWeHelp = () => {
           </h2>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
           {categories.map((category, index) => (
             <div 
               key={index}
-              className="rounded-[22px] border border-border bg-card backdrop-blur-sm p-8 flex flex-col items-center justify-center h-full transition-all duration-300 hover:shadow-lg hover:scale-[1.02] min-h-[220px]"
-              style={{
-                background: 'linear-gradient(to bottom, hsl(var(--card)), hsl(var(--card) / 0.95))'
-              }}
+              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 flex flex-col items-center h-full transition-all duration-300"
             >
-              <div className="text-5xl mb-5">
+              <div className="text-4xl mb-4 mt-2">
                 {category.emoji}
               </div>
-              <h3 className="text-xl font-semibold text-foreground text-center mb-3">
+              <h3 className="text-lg font-semibold text-foreground mb-3 text-center">
                 {category.title}
               </h3>
-              <p className="text-sm text-muted-foreground text-center leading-relaxed">
+              <p className="text-xs text-muted-foreground text-center leading-relaxed">
                 {category.description}
               </p>
             </div>

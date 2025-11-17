@@ -57,27 +57,23 @@ const HeroSection = () => {
     return () => clearTimeout(timer);
   }, []);
   return <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Skyline background */}
-      <div className="absolute inset-0 bg-cover bg-no-repeat opacity-30" style={{
-      backgroundImage: `url('/src/assets/hero-skyline-new.png')`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center bottom'
-    }}></div>
+      {/* Cosmic particle effect (background dots) */}
+      <div className="absolute inset-0 cosmic-grid opacity-30"></div>
       
-      {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/45 via-background/70 to-background/80"></div>
+      {/* Gradient glow effect */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full">
+        <div className="w-full h-full opacity-10 bg-primary blur-[120px]"></div>
+      </div>
       
       <div className={`relative z-10 max-w-4xl text-center space-y-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="flex justify-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
+            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
             <span className="flex h-2 w-2 rounded-full bg-primary"></span>
             Workflows that take weeks → ~60 minutes
           </span>
         </div>
         
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">
-              AI engine for real estate deals
-        </h1>
+        <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">AI revenue engine for real estate </h1>
         
         {/* Typewriter Demo Card */}
         <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
@@ -90,15 +86,13 @@ const HeroSection = () => {
 
           {/* Static "Run query" button purely for look */}
           <div className="mt-3">
-            <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
-              find qualified targets
-            </button>
+          <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
+            find qualified targets
+          </button>
           </div>
         </div>
         
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6">
-          Sourcing, qualifying, and booking high-intent real estate opportunities
-        </p>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">One engine for inbound and outbound communications—sourcing, qualifying, and booking high-intent opportunities faster than any team</p>
         
         <div className="flex justify-center pt-6">
           <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
@@ -107,6 +101,8 @@ const HeroSection = () => {
         </div>
         
         <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
+        
+        
       </div>
       
       {/* Task Manager UI integrated in hero section with glassmorphic effect */}
@@ -123,6 +119,13 @@ const HeroSection = () => {
               </div>
               
               <div className="flex items-center gap-3">
+                <div className="flex -space-x-2">
+                  <div className="h-8 w-8 rounded-full bg-muted border-2 border-card"></div>
+                  <div className="h-8 w-8 rounded-full bg-muted/80 border-2 border-card"></div>
+                  <div className="h-8 w-8 rounded-full bg-muted/60 border-2 border-card"></div>
+                  <div className="h-8 w-8 rounded-full bg-muted/40 border-2 border-card flex items-center justify-center text-xs text-foreground">+3</div>
+                </div>
+                
                 <div className="h-8 px-3 rounded-md bg-muted flex items-center justify-center text-foreground text-sm">
                   Share
                 </div>
@@ -138,7 +141,8 @@ const HeroSection = () => {
                   <div className="space-y-1">
                     <div className="flex items-center gap-3 px-3 py-2 rounded-md bg-muted text-foreground">
                       <div className="h-3 w-3 rounded-sm bg-foreground"></div>
-                      <span className="text-lg">Prospects</span>
+                      <span className="text-lg">Prospects
+                    </span>
                     </div>
                     <div className="flex items-center gap-3 px-3 py-2 rounded-md text-muted-foreground hover:bg-muted/50">
                       <div className="h-3 w-3 rounded-sm bg-muted-foreground/30"></div>
@@ -148,6 +152,7 @@ const HeroSection = () => {
                       <div className="h-3 w-3 rounded-sm bg-muted-foreground/30"></div>
                       <span>Booked</span>
                     </div>
+                    
                   </div>
                 </div>
                 
