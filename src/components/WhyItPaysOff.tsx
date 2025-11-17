@@ -25,12 +25,12 @@ const WhyItPaysOff = () => {
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-16 md:py-20 px-6 md:px-12 bg-background border-t border-border">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-20 md:py-24 px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
           <h2 
             id="whyPaysOffHeading" 
-            className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground"
+            className="text-4xl md:text-5xl font-medium tracking-tight text-foreground"
           >
             Why it pays off
           </h2>
@@ -40,7 +40,7 @@ const WhyItPaysOff = () => {
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card shadow-lg p-8 flex flex-col items-center justify-center text-center min-h-[280px] transition-all duration-300 hover:shadow-xl"
+              className="rounded-2xl border border-border bg-card shadow-sm p-8 flex flex-col items-center justify-center text-center min-h-[280px] transition-all duration-300 hover:shadow-md"
             >
               <div className="text-5xl md:text-6xl font-semibold leading-none text-foreground mb-4 font-inter">
                 {stat.topLine}
@@ -48,7 +48,7 @@ const WhyItPaysOff = () => {
               <h3 className="text-xl md:text-2xl text-foreground mb-4 font-inter">
                 {stat.label}
               </h3>
-              <p className="text-base md:text-lg text-muted-foreground">
+              <p className="text-base md:text-lg text-[#4A4A4A]">
                 {stat.description}
               </p>
             </div>
