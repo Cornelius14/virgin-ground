@@ -157,17 +157,9 @@ const WhoWeHelp = () => {
                       <div className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
                         <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>{active.leads[1].name}</div>
                         <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>{active.leads[1].address}</div>
-                        <div className="text-[9px]" style={{ color: '#4a4a4a' }}>{active.leads[1].status}</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-3 rounded-xl bg-white/60 shadow-sm">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>5</span>
-                    </div>
-                    <div className="space-y-2">
+  return (
+    <section id="cases" className="py-20 px-4 md:px-8 bg-[hsl(var(--eggshell))]">
+      <div className="max-w-6xl mx-auto">
                       <div className="p-2 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
                         <div className="text-[9px]" style={{ color: '#4a4a4a' }}>📅 Meeting scheduled</div>
                       </div>
