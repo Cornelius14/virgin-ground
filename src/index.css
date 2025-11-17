@@ -7,71 +7,64 @@
 
 @layer base {
   :root {
-    --background: 222 18% 3%; /* Rich charcoal, almost black */
-    --foreground: 210 20% 96%; /* Clean light text */
+    --background: 0 0% 6%; /* Darker background */
+    --foreground: 210 20% 85%; /* Softer slate-200 */
 
-    --card: 222 15% 7%; /* Subtle card elevation */
-    --card-foreground: 210 20% 96%;
+    --card: 0 0% 9%; /* Slightly lighter */
+    --card-foreground: 210 20% 85%;
     
-    --eggshell: 40 25% 98%; /* Soft warm off-white for light sections */
+    --eggshell: 33 10% 96%; /* Warm off-white for light surfaces */
 
-    --popover: 222 15% 7%;
-    --popover-foreground: 210 20% 96%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 210 20% 85%;
 
-    --primary: 42 78% 58%; /* Muted warm gold accent */
-    --primary-foreground: 222 18% 3%; /* Dark on gold */
+    --primary: 42 88% 65%; /* Realflow gold accent */
+    --primary-foreground: 0 0% 10%; /* Dark background */
 
-    --secondary: 222 15% 10%; /* Subtle secondary surfaces */
-    --secondary-foreground: 210 20% 96%;
+    --secondary: 0 0% 15%; /* Medium charcoal */
+    --secondary-foreground: 210 20% 85%;
 
-    --muted: 222 12% 20%; /* Muted surfaces */
-    --muted-foreground: 210 10% 60%; /* Softer muted text */
+    --muted: 0 0% 18%; /* Subtle muted */
+    --muted-foreground: 210 10% 60%; /* Softer slate-400 */
 
-    --accent: 210 15% 88%; /* Light accent surfaces */
-    --accent-foreground: 222 18% 3%;
+    --accent: 210 20% 95%; /* Light accent */
+    --accent-foreground: 0 0% 10%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 222 10% 12%; /* Very subtle borders */
-    --input: 222 10% 12%;
-    --ring: 42 78% 58%; /* Gold ring for focus */
+    --border: 0 0% 18%; /* Subtle border */
+    --input: 0 0% 18%;
+    --ring: 210 20% 95%; /* Light ring */
 
-    --radius: 0.75rem;
-    
-    /* Glassmorphism tokens */
-    --glass-bg: 222 15% 8%;
-    --glass-border: 210 15% 18%;
+    --radius: 0.5rem;
   }
 
   .light-mode {
-    --background: 40 20% 99%; /* Soft warm white */
-    --foreground: 222 20% 12%; /* Deep charcoal text */
+    --background: 0 0% 98%; /* White background */
+    --foreground: 0 0% 15%; /* Dark gray text */
 
     --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 222 20% 12%;
+    --card-foreground: 0 0% 15%; /* Dark gray text on cards */
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 20% 12%;
+    --popover-foreground: 0 0% 15%;
 
-    --primary: 222 20% 12%; /* Dark charcoal primary for light mode */
-    --primary-foreground: 40 20% 99%;
+    --primary: 0 0% 15%; /* Dark gray primary */
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 40 10% 95%; /* Warm light secondary */
-    --secondary-foreground: 222 20% 12%;
+    --secondary: 0 0% 96%; /* Light grey secondary */
+    --secondary-foreground: 0 0% 15%; /* Dark gray text */
 
-    --muted: 40 10% 94%; /* Light muted */
-    --muted-foreground: 222 15% 40%;
+    --muted: 0 0% 96%; /* Light grey muted */
+    --muted-foreground: 0 0% 35%; /* Darker muted text */
 
-    --accent: 222 20% 12%; /* Dark accent */
-    --accent-foreground: 40 20% 99%;
+    --accent: 0 0% 15%; /* Dark gray accent */
+    --accent-foreground: 0 0% 98%;
 
-    --border: 220 10% 88%; /* Soft borders */
-    --input: 40 10% 94%;
-    --ring: 222 20% 12%;
-    
-    --glass-bg: 0 0% 100%;
-    --glass-border: 220 10% 85%;
+    --border: 0 0% 89%; /* Light grey border */
+    --input: 0 0% 96%;
+    --ring: 0 0% 15%; /* Dark gray ring */
   }
 
   * {
@@ -87,23 +80,12 @@
     @apply bg-primary text-primary-foreground;
   }
 
-  .hero-gradient {
-    background: linear-gradient(180deg, rgba(5, 6, 8, 0.3) 0%, rgba(5, 6, 8, 0.7) 40%, rgba(5, 6, 8, 0.85) 70%, rgba(5, 6, 8, 0.95) 100%);
+  .cosmic-gradient {
+    background: linear-gradient(135deg, rgba(64, 64, 64, 0.2) 0%, rgba(32, 32, 32, 0.4) 100%);
   }
-  
-  .section-light {
-    background: hsl(var(--eggshell));
-    color: hsl(222 18% 8%);
-  }
-  
-  .section-dark {
-    background: hsl(var(--background));
-    color: hsl(var(--foreground));
-  }
-  
-  
-  .bg-gradient-radial {
-    background: radial-gradient(circle at center, var(--tw-gradient-stops));
+
+  .light-mode .cosmic-gradient {
+    background: linear-gradient(135deg, rgba(230, 230, 230, 0.8) 0%, rgba(200, 200, 200, 0.6) 100%);
   }
 
   .cosmic-glow {
@@ -150,12 +132,12 @@
     text-wrap: balance;
   }
   
-  .glass-panel {
-    @apply backdrop-blur-2xl bg-white/[0.03] border border-white/[0.08] shadow-[0_8px_40px_rgba(0,0,0,0.3)];
+  .cosmic-glass {
+    @apply backdrop-blur-sm bg-card border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.1)];
   }
 
-  .light-mode .glass-panel {
-    @apply backdrop-blur-2xl bg-white/70 border border-black/[0.04] shadow-[0_8px_40px_rgba(0,0,0,0.06)];
+  .light-mode .cosmic-glass {
+    @apply backdrop-blur-sm bg-card border border-black/10 shadow-[0_0_15px_rgba(0,0,0,0.05)];
   }
   
   .cosmic-card {

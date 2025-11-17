@@ -11,8 +11,8 @@ const WhoWeHelp = () => {
       viewTitle: "Wholesaler View",
       queryExample: "Find single-family homes under $500k, ready to sell in 14 days — Tampa Bay area",
       leads: [
-        { name: "Maria Lopez", location: "Tampa, FL", status: "Divorce, needs fast close" },
-        { name: "Tom Bradley", location: "Clearwater, FL", status: "Estate sale, pricing flexible" },
+        { name: "Maria Lopez", address: "3421 Pine St — Tampa, FL", status: "Divorce, needs fast close" },
+        { name: "Tom Bradley", address: "987 Maple Ave — Clearwater, FL", status: "Estate sale, pricing flexible" },
       ]
     },
     {
@@ -22,8 +22,8 @@ const WhoWeHelp = () => {
       viewTitle: "CRE View",
       queryExample: "Find office buildings 50k–100k SF, Tampa, built 1990–2010, cap ≥7%",
       leads: [
-        { name: "Gateway Properties", location: "Tampa, FL", status: "Exploring sale, wants LOI" },
-        { name: "Horizon LLC", location: "Tampa, FL", status: "Open to offers above $8M" },
+        { name: "Gateway Properties", address: "1200 Commerce Blvd — Tampa, FL", status: "Exploring sale, wants LOI" },
+        { name: "Horizon LLC", address: "540 Business Dr — Tampa, FL", status: "Open to offers above $8M" },
       ]
     },
     {
@@ -33,8 +33,8 @@ const WhoWeHelp = () => {
       viewTitle: "Lender View",
       queryExample: "Find multifamily owners with loans maturing in next 180 days — Southeast markets",
       leads: [
-        { name: "Coastal Apartments", location: "Miami, FL", status: "Loan matures in 90 days" },
-        { name: "Summit Holdings", location: "Orlando, FL", status: "Seeking refi at 5.5% rate" },
+        { name: "Coastal Apartments", address: "890 Harbor Way — Miami, FL", status: "Loan matures in 90 days" },
+        { name: "Summit Holdings", address: "234 Tower Ln — Orlando, FL", status: "Seeking refi at 5.5% rate" },
       ]
     },
     {
@@ -44,8 +44,8 @@ const WhoWeHelp = () => {
       viewTitle: "Mortgage Lender View",
       queryExample: "Find homeowners with mortgages maturing in 60–90 days — Charlotte metro",
       leads: [
-        { name: "Johnson Family", location: "Charlotte, NC", status: "Refi needed, rate 6.2%" },
-        { name: "Patterson Trust", location: "Charlotte, NC", status: "Loan matures in 75 days" },
+        { name: "Johnson Family", address: "450 Oak Ridge — Charlotte, NC", status: "Refi needed, rate 6.2%" },
+        { name: "Patterson Trust", address: "890 Cedar Lane — Charlotte, NC", status: "Loan matures in 75 days" },
       ]
     }
   ];
@@ -53,42 +53,46 @@ const WhoWeHelp = () => {
   const active = personas[activePersona];
 
   return (
-    <section id="who-we-help" className="relative py-24 md:py-36 overflow-hidden px-4 md:px-6 lg:px-12 section-dark">
+    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="relative py-16 md:py-24 overflow-hidden">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center max-w-3xl mx-auto mb-20 md:mb-24 px-4">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.02em] leading-tight text-foreground">
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <h2 
+            id="whoWeHelpHeading" 
+            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
+          >
             Who We Help
           </h2>
         </div>
         
-        {/* Mobile: persona list first, then card */}
-        {/* Desktop: persona rail left, hero card right */}
-        <div className="flex flex-col lg:grid lg:grid-cols-[380px_1fr] gap-12 lg:gap-20 max-w-[1200px] mx-auto">
+        {/* Two-column layout on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 max-w-[1200px] mx-auto">
           
-          {/* Mobile: Persona List First (order-1), Desktop: Left Rail (order-1) */}
-          <div className="block space-y-1 order-1">
+          {/* Left: Persona Rail (hidden on mobile, shows below card) */}
+          <div className="hidden lg:block lg:col-span-4 space-y-1">
             {personas.map((persona, index) => (
               <button
                 key={index}
                 onClick={() => setActivePersona(index)}
-                className={`w-full text-left p-6 rounded-xl transition-all duration-300 ${
+                className={`w-full text-left p-5 rounded-lg transition-all duration-300 ${
                   activePersona === index
-                    ? 'bg-card/30 border-l-2 border-primary backdrop-blur-sm'
-                    : 'border-l-2 border-transparent hover:bg-card/15'
+                    ? 'bg-card/50 border-l-4 border-primary'
+                    : 'border-l-4 border-transparent hover:bg-card/20'
                 }`}
               >
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-3">
                   <span className="text-2xl">{persona.icon}</span>
                   <div className="flex-1">
                     <h3 
-                      className={`text-base font-medium mb-2 transition-colors tracking-tight ${
-                        activePersona === index ? 'text-foreground' : 'text-muted-foreground/50'
+                      className={`text-base font-semibold mb-1 transition-colors ${
+                        activePersona === index ? 'text-foreground' : 'text-muted-foreground/60'
                       }`}
                     >
                       {persona.title}
                     </h3>
-                    <p
+                    <p 
                       className={`text-sm leading-relaxed transition-colors ${
                         activePersona === index ? 'text-muted-foreground' : 'text-muted-foreground/50'
                       }`}
@@ -101,60 +105,112 @@ const WhoWeHelp = () => {
             ))}
           </div>
 
-          {/* Dashboard Card - order-2 on both mobile and desktop */}
-          <div className="order-2 w-full">
+          {/* Right: Dashboard Card */}
+          <div className="lg:col-span-8 order-first lg:order-last">
             <div 
-              className="rounded-[28px] p-1 shadow-2xl w-full"
+              className="rounded-[28px] p-1 shadow-2xl"
               style={{ background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)' }}
             >
               <div 
-                className="rounded-[24px] p-6 md:p-8 lg:p-10 min-h-[400px] md:min-h-[500px] w-full bg-eggshell"
+                className="rounded-[24px] p-6 md:p-8 min-h-[400px]"
+                style={{ background: 'hsl(var(--eggshell))' }}
               >
                 {/* Top label row */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2">
-                  <span className="text-base md:text-lg lg:text-xl font-semibold text-gray-900">
-                    {active.viewTitle}
-                  </span>
-                  <span className="text-xs md:text-sm px-3 md:px-4 py-1.5 rounded-full bg-white/70 text-gray-700">
-                    Realflow Deal Engine
-                  </span>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="text-base font-semibold" style={{ color: '#1a1a1a' }}>{active.viewTitle}</span>
+                  <span className="text-xs px-3 py-1 rounded-full bg-white/60" style={{ color: '#4a4a4a' }}>Realflow Deal Engine</span>
                 </div>
 
                 {/* Search Query */}
-                <div className="p-3 md:p-4 rounded-xl bg-white shadow-sm mb-4 md:mb-6">
+                <div className="p-4 rounded-xl bg-white shadow-sm mb-4">
                   <div className="flex items-center gap-2 mb-2">
                     <div className="w-2 h-2 rounded-full bg-primary"></div>
-                    <span className="text-xs font-semibold text-gray-900">Search Query</span>
+                    <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Search Query</span>
                   </div>
-                  <p className="text-xs md:text-sm leading-relaxed text-gray-700">
+                  <p className="text-sm" style={{ color: '#4a4a4a' }}>
                     {active.queryExample}
                   </p>
                 </div>
 
-                {/* Mini Pipeline - vertical stack on mobile, grid on sm and up */}
-                <div className="flex flex-col sm:grid sm:grid-cols-3 gap-3">
-                  {['Prospected', 'Qualified', 'Booked'].map((stage, idx) => (
-                    <div key={stage} className="p-3 md:p-4 rounded-xl bg-white/70 shadow-sm w-full">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs md:text-sm font-semibold text-gray-900">{stage}</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-gray-900">
-                          {idx === 0 ? '127' : idx === 1 ? '18' : '5'}
-                        </span>
-                      </div>
-                      <div className="space-y-2">
-                        {active.leads.slice(0, 1).map((lead, i) => (
-                          <div key={i} className="p-2 md:p-3 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
-                            <div className="font-semibold text-xs md:text-sm mb-0.5 text-gray-900">{lead.name}</div>
-                            <div className="text-[10px] md:text-xs text-gray-600">{lead.location}</div>
-                            <div className="text-[10px] md:text-xs leading-relaxed mt-1 text-gray-700">{lead.status}</div>
-                          </div>
-                        ))}
+                {/* Mini 3-column pipeline */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="p-3 rounded-xl bg-white/60 shadow-sm">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Prospected</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100" style={{ color: '#1a1a1a' }}>127</span>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                        <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>{active.leads[0].name}</div>
+                        <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>{active.leads[0].address}</div>
+                        <div className="text-[9px]" style={{ color: '#4a4a4a' }}>{active.leads[0].status}</div>
                       </div>
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-white/60 shadow-sm">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Qualified</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100" style={{ color: '#1a1a1a' }}>18</span>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="p-2 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-sm">
+                        <div className="font-semibold text-xs mb-0.5" style={{ color: '#1a1a1a' }}>{active.leads[1].name}</div>
+                        <div className="text-[10px] mb-1" style={{ color: '#6a6a6a' }}>{active.leads[1].address}</div>
+                        <div className="text-[9px]" style={{ color: '#4a4a4a' }}>{active.leads[1].status}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-white/60 shadow-sm">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-xs font-semibold" style={{ color: '#1a1a1a' }}>Booked</span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-green-100" style={{ color: '#1a1a1a' }}>5</span>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="p-2 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 shadow-sm border border-green-200">
+                        <div className="text-[9px]" style={{ color: '#4a4a4a' }}>📅 Meeting scheduled</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Mobile persona list - below card */}
+          <div className="lg:hidden space-y-1 order-last col-span-1">
+            {personas.map((persona, index) => (
+              <button
+                key={index}
+                onClick={() => setActivePersona(index)}
+                className={`w-full text-left p-4 rounded-lg transition-all duration-300 ${
+                  activePersona === index
+                    ? 'bg-card/50 border-l-4 border-primary'
+                    : 'border-l-4 border-transparent bg-card/20'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-xl">{persona.icon}</span>
+                  <div className="flex-1">
+                    <h3 
+                      className={`text-base font-semibold mb-1 transition-colors ${
+                        activePersona === index ? 'text-foreground' : 'text-muted-foreground/60'
+                      }`}
+                    >
+                      {persona.title}
+                    </h3>
+                    <p 
+                      className={`text-sm leading-relaxed transition-colors ${
+                        activePersona === index ? 'text-muted-foreground' : 'text-muted-foreground/50'
+                      }`}
+                    >
+                      {persona.shortDesc}
+                    </p>
+                  </div>
+                </div>
+              </button>
+            ))}
           </div>
 
         </div>

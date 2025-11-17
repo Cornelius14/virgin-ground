@@ -57,69 +57,53 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full min-h-[100vh] py-20 md:py-32 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Cinematic background image */}
-      <div className="absolute inset-0 bg-cover bg-no-repeat bg-center opacity-90" style={{
+  return <section className="relative w-full py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background">
+      {/* Skyline background */}
+      <div className="absolute inset-0 bg-cover bg-no-repeat" style={{
       backgroundImage: `url(${heroSkyline})`,
       backgroundSize: 'cover',
-      backgroundPosition: 'center center'
+      backgroundPosition: 'center bottom'
     }}></div>
       
-      {/* Cinematic gradient overlay */}
-      <div className="absolute inset-0 hero-gradient"></div>
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background/80"></div>
       
-      {/* Enhanced vignette */}
-      <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-background/60"></div>
-      
-      {/* Hero content wrapper */}
-      <div className={`relative z-10 w-full max-w-6xl mx-auto px-4 md:px-6 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="text-center space-y-12 md:space-y-16 flex flex-col items-center">
-          
-          {/* Status pill */}
+      {/* Toma-style hero card wrapper */}
+      <div className={`relative z-10 max-w-4xl mx-4 md:mx-8 rounded-[24px] bg-card/40 backdrop-blur-sm border border-border/50 shadow-xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="text-center space-y-6">
           <div className="flex justify-center">
-            <span className="inline-flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-full bg-primary/10 text-primary/90 border border-primary/15 backdrop-blur-md">
-              <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+            <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">
+              <span className="flex h-2 w-2 rounded-full bg-primary"></span>
               Workflows that take weeks → ~60 minutes
             </span>
           </div>
           
-          {/* Cinematic H1 */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium tracking-[-0.02em] text-foreground leading-[1.05] max-w-5xl">
-            AI engine for real estate deals
-          </h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-foreground leading-[1.1] mb-5">AI engine for real estate deals</h1>
           
-          {/* Glassmorphism Deal Finder Card */}
-          <div className="w-full max-w-3xl rounded-[32px] glass-panel p-8 md:p-10 lg:p-12 space-y-7 shadow-2xl">
-            
-            {/* Deal Finder title */}
-            <h2 className="text-xl md:text-2xl font-medium text-foreground/95 text-center tracking-tight">
-              Deal Finder
-            </h2>
-            
-            {/* Typed query area - DO NOT MODIFY CONTENT OR ANIMATION */}
-            <div className="w-full rounded-2xl bg-background/30 border border-white/[0.06] p-6 md:p-7 backdrop-blur-sm">
-              <div className="text-left text-sm md:text-base text-foreground/85 leading-relaxed min-h-[90px] md:min-h-[110px]">
-                <TypewriterAnimation />
-              </div>
+          {/* Typewriter Demo Card */}
+          <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
+            <h3 className="text-lg font-semibold text-foreground">Deal Finder</h3>
+
+            {/* Typewriter viewport */}
+            <div className="mt-4 font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed">
+              <TypewriterAnimation />
             </div>
-            
-            {/* CTA button inside card */}
-            <div className="flex justify-center">
-              <Button className="bg-card/50 hover:bg-card/70 text-foreground border border-white/[0.06] px-12 py-6 text-sm md:text-base font-medium rounded-xl shadow-lg transition-all backdrop-blur-sm" size="lg">
+
+            {/* Static "Run query" button purely for look */}
+            <div className="mt-3">
+              <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
                 find qualified targets
-              </Button>
+              </button>
             </div>
           </div>
           
-          {/* Subheader text */}
-          <p className="text-base md:text-lg text-foreground/65 leading-relaxed max-w-2xl mx-auto font-light tracking-wide">
-            Source, qualify, and book high intent opportunities
-          </p>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-[1.4] mt-6 text-center">Sourcing, qualifying, and booking high intent opportunites                           </p>
           
-          {/* Primary CTA */}
-          <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/95 px-10 py-6 text-sm md:text-base font-medium rounded-xl shadow-xl hover:shadow-primary/15 transition-all w-full md:w-auto" onClick={() => setModalOpen(true)}>
-            Get a 30-minute demo
-          </Button>
+          <div className="flex justify-center pt-6">
+            <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px] w-full sm:w-auto">
+              Get a 30-minute demo
+            </Button>
+          </div>
           
           <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
         </div>

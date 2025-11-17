@@ -25,13 +25,15 @@ const WhyItPaysOff = () => {
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-24 md:py-36 overflow-hidden section-dark">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="relative py-16 md:py-24 overflow-hidden">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
-        <div className="text-center space-y-5 max-w-3xl mx-auto mb-20 md:mb-24">
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
           <h2 
             id="whyPaysOffHeading" 
-            className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.02em] leading-tight text-foreground"
+            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
           >
             Why it pays off
           </h2>
@@ -42,20 +44,20 @@ const WhyItPaysOff = () => {
           {benefits.map((benefit, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-10 md:p-11 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all duration-300 bg-card/20 border border-border/30 backdrop-blur-sm"
+              className="rounded-[24px] p-8 md:p-10 flex flex-col items-center justify-center text-center shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 bg-eggshell"
             >
               {/* Icon */}
-              <div className="text-4xl mb-4 text-primary">
+              <div className="text-5xl mb-4 text-primary">
                 {benefit.icon}
               </div>
               
               {/* Title */}
-              <h3 className="text-lg md:text-xl font-semibold mb-3 text-foreground tracking-tight">
+              <h3 className="text-xl md:text-2xl font-semibold mb-4" style={{ color: '#1a1a1a' }}>
                 {benefit.title}
               </h3>
               
               {/* Description */}
-              <p className="text-sm md:text-base leading-relaxed text-muted-foreground">
+              <p className="text-sm md:text-base leading-relaxed" style={{ color: '#4a4a4a' }}>
                 {benefit.description}
               </p>
             </div>

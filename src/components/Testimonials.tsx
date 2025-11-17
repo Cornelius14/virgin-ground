@@ -54,11 +54,13 @@ const Testimonials = () => {
   ];
   
   return (
-    <section id="cases" className="relative w-full py-24 md:py-36 px-6 md:px-12 overflow-hidden section-light">
+    <section id="cases" className="relative w-full py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+      {/* Background grid */}
+      <div className="absolute inset-0 notebook-grid opacity-100"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-5 max-w-3xl mx-auto mb-20 md:mb-24">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.02em] leading-tight" style={{ color: '#0a0a0a' }}>
+        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
             Field-proven results across use cases
           </h2>
         </div>
@@ -68,32 +70,32 @@ const Testimonials = () => {
           {caseStudies.map((study, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-8 md:p-9 shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all duration-300 flex flex-col bg-white/90 border border-black/[0.04]"
+              className="rounded-[24px] p-6 md:p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-eggshell"
             >
               {/* Category pill */}
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl">{study.icon}</span>
-                <span className="text-xs px-3 py-1 rounded-full bg-black/5 font-medium tracking-tight" style={{ color: '#4a4a4a' }}>
+                <span className="text-2xl">{study.icon}</span>
+                <span className="text-xs px-3 py-1 rounded-full bg-white/60 font-medium" style={{ color: '#4a4a4a' }}>
                   {study.category}
                 </span>
               </div>
               
               {/* Primary metric */}
               <div className="mb-4">
-                <p className="text-base md:text-lg font-semibold leading-tight tracking-tight" style={{ color: '#1a1a1a' }}>
+                <p className="text-lg md:text-xl font-semibold leading-tight" style={{ color: '#1a1a1a' }}>
                   {study.metric}
                 </p>
               </div>
               
               {/* Quote */}
-              <p className="text-sm leading-relaxed mb-6" style={{ color: '#555' }}>
+              <p className="text-sm leading-relaxed mb-6" style={{ color: '#4a4a4a' }}>
                 "{study.quote}"
               </p>
               
               {/* Footer: company + role */}
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-200">
+              <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-300">
                 <div>
-                  <h4 className="font-semibold text-sm tracking-tight" style={{ color: '#1a1a1a' }}>{study.company}</h4>
+                  <h4 className="font-semibold text-sm" style={{ color: '#1a1a1a' }}>{study.company}</h4>
                   <p className="text-xs" style={{ color: '#6a6a6a' }}>{study.role}</p>
                 </div>
               </div>
