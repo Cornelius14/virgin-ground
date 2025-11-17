@@ -3,57 +3,49 @@ import React from 'react';
 const WhoWeHelp = () => {
   const categories = [
     {
-      emoji: "🏢",
       title: "Brokers & Investment Sales",
       description: "Dispositions, off-market sourcing, and owner outreach."
     },
     {
-      emoji: "🏦",
       title: "Lenders & Originators",
       description: "Refinance, acquisition, and construction loan sourcing."
     },
     {
-      emoji: "🏗️",
       title: "Developers & Construction",
       description: "Owners with new permits and large-scale projects."
     },
     {
-      emoji: "🏘️",
       title: "Investors & Owner-Operators",
       description: "Mandate-matched sourcing by market, asset, and yield."
     },
     {
-      emoji: "📑",
       title: "Title, Insurance & Closing",
       description: "Active deeds, refis, and in-progress transactions."
     }
   ];
 
   return (
-    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="py-10 md:py-16">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-12">
+    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="py-20 md:py-24 px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
           <h2 
             id="whoWeHelpHeading" 
-            className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground"
+            className="text-4xl md:text-5xl font-medium tracking-tight text-foreground"
           >
             Who We Help
           </h2>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
+        <div className="space-y-4">
           {categories.map((category, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card backdrop-blur-sm p-6 flex flex-col items-center h-full transition-all duration-300"
+              className="rounded-2xl border border-border bg-card p-6 md:p-8 transition-all duration-300 hover:shadow-md"
             >
-              <div className="text-4xl mb-4 mt-2">
-                {category.emoji}
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-3 text-center">
+              <h3 className="text-xl font-semibold text-foreground mb-2">
                 {category.title}
               </h3>
-              <p className="text-xs text-muted-foreground text-center leading-relaxed">
+              <p className="text-base text-[#4A4A4A] leading-relaxed">
                 {category.description}
               </p>
             </div>
