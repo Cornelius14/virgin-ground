@@ -76,10 +76,6 @@ const HeroSection = () => {
             AI engine for real estate deals
           </h1>
           
-          <p className="mt-6 max-w-2xl text-[18px] md:text-[20px] leading-relaxed text-neutral-800">
-            Source, qualify, and book high intent opportunities
-          </p>
-          
           {/* Demo button */}
           <div className="mt-8">
             <Button 
@@ -113,6 +109,10 @@ const HeroSection = () => {
               </div>
             </div>
           </div>
+          
+          <p className="mt-8 max-w-2xl text-[18px] md:text-[20px] leading-relaxed text-neutral-800">
+            Source, qualify, and book high intent opportunities
+          </p>
         </div>
         
       </div>
