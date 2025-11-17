@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import Logo from './Logo';
-import { Menu, X, Sun, Moon } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Switch } from '@/components/ui/switch';
 import { z } from 'zod';
@@ -11,45 +11,10 @@ import DemoLeadModal from './DemoLeadModal';
 const Header = () => {
   const [activePage, setActivePage] = useState('product');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
-  
-  useEffect(() => {
-    // Apply theme immediately on load without flash
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = savedTheme === 'dark' || (!savedTheme);
-    
-    setIsDarkMode(prefersDark);
-    
-    // Apply theme class immediately
-    requestAnimationFrame(() => {
-      if (prefersDark) {
-        document.documentElement.classList.remove('light-mode');
-        document.documentElement.classList.add('dark-mode');
-      } else {
-        document.documentElement.classList.remove('dark-mode'); 
-        document.documentElement.classList.add('light-mode');
-      }
-    });
-  }, []);
-  
-  useEffect(() => {
-    // Update theme when state changes
-    requestAnimationFrame(() => {
-      if (isDarkMode) {
-        document.documentElement.classList.remove('light-mode');
-        document.documentElement.classList.add('dark-mode');
-        localStorage.setItem('theme', 'dark');
-      } else {
-        document.documentElement.classList.remove('dark-mode');
-        document.documentElement.classList.add('light-mode');
-        localStorage.setItem('theme', 'light');
-      }
-    });
-  }, [isDarkMode]);
   
   // Manage body scroll when mobile menu is open
   useEffect(() => {
@@ -118,10 +83,6 @@ const Header = () => {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
   };
 
   // Password validation schema
@@ -326,22 +287,6 @@ const Header = () => {
               >
                 Demo
               </button>
-              
-              {/* Theme toggle for mobile */}
-              <div className="flex items-center justify-between px-3 py-3 border-t border-border mt-2 pt-4">
-                <span className="text-sm text-muted-foreground">Theme</span>
-                <div className="flex items-center gap-2">
-                  <Moon size={16} className={`${isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-                  <Switch 
-                    role="switch"
-                    aria-checked={!isDarkMode}
-                    checked={!isDarkMode} 
-                    onCheckedChange={toggleTheme} 
-                    className="data-[state=checked]:bg-primary"
-                  />
-                  <Sun size={16} className={`${!isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-                </div>
-              </div>
             </div>
           </div>
         )}
@@ -392,18 +337,6 @@ const Header = () => {
         )}
 
         <div className="hidden md:flex items-center gap-4">
-          {/* Theme toggle for desktop */}
-          <div className="flex items-center gap-2 rounded-full px-3 py-2">
-            <Moon size={18} className={`${isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-            <Switch 
-              role="switch"
-              aria-checked={!isDarkMode}
-              checked={!isDarkMode} 
-              onCheckedChange={toggleTheme} 
-              className="data-[state=checked]:bg-primary"
-            />
-            <Sun size={18} className={`${!isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-          </div>
           <div className="rounded-2xl">
             <Button 
               className="bg-primary text-primary-foreground hover:bg-primary/90" 
