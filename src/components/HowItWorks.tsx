@@ -1,14 +1,6 @@
-import React, { useState } from 'react';
-
-const HowItWorks = () => {
-  const [activeStep, setActiveStep] = useState(1);
-
-  const steps = [
-    {
-      number: "01",
-      title: "Tell Us What You're Looking For",
-      description: "Describe the exact leads you want using natural language: market, price, property type, timing.",
-    },
+  return (
+    <section id="how" className="py-20 px-4 md:px-8 bg-[hsl(var(--eggshell))]">
+      <div className="max-w-6xl mx-auto">
     {
       number: "02",
       title: "AI Sources Prospects and Captures Inbound Interest",
