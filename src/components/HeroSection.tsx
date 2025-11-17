@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import TaskBoard from './TaskBoard';
 import { Loader } from 'lucide-react';
 import DemoLeadModal from './DemoLeadModal';
+import heroCityscape from '@/assets/hero-cityscape.png';
 const TypewriterAnimation = () => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,58 +57,73 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full py-12 md:py-20 px-6 md:px-12 flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Cosmic particle effect (background dots) */}
-      <div className="absolute inset-0 cosmic-grid opacity-30"></div>
+  return <section className="relative w-full py-16 lg:py-24 px-4 sm:px-6 md:px-12 overflow-hidden bg-gradient-to-b from-[#F5F1E9] to-[#F8F5EE]">
       
-      {/* Gradient glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full">
-        <div className="w-full h-full opacity-10 bg-primary blur-[120px]"></div>
-      </div>
-      
-      <div className={`relative z-10 max-w-4xl text-center space-y-6 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="flex justify-center">
+      <div className="max-w-7xl mx-auto w-full">
+        {/* Two column layout: text left, image right */}
+        <div className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          
+          {/* Left column: Text content and CTA */}
+          <div className="space-y-8 text-center lg:text-left">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-foreground leading-tight">
+              AI engine for real estate deals
+            </h1>
             
+            <p className="text-xl md:text-2xl text-[#4A4A4A] leading-relaxed">
+              Source, qualify, and book high intent opportunities
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Button 
+                onClick={() => setModalOpen(true)} 
+                className="bg-[#111111] text-white hover:bg-[#111111]/90 text-base h-12 px-8 transition-all duration-200"
+              >
+                Get a 30-minute demo
+              </Button>
+              <Button 
+                variant="outline"
+                className="bg-white text-[#111111] border-[#111111] hover:bg-[#111111] hover:text-white text-base h-12 px-8 transition-all duration-200"
+              >
+                Learn more
+              </Button>
+            </div>
+          </div>
+          
+          {/* Right column: Architectural illustration */}
+          <div className="relative">
+            <div className="bg-white rounded-2xl border border-[#E0D8CB] shadow-[0_20px_40px_rgba(0,0,0,0.05)] overflow-hidden aspect-[4/3]">
+              <img 
+                src={heroCityscape} 
+                alt="Architectural data visualization" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
         </div>
         
-        <h1 className="text-4xl md:text-6xl font-medium tracking-tighter text-balance text-foreground lg:text-6xl">AI engine for real estate deals   </h1>
-        
-        {/* Typewriter Demo Card */}
-        <div className="mt-6 rounded-2xl border shadow-sm bg-card/70 backdrop-blur p-4 md:p-6">
-          <h3 className="text-lg font-semibold text-foreground">Deal Finder</h3>
+        {/* Deal Finder - Full width below hero content */}
+        <div className={`mt-16 lg:mt-24 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+          <div className="bg-white rounded-2xl border border-[#E0D8CB] shadow-[0_20px_40px_rgba(0,0,0,0.05)] p-6 md:p-8">
+            <h3 className="text-xl font-semibold text-foreground mb-6">Deal Finder</h3>
 
-          {/* Typewriter viewport */}
-          <div className="mt-4 font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed">
-            <TypewriterAnimation />
-          </div>
+            {/* Typewriter viewport */}
+            <div className="font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed mb-4">
+              <TypewriterAnimation />
+            </div>
 
-          {/* Static "Run query" button purely for look */}
-          <div className="mt-3">
-          <button type="button" disabled aria-disabled="true" className="rounded-xl px-4 py-2 font-medium border shadow-sm disabled:opacity-50 text-foreground">
-            find qualified targets
-          </button>
+            {/* Static "Run query" button purely for look */}
+            <button 
+              type="button" 
+              disabled 
+              aria-disabled="true" 
+              className="rounded-xl px-6 py-3 font-medium border border-[#E0D8CB] shadow-sm disabled:opacity-50 text-foreground bg-white"
+            >
+              find qualified targets
+            </button>
           </div>
-        </div>
-        
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">Source, qualify and book high intent meetings                     </p>
-        
-        <div className="flex justify-center pt-6">
-          <Button onClick={() => setModalOpen(true)} className="bg-primary text-primary-foreground hover:bg-primary/80 hover:text-primary-foreground text-base h-12 px-8 transition-all duration-200 min-h-[48px]">
-            Get a 30-minute demo
-          </Button>
         </div>
         
         <DemoLeadModal open={modalOpen} onOpenChange={setModalOpen} />
-        
-        
-      </div>
-      
-      {/* Task Manager UI integrated in hero section with glassmorphic effect */}
-      <div id="product" className={`w-full max-w-7xl mt-12 z-10 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-        <div className="cosmic-glow relative rounded-xl overflow-hidden border border-border backdrop-blur-sm bg-card shadow-lg">
-          {/* Dashboard Header */}
-          
-        </div>
       </div>
     </section>;
 };
