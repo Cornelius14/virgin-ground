@@ -50,7 +50,6 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        eggshell: "hsl(var(--eggshell))",
       },
       borderRadius: {
         lg: "var(--radius)",

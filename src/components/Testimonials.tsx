@@ -2,101 +2,93 @@
 import React from 'react';
 
 const Testimonials = () => {
-  const caseStudies = [
+  const testimonials = [
     {
-      category: "STR Property Management",
-      metric: "0 → 70 properties in 2 months",
-      quote: "Identified luxury homeowners in legal STR markets and scaled from zero to seventy units.",
+      title: "🏡 The Solaire Collection",
+      heading: "Same-day qualified calls booked",
+      quote: "Identified luxury homeowners in legal STR markets, confirmed interest and pricing, and helped scale from zero to seventy units in two months.",
       company: "The Solaire Collection",
-      role: "Max Zheng",
-      icon: "🏡"
+      contact: "Max Zheng",
+      avatar: "bg-muted"
     },
     {
-      category: "Residential Brokerage",
-      metric: "6,500 owners → 27 listing calls",
-      quote: "Shifted to proactive owner sourcing, qualified 320, booked 27 calls, and won three exclusives.",
+      title: "🏘️ Makras Real Estate",
+      heading: "Off-Market Owner Pipeline Transformed",
+      quote: "Realflow shifted us to proactive owner sourcing, reaching 6,500 owners, qualifying 320, booking 27 listing calls, and winning three exclusives.",
       company: "Makras Real Estate",
-      role: "Victor G. Makras",
-      icon: "🏘️"
+      contact: "Victor G. Makras",
+      avatar: "bg-muted"
     },
     {
-      category: "Industrial Acquisition",
-      metric: "612 warehouses → 6 at target price",
-      quote: "Found Nashville warehouses, contacted 487, connected with 121, and secured six at target price.",
+      title: "🏭 Southeast Industrial",
+      heading: "Nashville warehouse acquisition",
+      quote: "Found 612 Nashville warehouses, contacted 487, connected with 121, and secured six at target price, with first live call in under an hour.",
       company: "Southeast Industrial",
-      role: "Industrial Acquisition Team",
-      icon: "🏭"
+      contact: "Industrial Acquisition Team",
+      avatar: "bg-muted"
     },
     {
-      category: "Multifamily",
-      metric: "1,940 units → 9 under diligence in 14 days",
-      quote: "Reviewed small multifamily units, qualified seventy-six sellers, moved nine deals into diligence.",
+      title: "🏢 Hudson Walk-Ups Group", 
+      heading: "Multifamily pipeline acceleration",
+      quote: "Reviewed 1,940 small multifamily units, qualified seventy-six sellers, and moved nine deals into diligence in just fourteen days.",
       company: "Hudson Walk-Ups Group",
-      role: "Acquisition Manager",
-      icon: "🏢"
+      contact: "Acquisition Manager", 
+      avatar: "bg-muted"
     },
     {
-      category: "Lending",
-      metric: "612 lender calls in 10 days; quotes in 36 hours",
-      quote: "Targeted owners with near-term maturities and achieved average quote turnaround of thirty-six hours.",
+      title: "🏦 Lending Specialty Team",
+      heading: "Lending pipeline at scale",
+      quote: "Targeted owners with near-term maturities, booked 612 lender calls in ten days, and achieved average quote turnaround of roughly thirty-six hours.",
       company: "Lending Specialty",
-      role: "Bar Shechter",
-      icon: "🏦"
+      contact: "Bar Shechter",
+      avatar: "bg-muted"
     },
     {
-      category: "Commercial Lending",
-      metric: "Qualified borrowers across major metros",
-      quote: "Surfaced qualified borrowers, connecting us earlier with decision-makers and accelerating deal flow.",
+      title: "🏢 Meridian Capital Group",
+      heading: "Commercial lending acceleration",
+      quote: "Realflow surfaced qualified borrowers across major metros, connecting us earlier with decision-makers and accelerating commercial lending deal flow.",
       company: "Meridian Capital Group",
-      role: "Commercial Lending Team",
-      icon: "🏢"
+      contact: "Commercial Lending Team",
+      avatar: "bg-muted"
     }
   ];
   
   return (
-    <section id="cases" className="relative w-full py-16 md:py-24 px-6 md:px-12 overflow-hidden">
+    <section id="cases" className="w-full py-20 px-6 md:px-12 bg-card relative overflow-hidden">
       {/* Background grid */}
-      <div className="absolute inset-0 notebook-grid opacity-100"></div>
+      <div className="absolute inset-0 cosmic-grid opacity-20"></div>
       
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="text-center space-y-4 max-w-3xl mx-auto mb-12">
+      <div className="max-w-7xl mx-auto space-y-16 relative z-10">
+        <div className="text-center space-y-4 max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-foreground">
-            Field-proven results across use cases
+            Real Results
           </h2>
         </div>
         
-        {/* 2x3 grid on desktop, 2 per row on tablet, 1 on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {caseStudies.map((study, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="rounded-[24px] p-6 md:p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col bg-eggshell"
+              className="p-7 rounded-[22px] border border-border bg-background/80 backdrop-blur-sm hover:border-primary/20 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col text-center"
+              style={{
+                background: 'linear-gradient(to bottom, hsl(var(--background) / 0.9), hsl(var(--background) / 0.85))'
+              }}
             >
-              {/* Category pill */}
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">{study.icon}</span>
-                <span className="text-xs px-3 py-1 rounded-full bg-white/60 font-medium" style={{ color: '#4a4a4a' }}>
-                  {study.category}
-                </span>
+              <div className="mb-3">
+                <h3 className="text-lg font-semibold text-foreground">{testimonial.title}</h3>
               </div>
               
-              {/* Primary metric */}
               <div className="mb-4">
-                <p className="text-lg md:text-xl font-semibold leading-tight" style={{ color: '#1a1a1a' }}>
-                  {study.metric}
-                </p>
+                <p className="text-base font-semibold text-primary">{testimonial.heading}</p>
               </div>
               
-              {/* Quote */}
-              <p className="text-sm leading-relaxed mb-6" style={{ color: '#4a4a4a' }}>
-                "{study.quote}"
-              </p>
+              <p className="text-foreground/90 mb-6 text-sm leading-relaxed">"{testimonial.quote}"</p>
               
-              {/* Footer: company + role */}
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-300">
-                <div>
-                  <h4 className="font-semibold text-sm" style={{ color: '#1a1a1a' }}>{study.company}</h4>
-                  <p className="text-xs" style={{ color: '#6a6a6a' }}>{study.role}</p>
+              <div className="flex items-center gap-3 mt-auto justify-center">
+                <div className={`h-10 w-10 rounded-full ${testimonial.avatar} bg-muted flex-shrink-0`}></div>
+                <div className="text-left">
+                  <h4 className="font-medium text-foreground text-sm">{testimonial.company}</h4>
+                  <p className="text-xs text-muted-foreground">{testimonial.contact}</p>
                 </div>
               </div>
             </div>

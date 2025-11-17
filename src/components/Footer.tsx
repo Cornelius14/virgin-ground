@@ -4,9 +4,9 @@ import Logo from './Logo';
 
 const Footer = () => {
   return (
-    <footer className="w-full py-6 md:py-7 px-6 md:px-12 border-t border-border bg-card">
+    <footer className="w-full py-8 md:py-10 px-6 md:px-12 border-t border-border bg-card">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col items-center justify-center space-y-4">
+        <div className="flex flex-col items-center justify-center space-y-5">
           <Logo />
           <p className="text-muted-foreground max-w-md text-center text-sm">
             Find, qualify, and engage real-estate sellers—fast. Realflow orchestrates outreach and delivers only qualified prospects.
@@ -27,7 +27,7 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="mt-5 pt-4 border-t border-border flex flex-col md:flex-row justify-between items-center text-muted-foreground text-sm">
+        <div className="mt-6 pt-5 border-t border-border flex flex-col md:flex-row justify-between items-center text-muted-foreground text-sm">
           <div>© 2025 Realflow. All rights reserved.</div>
           <div className="flex gap-6 mt-3 md:mt-0">
             <a href="#" className="hover:text-foreground transition-colors">Contact</a>
