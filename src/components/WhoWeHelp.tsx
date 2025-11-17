@@ -25,8 +25,8 @@ const WhoWeHelp = () => {
   ];
 
   return (
-    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="py-20 md:py-24 px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
-      <div className="max-w-4xl mx-auto">
+    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="py-16 lg:py-24 px-4 sm:px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
+      <div className="max-w-4xl mx-auto w-full">
         <div className="text-center mb-16">
           <h2 
             id="whoWeHelpHeading" 

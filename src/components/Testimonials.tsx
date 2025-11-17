@@ -48,8 +48,8 @@ const Testimonials = () => {
   ];
   
   return (
-    <section id="cases" className="w-full py-20 md:py-24 px-6 md:px-12 bg-[#F5F1E9] border-t border-border">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="cases" className="w-full py-16 lg:py-24 px-4 sm:px-6 md:px-12 bg-[#F5F1E9] border-t border-border">
+      <div className="max-w-7xl mx-auto w-full space-y-16">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-foreground">
             Field-proven results across use cases

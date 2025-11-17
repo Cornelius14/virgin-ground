@@ -1,8 +1,8 @@
 import React from 'react';
 const HowItWorks = () => {
   return (
-    <section id="how" className="w-full py-20 lg:py-24 px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
-      <div className="max-w-4xl mx-auto">
+    <section id="how" className="w-full py-16 lg:py-24 px-4 sm:px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
+      <div className="max-w-4xl mx-auto w-full">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-foreground">
             How it Works — Step by Step
