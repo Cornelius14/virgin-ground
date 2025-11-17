@@ -57,19 +57,9 @@ const HeroSection = () => {
     }, 300);
     return () => clearTimeout(timer);
   }, []);
-  return <section className="relative w-full py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-background">
-      {/* Skyline background */}
-      <div className="absolute inset-0 bg-cover bg-no-repeat" style={{
-      backgroundImage: `url(${heroSkyline})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center bottom'
-    }}></div>
-      
-      {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background/80"></div>
-      
+  return <section className="relative w-full py-12 md:py-20 px-4 md:px-8 flex flex-col items-center justify-center overflow-hidden bg-[hsl(var(--eggshell))]">
       {/* Toma-style hero card wrapper */}
-      <div className={`relative z-10 max-w-4xl mx-4 md:mx-8 rounded-[24px] bg-card/40 backdrop-blur-sm border border-border/50 shadow-xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div className={`relative z-10 max-w-6xl mx-4 md:mx-8 rounded-[24px] bg-white/60 backdrop-blur-sm border border-border/50 shadow-xl p-6 md:p-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="text-center space-y-6">
           <div className="flex justify-center">
             <span className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium rounded-full bg-muted text-primary">

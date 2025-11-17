@@ -326,22 +326,6 @@ const Header = () => {
               >
                 Demo
               </button>
-              
-              {/* Theme toggle for mobile */}
-              <div className="flex items-center justify-between px-3 py-3 border-t border-border mt-2 pt-4">
-                <span className="text-sm text-muted-foreground">Theme</span>
-                <div className="flex items-center gap-2">
-                  <Moon size={16} className={`${isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-                  <Switch 
-                    role="switch"
-                    aria-checked={!isDarkMode}
-                    checked={!isDarkMode} 
-                    onCheckedChange={toggleTheme} 
-                    className="data-[state=checked]:bg-primary"
-                  />
-                  <Sun size={16} className={`${!isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-                </div>
-              </div>
             </div>
           </div>
         )}
@@ -392,18 +376,6 @@ const Header = () => {
         )}
 
         <div className="hidden md:flex items-center gap-4">
-          {/* Theme toggle for desktop */}
-          <div className="flex items-center gap-2 rounded-full px-3 py-2">
-            <Moon size={18} className={`${isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-            <Switch 
-              role="switch"
-              aria-checked={!isDarkMode}
-              checked={!isDarkMode} 
-              onCheckedChange={toggleTheme} 
-              className="data-[state=checked]:bg-primary"
-            />
-            <Sun size={18} className={`${!isDarkMode ? 'text-primary' : 'text-muted-foreground'}`} />
-          </div>
           <div className="rounded-2xl">
             <Button 
               className="bg-primary text-primary-foreground hover:bg-primary/90" 
