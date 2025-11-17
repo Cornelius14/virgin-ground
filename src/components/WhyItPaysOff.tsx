@@ -25,8 +25,8 @@ const WhyItPaysOff = () => {
   ];
 
   return (
-    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-20 md:py-24 px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
-      <div className="max-w-7xl mx-auto">
+    <section id="why-it-pays-off" aria-labelledby="whyPaysOffHeading" className="py-16 lg:py-24 px-4 sm:px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
+      <div className="max-w-7xl mx-auto w-full">
         <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
           <h2 
             id="whyPaysOffHeading" 
