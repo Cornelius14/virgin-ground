@@ -25,12 +25,12 @@ const WhoWeHelp = () => {
   ];
 
   return (
-    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="py-20 md:py-24 px-6 md:px-12 bg-[#F8F5EE] border-t border-border">
+    <section id="who-we-help" aria-labelledby="whoWeHelpHeading" className="py-16 md:py-20 px-6 md:px-12 bg-background border-t border-border">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 
             id="whoWeHelpHeading" 
-            className="text-4xl md:text-5xl font-medium tracking-tight text-foreground"
+            className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground"
           >
             Who We Help
           </h2>
@@ -40,12 +40,12 @@ const WhoWeHelp = () => {
           {categories.map((category, index) => (
             <div 
               key={index}
-              className="rounded-2xl border border-border bg-card p-6 md:p-8 transition-all duration-300 hover:shadow-md"
+              className="rounded-2xl border border-border bg-card p-6 md:p-8 transition-all duration-300 hover:shadow-lg shadow-lg"
             >
               <h3 className="text-xl font-semibold text-foreground mb-2">
                 {category.title}
               </h3>
-              <p className="text-base text-[#4A4A4A] leading-relaxed">
+              <p className="text-base text-muted-foreground leading-relaxed">
                 {category.description}
               </p>
             </div>

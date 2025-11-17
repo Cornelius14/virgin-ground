@@ -23,25 +23,25 @@ const Pricing = () => {
     popular: true
   }];
   return (
-    <section id="pricing" className="w-full py-20 md:py-24 px-6 md:px-12 bg-[#F5F1E9] border-t border-border">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="pricing" className="w-full py-16 md:py-20 px-6 md:px-12 bg-background border-t border-border">
+      <div className="max-w-7xl mx-auto space-y-12">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-foreground">
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground">
             Teams & Enterprise pricing
           </h2>
-          <p className="text-[#4A4A4A] text-lg">
+          <p className="text-muted-foreground text-lg">
             Custom pricing discussed on a call to scope your volumes, domains, and compliance needs
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {plans.map((plan, index) => (
             <div 
               key={index} 
               className={`p-8 rounded-2xl border flex flex-col h-full transition-all duration-300 relative ${
                 plan.popular 
-                  ? "border-primary/30 bg-card shadow-md" 
-                  : "border-border bg-card shadow-sm"
+                  ? "border-primary bg-card shadow-xl" 
+                  : "border-border bg-card shadow-lg"
               }`}
             >
               {plan.popular && (
@@ -51,7 +51,7 @@ const Pricing = () => {
               )}
               
               <div className="mb-auto">
-                <h3 className="text-2xl font-medium tracking-tight mb-2 text-foreground font-inter">
+                <h3 className="text-2xl font-semibold tracking-tight mb-2 text-foreground font-inter">
                   {plan.name}
                 </h3>
                 
@@ -61,14 +61,14 @@ const Pricing = () => {
                   </div>
                 </div>
                 
-                <p className="text-[#4A4A4A] mb-8">
+                <p className="text-muted-foreground mb-8">
                   {plan.description}
                 </p>
                 
                 <div className="space-y-4 mb-8">
                   {plan.features.map((feature, i) => (
                     <div key={i} className="flex items-center gap-3">
-                      <div className="h-5 w-5 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                      <div className="h-5 w-5 rounded-full bg-primary/20 flex items-center justify-center text-primary flex-shrink-0">
                         <svg 
                           width="12" 
                           height="12" 
@@ -98,7 +98,7 @@ const Pricing = () => {
                   className={
                     plan.buttonVariant === "default" 
                       ? "w-full bg-primary text-primary-foreground hover:bg-primary/90" 
-                      : "w-full border-primary text-primary hover:bg-primary/5"
+                      : "w-full border-primary text-primary hover:bg-primary/10"
                   }
                   variant={plan.buttonVariant as "default" | "outline"}
                   onClick={() => setModalOpen(true)}

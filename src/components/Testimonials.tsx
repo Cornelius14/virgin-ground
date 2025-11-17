@@ -48,38 +48,38 @@ const Testimonials = () => {
   ];
   
   return (
-    <section id="cases" className="w-full py-20 md:py-24 px-6 md:px-12 bg-[#F5F1E9] border-t border-border">
-      <div className="max-w-7xl mx-auto space-y-16">
+    <section id="cases" className="w-full py-16 md:py-20 px-6 md:px-12 bg-background border-t border-border">
+      <div className="max-w-7xl mx-auto space-y-12">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-foreground">
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-foreground">
             Field-proven results across use cases
           </h2>
-          <p className="text-[#4A4A4A] text-lg">
+          <p className="text-muted-foreground text-lg">
             See how Realflow transforms real estate acquisition workflows
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className="p-6 md:p-8 rounded-2xl border border-border bg-card shadow-[0_16px_32px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] transition-all duration-300 flex flex-col"
+              className="p-6 md:p-8 rounded-2xl border border-border bg-card shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col"
             >
               <div className="mb-4">
                 <h3 className="text-xl font-semibold text-foreground">{testimonial.title}</h3>
               </div>
               
               <div className="mb-4">
-                <p className="text-lg font-bold text-primary font-inter">{testimonial.metric}</p>
+                <p className="text-lg font-bold text-foreground font-inter">{testimonial.metric}</p>
               </div>
               
-              <p className="text-[#4A4A4A] mb-6 text-sm leading-relaxed flex-grow">"{testimonial.quote}"</p>
+              <p className="text-muted-foreground mb-6 text-sm leading-relaxed flex-grow">"{testimonial.quote}"</p>
               
               <div className="flex items-center gap-3 mt-auto pt-4 border-t border-border">
                 <div className="h-10 w-10 rounded-full bg-muted flex-shrink-0"></div>
                 <div className="text-left">
                   <h4 className="font-medium text-foreground text-sm font-inter">{testimonial.author}</h4>
-                  <p className="text-xs text-[#757575]">{testimonial.position}</p>
+                  <p className="text-xs text-muted-foreground">{testimonial.position}</p>
                 </div>
               </div>
             </div>
