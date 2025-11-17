@@ -68,53 +68,49 @@ const HeroSection = () => {
       </div>
       
       {/* Content layer */}
-      <div className={`relative z-10 max-w-6xl mx-auto px-6 md:px-10 lg:px-16 py-16 md:py-24 flex flex-col md:flex-row md:items-center gap-10 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div className={`relative z-10 max-w-4xl mx-auto px-6 md:px-10 lg:px-16 py-16 md:py-24 transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         
-        {/* Left side: Text content, buttons, and Deal Finder */}
-        <div className="flex-1 flex flex-col items-start max-w-2xl">
+        {/* Centered content */}
+        <div className="flex flex-col items-center text-center">
           <h1 className="text-[40px] leading-[1.05] md:text-[54px] md:leading-[1.05] font-semibold tracking-tight text-neutral-900">
             AI engine for real estate deals
           </h1>
           
-          <p className="mt-6 max-w-xl text-[18px] md:text-[20px] leading-relaxed text-neutral-800">
+          <p className="mt-6 max-w-2xl text-[18px] md:text-[20px] leading-relaxed text-neutral-800">
             Source, qualify, and book high intent opportunities
           </p>
           
-          {/* Buttons */}
-          <div className="flex flex-wrap items-center gap-4 mt-8">
+          {/* Demo button */}
+          <div className="mt-8">
             <Button 
               onClick={() => setModalOpen(true)} 
               className="bg-[#111111] text-white hover:bg-[#111111]/90 text-base h-12 px-8 transition-all duration-200"
             >
               Get a 30-minute demo
             </Button>
-            <Button 
-              variant="outline"
-              className="bg-white text-[#111111] border-[#111111] hover:bg-[#111111] hover:text-white text-base h-12 px-8 transition-all duration-200"
-            >
-              Learn more
-            </Button>
           </div>
           
           {/* Deal Finder */}
-          <div className="mt-10 max-w-xl w-full">
+          <div className="mt-12 w-full max-w-3xl">
             <div className="bg-white rounded-2xl border border-[#E0D8CB] shadow-[0_20px_40px_rgba(0,0,0,0.05)] p-6 md:p-8">
-              <h3 className="text-xl font-semibold text-foreground mb-6">Deal Finder</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-6 text-left">Deal Finder</h3>
 
               {/* Typewriter viewport */}
-              <div className="font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed mb-4">
+              <div className="font-mono text-sm text-foreground relative min-h-[4rem] leading-relaxed mb-4 text-left">
                 <TypewriterAnimation />
               </div>
 
               {/* Static "Run query" button purely for look */}
-              <button 
-                type="button" 
-                disabled 
-                aria-disabled="true" 
-                className="rounded-xl px-6 py-3 font-medium border border-[#E0D8CB] shadow-sm disabled:opacity-50 text-foreground bg-white"
-              >
-                find qualified targets
-              </button>
+              <div className="text-left">
+                <button 
+                  type="button" 
+                  disabled 
+                  aria-disabled="true" 
+                  className="rounded-xl px-6 py-3 font-medium border border-[#E0D8CB] shadow-sm disabled:opacity-50 text-foreground bg-white"
+                >
+                  find qualified targets
+                </button>
+              </div>
             </div>
           </div>
         </div>
